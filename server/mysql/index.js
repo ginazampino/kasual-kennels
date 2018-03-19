@@ -19,6 +19,16 @@ class Connection {
     }
 
     /**
+     * Inserts an entity into a table asynchronously.
+     * @param {string} table The table name.
+     * @param {object} entity The entity to insert.
+     */
+    insert(table, entity) {
+        const statement = `INSERT INTO ``${table}`` SET ?`;
+        return this.query(statement, entity);
+    }
+
+    /**
      * Executes an SQL query asynchronously.
      * @param {string} statement The SQL query statement.
      * @param {*} args The parameterized query arguments.
@@ -52,6 +62,19 @@ class Connection {
             await this._rollback();
             throw err;
         }
+    }
+
+    /**
+     * Updates an entity in a table asynchronously.
+     * @param {string} table The table name.
+     * @param {object} entity The entity to update.
+     */
+    update(table, entity, condition) {
+        if (!condition || typeof condition !== 'object') {
+            throw new Error('Attempt to update an entity without a condition!');
+        }
+        const statement = `UPDATE ``${table}`` SET ? WHERE ?`;
+        return this.query(statement, entity, condition);
     }
 
     _beginTransaction() {
