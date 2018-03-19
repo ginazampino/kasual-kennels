@@ -1,0 +1,29 @@
+{
+  "name": "kasualkennels",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ginazampino/kasualkennels.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ginazampino/kasualkennels/issues"
+  },
+  "homepage": "https://github.com/ginazampino/kasualkennels#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "mysql": "^2.15.0",
+    "nunjucks": "^3.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  }
+}
