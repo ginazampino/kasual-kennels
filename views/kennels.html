@@ -1,0 +1,176 @@
+{% extends "index.html" %} {% block main %}
+
+<a name="top"></a>
+<section class="content-container">
+    <div class="content-introduction">
+        <h2>{{ selectedNavItem | title}}</h2>
+        <p>
+            To browse our petz, use the dropdown filters below!
+        </p>
+    </div>
+    <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+        <option>New</option>
+        <optgroup label="Gender">
+            <option>Male</option>
+            <option>Female</option>
+        </optgroup>
+        <optgroup label="Ancestry">
+            <option>Noninbred</option>
+            <option>Purebred</option>
+        </optgroup>
+        <optgroup label="Breeds">
+            <option>Bulldog</option>
+            <option>Chihuahua</option>
+            <option>Dachshund</option>
+            <option>Dalmatian</option>
+            <option>Great Dane</option>
+            <option>Labrador</option>
+            <option>Mutt</option>
+            <option>Poodle</option>
+            <option>Scottie</option>
+            <option>Sheepdog</option>
+            <option>Wildz</option>
+        </optgroup>
+        <optgroup label="Other">
+            <option>Brexed</option>
+            <option>Non-OW</option>
+            <option>OW</option>
+        </optgroup>
+    </select>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <div class="sub-section clearfix">
+        <ul class="kennel-item-container clearfix">
+            <li class="kennel-item clearfix">
+                <div class=" kennel-item-image clearfix">
+                    <img alt=" " src="../img/kennels/gacrux.png ">
+                </div>
+                <div class="kennel-item-details clearfix">
+                    <ul>
+                        <li>
+                            <img alt="" src="../img/kennels/gacrux-thumb.png">
+                        </li>
+                        <li>
+                            <strong>Name:</strong> Kara
+                        </li>
+                        <li>
+                            <strong>Gender:</strong> Female
+                        </li>
+                        <li>
+                            <strong>Breed:</strong> Hexed
+                        </li>
+                        <li>
+                            <strong>Origin:</strong> Midnightwolf
+                        </li>
+                        <li>
+                            <strong>Method:</strong> Gift
+                        </li>
+                        <li>
+                            <strong>Notes:</strong> 1 Texture File
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+
+            <div class="divider-container-sm">
+                <div class="divider-sm"></div>
+            </div>
+
+            <li class="kennel-item clearfix">
+                <div class=" kennel-item-image clearfix">
+                    <img alt=" " src="../img/kennels/kara.png ">
+                </div>
+                <div class="kennel-item-details clearfix">
+                    <ul>
+                        <li>
+                            <img alt="" src="../img/kennels/kara-thumb.png">
+                        </li>
+                        <li>
+                            <strong>Name:</strong> Kara
+                        </li>
+                        <li>
+                            <strong>Gender:</strong> Female
+                        </li>
+                        <li>
+                            <strong>Breed:</strong> Hexed
+                        </li>
+                        <li>
+                            <strong>Origin:</strong> Midnightwolf
+                        </li>
+                        <li>
+                            <strong>Method:</strong> Gift
+                        </li>
+                        <li>
+                            <strong>Notes:</strong> 1 Ext. Texture
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <div class="divider-container-sm">
+                <div class="divider-sm"></div>
+            </div>
+
+            <li class="kennel-item">
+                <div class=" kennel-item-image ">
+                    <img alt=" " src="../img/kennels/spike.png ">
+                </div>
+                <div class="kennel-item-details ">
+                    <ul>
+                        <li>
+                            <img alt="" src="../img/kennels/spike-thumb.png">
+                        </li>
+                        <li>
+                            <strong>Name:</strong> Spike
+                        </li>
+                        <li>
+                            <strong>Gender:</strong> Male
+                        </li>
+                        <li>
+                            <strong>Breed:</strong> Hexed
+                        </li>
+                        <li>
+                            <strong>Origin:</strong> Midnightwolf
+                        </li>
+                        <li>
+                            <strong>Method:</strong> RKC
+                        </li>
+                        <li>
+                            <strong>Notes:</strong> Custom
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!-- <div class="kennel-item-container clearfix ">
+            <div class="kennel-item clearfix ">
+                <div class="kennel-item-image ">
+                    <img alt=" " src="../img/kennels/kara.png ">
+                </div>
+                <div class="kennel-item-details ">
+                    <span class="sub-section-header ">
+                        Kara
+                    </span>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="divider-container-lg ">
+        <div class="divider-lg "></div>
+    </div>
+
+    <footer>
+        <div class="download-link">
+            <a href="#top">
+                <i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        </div>
+    </footer>
+
+</section>
+
+{% endblock %}

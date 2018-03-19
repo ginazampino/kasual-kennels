@@ -1,0 +1,47 @@
+{% extends "index.html" %} {% block main %}
+<a name="top"></a>
+<section class="content-container">
+
+    <div class="content-introduction">
+        <h2>{{ selectedNavItem | title}}</h2>
+        <p>
+            A candid view of life at our kennels!
+        </p>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <div class="sub-section">
+        {% for album in albums %}
+
+        <span class="sub-section-header">
+                {{ album.title }}
+        </span>
+
+        <div class="sub-section-content-container">
+            {% for image in album.images %}
+            <img alt="" src="{{ image.img }}"> {% endfor %}
+        </div>
+
+        {% if not loop.last %}
+        <div class="divider-container-sm">
+            <div class="divider-sm"></div>
+        </div>
+        {% endif %} {% endfor %}
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <footer>
+        <div class="download-link">
+            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        </div>
+    </footer>
+
+</section>
+
+{% endblock %}

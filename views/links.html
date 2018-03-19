@@ -1,0 +1,80 @@
+{% extends "index.html" %} {% block main %}
+
+<a name="top"></a>
+<section class="content-container">
+
+    <div class="content-introduction">
+        <h2>{{ selectedNavItem | title}}</h2>
+        <p>
+            Want to exchange links or recommend a site?
+        </p>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <section class="sub-section clearfix">
+        <span class="sub-section-header">
+            Link Back
+        </span>
+        <div class="sub-section-content-container">
+            <img alt="" src="./img/links/link-kasualkennels.png">
+        </div>
+        <span class="links-url">
+            http://kasualkennels.petz.site
+        </span>
+    </section>
+
+    <div class="divider-container-sm">
+        <div class="divider-sm"></div>
+    </div>
+
+    <section class="sub-section clearfix">
+        <span class="sub-section-header">
+            Communities
+        </span>
+        <div class="sub-section-content-container no-hover">
+            {% for link in communityLinks %}
+            <a target="_blank" href="{{ link.url }}">
+                <img alt="" title="{{ link.title }}" src="{{ link.img }}">
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="divider-container-sm">
+        <div class="divider-sm"></div>
+    </div>
+
+    <section class="sub-section clearfix">
+        <span class="sub-section-header">
+            Fansites
+        </span>
+        <div class="sub-section-content-container no-hover">
+            {% for link in personalLinks %}
+            <a target="_blank" href="{{ link.url }}">
+                <img alt="" title="{{ link.title }}" src="{{ link.img }}">
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <footer>
+        <p>
+            Third-party banners created by Mercy at
+            <a target="_blank" href="http://homebody.eu/halcyon/">
+                <em>Halcyon</em></a>.
+        </p>
+
+        <div class="download-link margin-t-10">
+            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        </div>
+    </footer>
+</section>
+
+{% endblock %}

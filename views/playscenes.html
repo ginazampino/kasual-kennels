@@ -1,0 +1,53 @@
+{% extends "index.html" %} {% block main %}
+
+<a name="top"></a>
+<section class="content-container">
+
+    <div class="content-introduction">
+        <h2>{{ selectedNavItem | title}}</h2>
+        <p>
+            Playscenes created here for your game!
+        </p>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <div class="sub-section">
+        {% for playscene in playscenes %}
+        <div class="sub-section-header-image rounded">
+            <img alt="" src="{{ playscene.img }}">
+        </div>
+        <div class="sub-section-content-container">
+            <span class="sub-section-header">
+                {{ playscene.name }}
+            </span>
+            <ul class="download-link">
+                {% for file in playscene.files %}
+                <li>
+                    <a href="{{ playscene.file }}" download>
+                        <i class="fas fa-download"></i> Download for {{ file.version }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if not loop.last %}
+            <div class="divider-container-sm">
+                <div class="divider-sm"></div>
+            </div>
+            {% endif %} {% endfor %}
+        </div>
+
+        <div class="divider-container-lg">
+            <div class="divider-lg"></div>
+        </div>
+
+        <footer>
+        <div class="download-link">
+            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        </div>
+    </footer>
+
+</section>
+
+{% endblock %}

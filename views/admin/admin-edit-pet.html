@@ -1,0 +1,264 @@
+{% extends "admin/admin.html" %} {% block main %}
+<form action="" enctype="multipart/form-data" method="POST" style="margin-bottom: 80px">
+    <div class="container" style="padding-top: 50px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>Edit Pet</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Biography</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label>Call Name:</label>
+                                <input type="text" class="form-control" name="callName" placeholder="N/A" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Gender:</label>
+                                <select class="form-control" required>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Breed:</label>
+                                <select class="form-control" required>
+                                    <option>Bulldog</option>
+                                    <option>Chihuahua</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <label>Gen:</label>
+                                <input type="text" class="form-control" placeholder="N/A">
+                            </div>
+                            <div class="col-md-2">
+                                <label>Birth Date:</label>
+                                <input type="text" class="form-control" placeholder="N/A">
+                            </div>
+                            <div class="col-md-2">
+                                <label>Adoption Date:</label>
+                                <input type="text" class="form-control" placeholder="N/A">
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <label>Origin:</label>
+                                <select class="form-control" required>
+                                    <option>Breeding</option>
+                                    <option>Application</option>
+                                    <option>Purchase</option>
+                                    <option>Freebie</option>
+                                    <option>Hexing</option>
+                                    <option>Gift</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Previous Owner:</label>
+                                <input type="text" class="form-control" placeholder="N/A">
+                            </div>
+                            <div class="col-md-3">
+                                <label>Website:</label>
+                                <input type="text" class="form-control" placeholder="N/A">
+                            </div>
+                            <div class="col-md-5">
+                                <label>URL:</label>
+                                <input type="text" class="form-control" placeholder="N/A">
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label class="checkbox-inline no_indent">
+                                    <input type="checkbox" value="Inbred"> Inbred
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input type="checkbox" value="Pedigree"> Purebred
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input type="checkbox" value="Cross Breed"> Cross Breed
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input type="checkbox" value="Mixed Breed"> Mixed Breed
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input type="checkbox" value="Selective Breed"> Selective Breed
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input type="checkbox" value="Tree Trimmed"> Closed Line
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input type="checkbox" value="Tree Trimmed"> Open Line
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input type="checkbox" value="Tree Trimmed"> Tree Trimmed
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input type="checkbox" value="Hexed"> Hexed
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input type="checkbox" value="Brexed"> Brexed
+                                </label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <textarea class="form-control" rows="3" placeholder="Description..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Career</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <label>Status:</label>
+                                <select class="form-control">
+                                    <option>Not Applicable</option>
+                                    <option>Active</option>
+                                    <option>Inactive</option>
+                                    <option>Retired</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Prefix Title(s):</label>
+                                <input type="text" class="form-control" placeholder="N/A">
+                            </div>
+                            <div class="col-md-2">
+                                <label>Show Prefix(es):</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="N/A">
+                                    <span class="input-group-addon">/</span>
+                                    <!-- Combine the two strings -->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Show Name:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">KK's</span>
+                                    <input type="text" class="form-control" placeholder="N/A">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Suffix Title(s):</label>
+                                <input type="text" class="form-control" placeholder="N/A">
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Dali (Portrait) Pose:</label>
+                                    <input type="file">
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Dane (Profile) Pose:</label>
+                                    <input type="file">
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Website</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <label>Page:</label>
+                                <select class="form-control" required>
+                                    <option>None</option>
+                                    <option>Crew</option>
+                                    <option>Kennels</option>
+                                    <option>Singles</option>
+                                    <option>Litters</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Litter:</label>
+                                <select class="form-control">
+                                    <option>None</option>
+                                    <option>Sparky & Bowser</option>
+                                    <option>Spunky & Dart</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Photograph:</label>
+                                    <input type="file" name="photo" required>
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Thumbnail:</label>
+                                    <input type="file">
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="btn-toolbar col-md-12">
+                            <button type="submit" class="btn btn-default pull-right">Submit</button>
+                            <button type="submit" class="btn btn-default pull-right">Delete</button>
+                            <a href="/admin/pets" class="btn btn-default pull-right">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $('form').on('submit', function () {
+        try {
+            var form = new FormData(document.forms[0]);
+
+            $.ajax({
+                url: '/admin/edit-pet',
+                data: form,
+                type: 'POST',
+                processData: false,
+                contentType: false
+            });
+        } catch (err) {
+            console.error(err);
+        }
+
+        return false;
+    });
+</script> {% endblock %}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Kasual Kennels</title>
+    <meta name="description" content="Throwback to Petz 4 (1999), featuring adoptions, downloads, and other goodies.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Imports -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat+Brush|Source+Code+Pro:200,300,400,500,600,700,900">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script defer src="../js/fontawesome-all.min.js"></script>
+
+    <!-- CSS Imports -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/site.css">
+
+    <script>
+        var selectedNavItem = "{{ selectedNavItem }}";
+    </script>
+</head>
+
+<body>
+    <div class="layout">
+        {% include "nav.html" %}
+        <div class="main">
+            {% block main %} {% endblock %}
+        </div>
+    </div>
+</body>
+
+<!-- JS Imports-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<!-- Custom Scripts -->
+<script src="js/site.js"></script>
+<script>
+    // Select2
+    $(function () {
+        $('.js-example-basic-multiple').select2({
+            placeholder: "Click here to choose your filters!",
+        });
+    });
+</script>
+
+</html>

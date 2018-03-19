@@ -1,0 +1,662 @@
+@import "variables";
+@import "mixins";
+
+/*
+
+    Elements
+
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+body {
+    background: url("/img/bg.png"); // by https://www.toptal.com/designers/subtlepatterns/
+    font-family: "Source Code Pro", sans-serif;
+    font-size: 14px;
+    letter-spacing: .5px;
+    overflow-y: scroll;
+    overflow-x: hidden; // Corrects Select2 issue in Firefox
+}
+
+footer {
+    font-size: 10px;
+    text-align: center;
+}
+
+a:active,
+a:hover,
+a:link,
+a:visited {
+    color: inherit;
+    text-decoration: none;
+    transition: .1s ease-in;
+}
+
+a:hover {
+    transition: .1s ease-out;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+}
+
+p+p {
+    margin-top: 20px;
+}
+
+strong {
+    font-weight: 700;
+}
+
+
+/*
+
+    General
+
+*/
+
+.divider-container-lg {
+    text-align: center;
+    width: 100%;
+    .divider-lg {
+        display: inline-block;
+        border-bottom: 4px dashed $accent;
+        margin: 60px 0;
+        width: 100%;
+    }
+}
+
+.divider-container-sm {
+    text-align: center;
+    width: 100%;
+    .divider-sm {
+        display: inline-block;
+        border-bottom: 4px dashed $accent;
+        margin: 60px 0;
+        width: 100px;
+    }
+}
+
+.layout {
+    height: 100%;
+    margin: 0 auto;
+    max-width: 1024px;
+}
+
+.male {
+    color: $male;
+}
+
+.female {
+    color: $accent;
+}
+
+.highlight {
+    @include highlight-hover($accent);
+    cursor: default;
+    padding: 0 5px;
+}
+
+
+/*
+
+    Navigation
+
+*/
+
+.sidebar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: fixed;
+    width: 400px;
+    .sidebar-submenu-container {
+        height: calc(100% - 200px);
+        width: 100%;
+    }
+    .sidebar-submenu {
+        display: none;
+        font-size: 12px;
+        height: 100%;
+        letter-spacing: 1.5px;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+        ul {
+            @include border-dashed-vertical($accent);
+            background-color: $panel;
+            display: inline-block;
+            padding: 40px;
+            position: relative;
+            li {
+                display: block;
+                line-height: 12px;
+                a {
+                    display: inline-block;
+                    line-height: 12px;
+                    padding: 0 8px;
+                    text-shadow: #fff 0.07em 0.07em 0;
+                }
+                &.active a,
+                a:hover {
+                    @include highlight-hover($accent);
+                }
+                &.active {
+                    transform: rotate(-4.5deg);
+                }
+            }
+            li+li {
+                margin-top: 20px;
+            }
+        }
+    }
+    .sidebar-main-menu {
+        padding: 0 40px 40px 40px;
+        min-width: 100%;
+        text-align: center;
+        position: relative;
+        .featured-petz {
+            &.a {
+                position: absolute;
+                left: -10px;
+                top: -45px;
+                z-index: -20;
+            }
+            &.b {
+                position: absolute;
+                top: -25px;
+                right: 2.5px;
+                z-index: 0;
+            }
+        }
+        summary {
+            // Replace this with a class.
+            color: #222;
+            display: inline-block;
+            font-family: "Caveat Brush", sans-serif;
+            font-size: 16px;
+            right: 110px;
+            top: -2.5px;
+            position: absolute;
+            transform: rotate(1deg);
+        }
+        header {
+            margin: 0;
+            padding: 0;
+            h1 {
+                color: #FEFEFA;
+                display: inline-block;
+                font-family: "Caveat Brush", sans-serif;
+                font-size: 40px;
+                font-weight: 500;
+                padding: 0;
+                position: relative;
+                margin-top: 6px;
+                text-shadow: #222 0.07em 0.07em 0;
+            }
+            h1::before {
+                @include highlight($accent);
+            }
+        }
+        .main-menu {
+            display: inline-block;
+            li {
+                float: left;
+            }
+            li+li {
+                margin-left: 5px;
+            }
+        }
+        .main-menu-overlay {
+            @include border-dashed-vertical($accent);
+            background-color: $panel;
+            height: 50px;
+            letter-spacing: 1px;
+            line-height: 50px;
+            padding: 0 10px;
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            text-transform: uppercase;
+            width: 100%;
+            ul {
+                li {
+                    font-size: 12px;
+                    font-weight: 700;
+                    float: left;
+                    line-height: 12px;
+                    a {
+                        display: block;
+                        padding: 0 8px;
+                    }
+                    &.active {
+                        @include highlight-hover($accent);
+                        transform: rotate(2.5deg);
+                    }
+                }
+                li:hover {
+                    @include highlight-hover($accent);
+                }
+            }
+        }
+    }
+}
+
+
+/*
+
+    Content
+
+*/
+
+.main {
+    float: right;
+    font-size: 12px;
+    letter-spacing: 1px;
+    height: 100%;
+    padding: 0 40px 0 0;
+    width: calc(100% - 400px);
+}
+
+.content-container {
+    @include border-dashed-vertical($accent);
+    background-color: $panel;
+    padding: 40px;
+    min-height: 100%;
+    max-width: 600px;
+    text-align: center;
+    a {
+        color: $accent;
+        font-weight: 700;
+        transition: .1s ease-in;
+        &:hover {
+            @include highlight-hover($accent);
+            padding: 0 5px;
+            transition: .1s ease-out;
+        }
+    }
+    h2 {
+        color: #FEFEFA;
+        display: inline-block;
+        font-family: "Caveat Brush", sans-serif;
+        font-size: 30px;
+        font-weight: 500;
+        padding: 0;
+        position: relative;
+        margin: 0 0 40px 0;
+        text-shadow: #222 0.07em 0.07em 0;
+        z-index: 2;
+    }
+    h2::before {
+        @include highlight-variant($accent);
+    }
+    .content-introduction {
+        text-align: center;
+    }
+}
+
+.sub-section {
+    text-align: center;
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    .sub-section-header {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 20px;
+        &.margin-0 {
+            margin-bottom: 0;
+        }
+        span {
+            display: inline-block;
+        }
+        .sub-section-header-descriptor {
+            display: block;
+            margin-bottom: 5px;
+        }
+    }
+    .sub-section-header-descriptor {
+        display: block;
+        font-weight: 400;
+        margin-bottom: 20px;
+    }
+    .sub-section-header-image {
+        display: inline-block;
+        margin-bottom: 20px;
+        &.rounded {
+            img {
+                border-radius: 40px;
+            }
+        }
+    }
+    .sub-section-content-container {
+        margin-top: 30px;
+        text-align: center;
+        img {
+            display: inline-block;
+            margin-top: 10px;
+        }
+        img+img {
+            margin-left: 2.5px;
+        }
+    }
+}
+
+
+/*
+
+    Links
+
+*/
+
+.links-url {
+    background-color: rgba(255, 89, 95, 0.040);
+    border: 2px dashed $accent;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 4px 8px;
+}
+
+
+/*
+
+    Shows
+
+*/
+
+.show-results {
+    .show-placements {
+        display: inline-block;
+        li+li {
+            margin-top: 5px;
+        }
+    }
+}
+
+.show-stamp {
+    margin: 20px 0 20px 0;
+}
+
+
+/*
+
+    Stamps
+
+*/
+
+.normalize-stamps {
+    img {
+        width: 99px;
+        height: 95px;
+    }
+}
+
+
+/*
+
+    Breeders
+
+*/
+
+.breeder-item {
+    display: inline-block;
+    vertical-align: top;
+    img {
+        margin-bottom: 15px;
+    }
+    span {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .breeder-item-label {
+        font-weight: 700;
+    }
+    .download-link {
+        margin: 10px 0;
+    }
+}
+
+
+/*
+
+    Adoptions
+
+*/
+
+.item-header {
+    display: block;
+    font-weight: 700;
+    .item-header-details {
+        display: block; // font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        margin: 5px 0 25px 0;
+    }
+}
+
+.item-description {
+    margin: 0 auto;
+    max-width: 75%;
+}
+
+.pet-item-container {
+    margin-top: 40px;
+}
+
+.pet-item {
+    display: inline-block;
+    max-width: 200px;
+    vertical-align: top;
+    p {
+        margin: 10px;
+    }
+    .pet-item-image-container {
+        align-items: center;
+        display: flex;
+        height: 200px;
+        justify-content: center;
+        width: 200px;
+        img {
+            margin: 0;
+        }
+    }
+}
+
+
+/*
+
+    Kennels
+
+*/
+
+.kennel-item-container {
+    // background-color: red;
+    height: 250px;
+    .kennel-item {
+        height: 100%; // background-color: blue;
+        width: 100%;
+        .kennel-item-image {
+            align-items: center; // background-color: orange;
+            display: flex;
+            float: left;
+            height: 100%;
+            justify-content: center;
+            width: 250px;
+            img {
+                max-width: 210px;
+            }
+        }
+        .kennel-item-details {
+            // background-color: yellow;
+            align-items: center;
+            display: flex;
+            height: 100%;
+            justify-content: center;
+            padding: 20px;
+            width: calc(100% - 250px);
+            text-align: center;
+            img {
+                margin-bottom: 10px;
+            }
+            ul {
+                font-size: 10px;
+                strong {
+                    text-transform: uppercase;
+                }
+            }
+        }
+    } // li + li {
+    //     margin-top: 40px;
+    // }
+}
+
+
+/*
+
+    Downloads
+
+*/
+
+.download-link {
+    a {
+        color: #222;
+        font-weight: 400;
+        &:hover {
+            padding: 0 5px;
+        }
+    }
+    svg {
+        color: $accent;
+        font-size: 10px; // Add shadow on hover somehow.
+    }
+    li+li {
+        margin-top: 10px;
+    }
+    &.margin-t-10 {
+        margin-top: 10px;
+    }
+}
+
+
+/*
+
+    Filter
+
+*/
+
+.filter-menu {
+    li {
+        background-color: $accent;
+        display: inline-block;
+    }
+}
+
+
+/*
+
+    Tweaks
+
+*/
+
+.margin-none {
+    margin: 0;
+}
+
+// Select2 Overrides
+.select2-container--default {
+    font-family: "Source Code Pro" !important;
+    width: 75% !important;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default .select2-selection--multiple {
+    border: 3px dashed $accent !important;
+    border-radius: 0;
+    min-height: 20px !important;
+    padding: 4px !important;
+    margin-top: 40px !important;
+}
+
+.select2-dropdown {
+    font-size: 12px !important;
+    border: 3px dashed $accent;
+    border-top: none;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    border: none;
+    border-radius: 0;
+    border-color: $accent;
+    background-color: #fff;
+    &:hover {
+        cursor: default;
+    }
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: $accent;
+    font-weight: 900 !important;
+    padding: 0 4px 0 6px!important;
+    transition: .1s ease-in;
+    &:hover {
+        transition: .1s ease-out;
+        @include highlight-hover($accent);
+    }
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: rgba(255, 89, 95, 0.25);
+    color: #222;
+}
+
+::-webkit-input-placeholder {
+    font-family: "Source Code Pro", sans-serif;
+}
+
+::-moz-placeholder {
+    font-family: "Source Code Pro", sans-serif;
+}
+
+:-ms-input-placeholder {
+    font-family: "Source Code Pro", sans-serif;
+}
+
+::-ms-input-placeholder {
+    font-family: "Source Code Pro", sans-serif;
+}
+
+:-moz-placeholder {
+    font-family: "Source Code Pro", sans-serif;
+}
+
+/*
+
+    Hover override for <a> elements containing images:
+
+*/
+
+.no-hover {
+    a:hover {
+        box-shadow: none;
+        text-shadow: none;
+        padding: 0;
+    }
+}

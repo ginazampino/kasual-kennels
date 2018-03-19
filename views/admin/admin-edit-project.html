@@ -1,0 +1,81 @@
+{% extends "admin/admin.html" %} {% block main %}
+<form action="" method="POST" style="margin-bottom: 80px">
+    <div class="container" style="padding-top: 50px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>Edit Project</h1>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h1 class="panel-title">Details</h1>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group row">
+                                    <div class="col-md-5">
+                                        <label>Name:</label>
+                                        <input type="text" class="form-control" placeholder="N/A">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Date:</label>
+                                        <input type="text" class="form-control" placeholder="N/A">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Category:</label>
+                                        <select class="form-control">
+                                            <option>Hexed Breed</option>
+                                            <option>Purebed/Noninbred Line</option>
+                                            <option>Selective Breed</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Status:</label>
+                                        <select class="form-control">
+                                            <option>Open</option>
+                                            <option>Limited</option>
+                                            <option>Closed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" rows="3" placeholder="Description..."></textarea>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Image:</label>
+                                            <input type="file">
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <div class="btn-toolbar col-md-12">
+                                <button type="submit" class="btn btn-default pull-right">Submit</button>
+                                <button type="submit" class="btn btn-default pull-right">Delete</button>
+                                <a href="/admin/images" class="btn btn-default pull-right">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

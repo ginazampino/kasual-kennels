@@ -1,0 +1,52 @@
+{% extends "index.html" %} {% block main %}
+<a name="top"></a>
+<section class="content-container">
+
+    <div class="content-introduction">
+        <h2>{{ selectedNavItem | title}}</h2>
+        <p>
+            Clothes created here for your game!
+        </p>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <div class="sub-section">
+        {% for clothing in clothes %}
+        <div class="sub-section-header-image">
+            <img alt="" src="{{ clothing.img }}">
+        </div>
+        <div class="sub-section-content-container">
+            <span class="sub-section-header">
+                {{ clothing.name }}
+            </span>
+            <div class="sub-section-description download-link">
+                <a href="{{ clothing.file }}" download>
+                    <i class="fas fa-download"></i> Download for Petz 4</a>
+            </div>
+        </div>
+        {% if not loop.last %}
+        <div class="divider-container-sm">
+            <div class="divider-sm"></div>
+        </div>
+        {% endif %} {% endfor %}
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <footer>
+        <p>
+            Special thanks to Meer at <a target="_blank" href="http://webpages.charter.net/meeronver/blackmist/">Black Mist</a> for reference permissions.
+        </p>
+        <div class="download-link margin-t-10">
+            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        </div>
+    </footer>
+
+</section>
+
+{% endblock %}
