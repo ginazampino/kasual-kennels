@@ -51,4 +51,9 @@
     margin: 4px;
     padding: 4px; }
 
+.required {
+  color: red;
+  font-weight: 900;
+  margin: 0 2px; }
+
 /*# sourceMappingURL=admin.css.map */
