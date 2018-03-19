@@ -1,0 +1,42 @@
+@mixin border-dashed-vertical($color) {
+    border-left: 4px dashed $color;
+    border-right: 4px dashed $color;
+};
+
+@mixin highlight($color) {
+    background-color: $color;
+    bottom: 0;
+    content: "";
+    height: 60%;
+    left: -2px;
+    position: absolute;
+    transform: rotate(-2deg);
+    width: calc(100% + 4px);
+    z-index: -1;
+};
+
+@mixin highlight-variant($color) {
+    background-color: $color;
+    bottom: 0;
+    content: "";
+    height: 60%;
+    left: -2px;
+    position: absolute;
+    transform: rotate(2deg);
+    width: calc(100% + 4px);
+    z-index: -1;
+};
+
+@mixin highlight-hover($color) { // Add polyfill for fontawesome svg shadows.
+    box-shadow: inset 400px 0 0 0 $color;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    text-shadow: #222 .1em .1em 0;
+
+    svg {
+        color: #fff;
+        -webkit-filter: drop-shadow( #222 .1em .1em 0); 
+        filter: drop-shadow( #222 .1em .1em 0);
+    }
+};

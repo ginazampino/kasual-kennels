@@ -1,0 +1,49 @@
+{% extends "index.html" %} {% block main %}
+<a name="top"></a>
+<section class="content-container">
+
+    <div class="content-introduction">
+        <h2>{{ selectedNavItem | title}}</h2>
+        <p>
+            Win these find-its to earn stamps for your collection!
+        </p>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <div class="sub-section">
+        {% for findIt in findIts %}
+        <div class="sub-section-header-image">
+            <img alt="" src="{{ findIt.img }}">
+        </div>
+        <div class="sub-section-content-container">
+            <span class="sub-section-header">
+                {{ findIt.title }}
+            </span>
+            <p>
+                {{ findIt.description }}
+            </p>
+        </div>
+        {% if not loop.last %}
+        <div class="divider-container-sm">
+            <div class="divider-sm"></div>
+        </div>
+        {% endif %} {% endfor %}
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <footer>
+        <div class="download-link">
+            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        </div>
+    </footer>
+
+
+</section>
+
+{% endblock %}}

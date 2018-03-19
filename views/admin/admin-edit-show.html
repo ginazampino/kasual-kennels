@@ -1,0 +1,131 @@
+{% extends "admin/admin.html" %} {% block main %}
+
+<div class="container" style="padding-top: 50px">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>Edit Show</h1>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Details</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" placeholder="N/A">
+                                </div>
+                                <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>URL:</label>
+                                    <input type="text" class="form-control" placeholder="N/A">
+                                </div>
+                            </div>
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label>Venue:</label>
+                                    <select class="form-control">
+                                        <option>RKC Petz Forum</option>
+                                        <option>Whiskerwick</option>
+                                        <option>Petz Hub</option>
+                                        <option>Kasual Kennels</option>
+                                        <option>Petz Kennel Club</option>
+                                        <option>Petz Universal Game Site</option>
+                                        <option>Duke's Group</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Category:</label>
+                                    <select class="form-control">
+                                        <option>EBW Pose Show (Dali)</option>
+                                        <option>EBW Pose Show (Dane)</option>
+                                        <option>Standard Pose Show (Dali)</option>
+                                        <option>Standard Pose Show (Dane)</option>
+                                        <option>Other/Contest</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Date:</label>
+                                    <input type="text" class="form-control" placeholder="N/A">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Entries</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">BIS</span>
+                                        <input type="text" class="form-control" id="show-name" placeholder="N/A">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">1st</span>
+                                        <input type="text" class="form-control" id="show-name" placeholder="N/A">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">2nd</span>
+                                        <input type="text" class="form-control" id="show-name" placeholder="N/A">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">3rd</span>
+                                        <input type="text" class="form-control" id="show-name" placeholder="N/A">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">HM</span>
+                                        <input type="text" class="form-control" id="show-name" placeholder="N/A">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="btn-toolbar col-md-12">
+                            <button type="submit" class="btn btn-default pull-right">Submit</button>
+                            <button type="submit" class="btn btn-default pull-right">Delete</button>
+                            <a href="/admin/shows" class="btn btn-default pull-right">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

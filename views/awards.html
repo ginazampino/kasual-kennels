@@ -1,0 +1,34 @@
+{% extends "index.html" %} {% block main %}
+<a name="top"></a>
+<section class="content-container">
+
+    <div class="content-introduction">
+        <h2>{{ selectedNavItem | title}}</h2>
+        <p>
+            Awards we earned from games and contests!
+        </p>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <div class="sub-section">
+        {% for award in awards %}
+        <img alt="" src="{{ award.img }}"> {% endfor %}
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <footer>
+        <div class="download-link">
+            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        </div>
+    </footer>
+
+
+</section>
+
+{% endblock %}

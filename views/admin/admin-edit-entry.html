@@ -1,0 +1,100 @@
+{% extends "admin/admin.html" %} {% block main %}
+<form action="" method="POST" style="margin-bottom: 80px">
+
+    <div class="container" style="padding-top: 50px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>Edit Entry</h1>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h1 class="panel-title">Details</h1>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label>Pet:</label>
+                                        <input type="text" class="form-control" placeholder="N/A" required>
+                                    </div>
+
+                                </div>
+                                <hr />
+                                <div class="form-group row">
+                                    <div class="col-md-5">
+                                        <label>Show:</label>
+                                        <input type="text" class="form-control" placeholder="N/A" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Placement:</label>
+                                        <select class="form-control" required>
+                                            <option>P</option>
+                                            <option>BIS</option>
+                                            <option>1st</option>
+                                            <option>2nd</option>
+                                            <option>3rd</option>
+                                            <option>HM</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label>URL:</label>
+                                        <input type="text" class="form-control" placeholder="N/A" required>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <label>Venue:</label>
+                                        <select class="form-control" required>
+                                            <option>RKC Petz Forum (RKC)</option>
+                                            <option>Whiskerwick (WW)</option>
+                                            <option>Petz Hub (PHUB)</option>
+                                            <option>Kasual Kennels (KK)</option>
+                                            <option>Petz Kennel Club (PKC)</option>
+                                            <option>Petz Universal Game Site (PUGS)</option>
+                                            <option>Duke's Group (DG)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Category:</label>
+                                        <select class="form-control" required>
+                                            <option>EBW Pose Show (Dali)</option>
+                                            <option>EBW Pose Show (Dane)</option>
+                                            <option>Standard Pose Show (Dali)</option>
+                                            <option>Standard Pose Show (Dane)</option>
+                                            <option>Other/Contest</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Date:</label>
+                                        <input type="text" class="form-control" placeholder="N/A" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <div class="btn-toolbar col-md-12">
+                                <button type="submit" class="btn btn-default pull-right">Submit</button>
+                                <button type="submit" class="btn btn-default pull-right">Delete</button>
+                                <a href="/admin/entries" class="btn btn-default pull-right">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

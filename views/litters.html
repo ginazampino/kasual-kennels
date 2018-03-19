@@ -1,0 +1,90 @@
+{% extends "index.html" %} {% block main %}
+
+<a name="top"></a>
+<section class="content-container">
+    <h2>{{ selectedNavItem | title}}</h2>
+    <div class="content-introduction">
+        <p>
+            Litters just for you, sometimes at your request!
+        </p>
+        <p>
+            Please assume all petz are bred or hexed in
+            <a target="_blank" href="https://en.wikipedia.org/wiki/Petz">Petz 4</a> and are high-generation, original-breed adults mixed and inbred with PC lines unless expressed otherwise
+            in their descriptions.
+        </p>
+        <p>
+            Petz are removed from the page as they're adopted.
+        </p>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <div class="sub-section">
+        {% for litter in litters %}
+
+        <div class="sub-section-header-image">
+            <img alt="" src="{{ litter.img }}">
+        </div>
+        <span class="sub-section-header">
+            {{ litter.name }}
+            <span class="sub-section-header-descriptor">
+                Requested by {{ litter.requester }}
+            </span>
+        </span>
+        <p class="sub-section-content-container">
+            {{ litter.description }}
+        </p>
+
+        <div class="pet-item-container">
+            {% for adoption in litter.adoptions %}
+            <div class="pet-item">
+                <div class="pet-item-image-container">
+                    <img alt="" src="{{ adoption.img }}">
+                </div>
+
+                <div class="item-header">
+                    {% if adoption.gender %}
+                    <i alt="Male" title="Male" class="fas fa-mars male"></i>
+                    {% else %}
+                    <i alt="Female" title="Female" class="fas fa-venus female"></i>
+                    {% endif %} {{ adoption.name }}
+                    <span class="item-header-details">
+                        {% if adoption.inbred %}Inbred {% elif not adoption.inbred %} Noninbred{% endif %}{{ adoption.breed }}
+                    </span>
+                </div>
+
+                <span class="download-link">
+                    <a href="/apply"><i class="fas fa-external-link"></i> Adopt</a>
+                </span>
+
+                {% if adoption.description %} {% endif%}
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if not loop.last %}
+        <div class="divider-container-sm">
+            <div class="divider-sm"></div>
+        </div>
+        {% endif %} {% endfor %}
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <footer>
+        <p>
+            All adoptions are for
+            <a target="_blank" href="https://en.wikipedia.org/wiki/Petz">Petz 4</a>.
+        </p>
+        <div class="download-link margin-t-10">
+            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        </div>
+    </footer>
+
+</section>
+
+{% endblock %}

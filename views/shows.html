@@ -1,0 +1,72 @@
+{% extends "index.html" %} {% block main %}
+
+<a name="top"></a>
+<section class="content-container">
+
+    <div class="content-introduction">
+        <h2>{{ selectedNavItem | title}}</h2>
+        <p>
+            Thanks for entering our shows!
+        </p>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <div class="sub-section">
+        {% for show in shows %}
+        <div class="sub-section-header margin-0">
+            {{ show.title }}
+            <span class="sub-section-header-descriptor">
+                @
+                <a target="_blank" href="{{ show.url }}">Whiskerwick</a>, {{ show.date }}
+            </span>
+        </div>
+        <img alt="" class="show-stamp" src="{{ show.stamp }}">
+        <div class="show-results">
+            <ul class="show-placements">
+                <li>
+                    <strong>BIS:</strong> {{ show.bis }}
+                </li>
+                <li>
+                    <strong>1st:</strong> {{ show.first }}
+                </li>
+                <li>
+                    <strong>2nd:</strong> {{ show.second }}
+                </li>
+                <li>
+                    <strong>3rd:</strong> {{ show.third }}
+                </li>
+                <li>
+                    <strong>HM:</strong> {{ show.hm }}
+                </li>
+            </ul>
+        </div>
+
+        {% if not loop.last %}
+        <div class="divider-container-sm">
+            <div class="divider-sm"></div>
+        </div>
+        {% endif %} {% endfor %}
+    </div>
+
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <footer>
+        <p>
+            All shows award forum-standard show points: 
+            <a target="_blank" href="http://petzforum.proboards.com/thread/141/show-points-titles-system">RKC</a> 
+            & <a target="_blank" href="http://whiskerwick.boards.net/thread/14/rules-info">WW</a>
+        </p>
+        <div class="download-link margin-t-10">
+            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        </div>
+    </footer>
+
+</section>
+
+{% endblock %}

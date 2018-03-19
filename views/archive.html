@@ -1,0 +1,59 @@
+{% extends "index.html" %} {% block main %}
+<a name="top"></a>
+<section class="content-container">
+
+    <div class="content-introduction">
+        <h2>{{ selectedNavItem | title}}</h2>
+        <p>
+            When we have time, we like to hex, too!
+        </p>
+        <p>
+            <strong>Available</strong> means the file is up for adoption.
+            <strong>Limited</strong> means the file may be available for trade.
+            <strong>Closed</strong> means the file is currently not available for adoption or trade.
+        </p>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <div class="sub-section">
+        {% for project in projects %}
+
+        <div class="sub-section-header-image">
+            <img alt="" src="{{ project.img }}">
+        </div>
+
+        <div class="sub-section-content-container">
+            <span>
+                <strong>{{ project.name }}</strong>
+            </span>
+            <span class="sub-section-header-descriptor">
+                {{ project.date }}
+            </span>
+            <span>
+                <strong>Status:</strong> {{ project.status }}
+            </span>
+        </div>
+
+        {% if not loop.last %}
+        <div class="divider-container-sm">
+            <div class="divider-sm"></div>
+        </div>
+        {% endif %} {% endfor %}
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <footer>
+        <div class="download-link">
+            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        </div>
+    </footer>
+
+</section>
+
+{% endblock %}

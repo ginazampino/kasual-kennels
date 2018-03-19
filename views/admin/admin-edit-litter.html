@@ -1,0 +1,65 @@
+{% extends "admin/admin.html" %} {% block main %}
+<form action="" method="POST" style="margin-bottom: 80px">
+    <div class="container" style="padding-top: 50px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>Edit Litter</h1>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h1 class="panel-title">Details</h1>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label>Name:</label>
+                                        <input type="text" class="form-control" placeholder="N/A" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Requester:</label>
+                                        <input type="text" class="form-control" placeholder="N/A">
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" rows="3" placeholder="Description..."></textarea>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Image:</label>
+                                            <input type="file" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="btn-toolbar col-md-12">
+                                        <button type="submit" class="btn btn-default pull-right">Submit</button>
+                                        <button type="submit" class="btn btn-default pull-right">Delete</button>
+                                        <a href="/admin/litters" class="btn btn-default pull-right">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

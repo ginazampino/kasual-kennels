@@ -1,0 +1,86 @@
+{% extends "admin/admin.html" %} {% block main %}
+<form action="" method="POST" style="margin-bottom: 80px">
+    <div class="container" style="padding-top: 50px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>Edit Download</h1>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h1 class="panel-title">Details</h1>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label>Name:</label>
+                                        <input name="downloadName" type="text" class="form-control" placeholder="N/A" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Category:</label>
+                                        <select name="downloadCategory" class="form-control" id="category" required>
+                                            <option>Breeders</option>
+                                            <option>Clothes</option>
+                                            <option>Playscenes</option>
+                                            <option>Toys</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>File:</label>
+                                            <input id="files" type="file" multiple required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <div class="btn-toolbar col-md-12">
+                                <button type="submit" class="btn btn-default pull-right">Submit</button>
+                                <button type="submit" class="btn btn-default pull-right">Delete</button>
+                                <a href="/admin/images" class="btn btn-default pull-right">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        $("input[type=file]").fileUpload();
+
+        $("button[type=submit]").on("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            var form = new FormData();
+
+            form.append("name", $("#name").val());
+            form.append("category", $("#category").val());
+            
+            var i = 0;
+
+            $("#files").data('files')().forEach(file => {
+                form.append("file" + ++i, file);
+            });
+
+            return false;
+        });
+    })
+</script>
+{% endblock %}

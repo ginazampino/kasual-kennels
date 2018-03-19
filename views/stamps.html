@@ -1,0 +1,78 @@
+{% extends "index.html" %} {% block main %}
+
+<a name="top"></a>
+<section class="content-container">
+
+    <div class="content-introduction">
+        <h2>{{ selectedNavItem | title}}</h2>
+        <p>
+            Stamps to collect on your website or forum home!
+        </p>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <div class="sub-section">
+        <span class="sub-section-header">
+            Limited Edition
+        </span>
+
+        <div class="sub-section-content-container">
+            {% for limitedStamp in limitedStamps %}
+            <img alt="" src="{{ limitedStamp.img }}"> {% endfor %}
+        </div>
+    </div>
+
+    <div class="divider-container-sm">
+        <div class="divider-sm"></div>
+    </div>
+
+    <div class="sub-section">
+        <span class="sub-section-header">
+            Free for All
+        </span>
+
+        <div class="sub-section-content-container">
+            {% for ffaStamp in ffaStamps %}
+            <img alt="" src="{{ ffaStamp.img }}"> {% endfor %}
+        </div>
+    </div>
+
+    <div class="divider-container-sm">
+        <div class="divider-sm"></div>
+    </div>
+
+    <div class="sub-section">
+        <span class="sub-section-header">
+            Our Collection
+        </span>
+
+        <div class="sub-section-content-container normalize-stamps no-hover">
+            {% for collectedStamp in collectedStamps %}
+            <a target="_blank" href="{{ collectedStamp.url }}">
+                <img alt="" src="{{ collectedStamp.img }}">
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="divider-container-lg">
+        <div class="divider-lg"></div>
+    </div>
+
+    <footer>
+        <p>
+            Stamp game and graphic base created by Lu at
+            <a target="_blank" href="https://beatnik.tiny-universes.net/">
+                <em>Beatnik</em></a>.
+        </p>
+            <div class="download-link margin-t-10">
+                <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+            </div>
+    </footer>
+
+</section>
+
+{% endblock %}}
