@@ -1,4 +1,7 @@
 {% extends "admin/admin.html" %} {% block main %}
+
+<textarea style="display: none">{{ picklists | dump }}</textarea>
+
 <form action="" enctype="multipart/form-data" method="POST" style="margin-bottom: 80px">
     <div class="container" style="padding-top: 50px">
         <div class="row">
@@ -23,15 +26,21 @@
                             <div class="col-md-2">
                                 <label>Gender:</label><span class="required">*</span>
                                 <select name="petGender" class="form-control" required>
-                                    <option>Male</option>
-                                    <option>Female</option>
+                                    {% for gender in picklists.genders %}
+                                    <option 
+                                        {% if gender == pet.gender %}selected{% endif %}
+                                        value="{{ gender }}">{{ gender }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <label>Breed:</label><span class="required">*</span>
                                 <select name="petBreed" class="form-control" required>
-                                    <option>Bulldog</option>
-                                    <option>Chihuahua</option>
+                                    {% for breed in picklists.breeds %}
+                                    <option 
+                                        {% if breed.id == pet.breed_id %}selected{% endif %}
+                                        value="{{ breed.id }}">{{ breed.breed_name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="col-md-1">

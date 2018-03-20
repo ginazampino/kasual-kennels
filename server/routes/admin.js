@@ -1,7 +1,20 @@
 const multer = require('multer');
 const upload = multer({ dest: 'C:/temp' });
 
+const business = require('../business');
+
 module.exports = function (app) {
+    app.get("/test", async function (request, response) {
+        response.send({
+            pet: { /* TODO: Populate me */ },
+            picklists: {
+                breeds    : await business.admin.getBreeds(),
+                genders   : business.admin.getGenders()
+            }
+        });
+    });
+
+
     app.get("/admin", function (request, response) {
         response.render("admin/admin.html", {});
     });
@@ -10,8 +23,34 @@ module.exports = function (app) {
         response.render("admin/admin-pets.html", {});
     });
     
-    app.get("/admin/edit-pet", function (request, response) {
-        response.render("admin/admin-edit-pet.html", {});
+    app.get("/admin/edit-pet", async function (request, response) {
+        let vm = {
+            pet: { /* TODO: Populate me */ },
+            picklists: {
+                breeds    : await business.admin.getBreeds(),
+                genders   : business.admin.getGenders()
+            }
+        };
+
+        if (request.query.id) {
+            vm.pet = {}; // TODO
+        }
+        else {
+            vm.pet = {};
+        }
+
+        response.render("admin/admin-edit-pet.html", vm);
+    });
+
+    app.post("/admin/edit-pet", function (request, response) {
+        var id;
+        if (request.query.id) {
+            // TODO: update the entry.
+        }
+        else {
+            // TODO: create the entry.
+        }
+        response.send({ id });
     });
     
     app.get("/admin/litters", function (request, response) {
