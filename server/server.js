@@ -1,9 +1,17 @@
 var express = require("express");
 var nunjucks = require("nunjucks");
+var mysql = require("./mysql");
 
 // Express instance creation:
 var app = express();
 var port = 8085;
+
+mysql.setConnectionInfo({
+    host     : "localhost",
+    database : "kasualkennels",
+    user     : "root",
+    password : ""
+});
 
 // Static file handling:
 app.use(express.static("."));
