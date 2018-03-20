@@ -1,7 +1,7 @@
 //const multer = require('multer');
 //const upload = multer({ dest: 'C:/temp' });
 const business = require('../business');
-const upload = require('./upload.js');
+const upload = require('../upload.js');
 
 module.exports = function (app) {
     app.get("/test", async function (request, response) {
