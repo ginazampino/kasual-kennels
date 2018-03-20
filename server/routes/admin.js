@@ -1,7 +1,7 @@
-const multer = require('multer');
-const upload = multer({ dest: 'C:/temp' });
-
+//const multer = require('multer');
+//const upload = multer({ dest: 'C:/temp' });
 const business = require('../business');
+const upload = require('./upload.js');
 
 module.exports = function (app) {
     app.get("/test", async function (request, response) {
@@ -42,7 +42,9 @@ module.exports = function (app) {
         response.render("admin/admin-edit-pet.html", vm);
     });
 
-    app.post("/admin/edit-pet", function (request, response) {
+    app.post("/admin/edit-pet", [
+        upload('daliImage', 'daneImage', 'photo', 'thumb')
+    ], function (request, response) {
         var id;
         if (request.query.id) {
             // TODO: update the entry.
