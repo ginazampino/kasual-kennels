@@ -28,14 +28,11 @@
                                     <div class="col-md-6">
                                         <label>Category:</label><span class="required">*</span>
                                         <select name="imageCategory" class="form-control" required>
-                                            <option>Links (Community Hubs)</option>
-                                            <option>Links (Fansites)</option>
-                                            <option>Stamps (Stamp Collection)</option>
-                                            <option>Stamps (Free-For-All Stamps)</option>
-                                            <option>Stamps (Limited Edition Stamps)</option>
-                                            <option>Other (Albums)</option>
-                                            <option>Other (Awards)</option>
-                                            <option>Other (Gifts)</option>
+                                            {% for category in dropdowns.categories %}
+                                                <option
+                                                {% if category == image.category %}selected{% endif %}
+                                                value="{{ category }}">{{ category }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-6">

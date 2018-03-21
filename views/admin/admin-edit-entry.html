@@ -32,12 +32,11 @@
                                     <div class="col-md-2">
                                         <label>Placement:</label><span class="required">*</span>
                                         <select name="entryPlacement" class="form-control" required>
-                                            <option>P</option>
-                                            <option>BIS</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>HM</option>
+                                            {% for placement in dropdowns.placements %}
+                                                <option
+                                                {% if placement == entry.placement %}selected{% endif %}
+                                                value="{{ placement }}">{{ placement }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-5">
@@ -50,19 +49,21 @@
                                     <div class="col-md-4">
                                         <label>Venue:</label><span class="required">*</span>
                                         <select name="entryVenue" class="form-control" required>
-                                            <option>RKC Petz Forum (RKC)</option>
-                                            <option>Whiskerwick (WW)</option>
-                                            <option>Kasual Kennels (KK)</option>
+                                            {% for venue in dropdowns.venues %}
+                                                <option
+                                                {% if venue == entry.venue %}selected{% endif %}
+                                                value="{{ venue }}">{{ venue }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Category:</label><span class="required">*</span>
                                         <select name="entryCategory" class="form-control" required>
-                                            <option>EBW Pose Show (Dali)</option>
-                                            <option>EBW Pose Show (Dane)</option>
-                                            <option>Standard Pose Show (Dali)</option>
-                                            <option>Standard Pose Show (Dane)</option>
-                                            <option>Other/Contest</option>
+                                            {% for category in dropdowns.categories %}
+                                                <option
+                                                {% if category == entry.category %}selected{% endif %}
+                                                value="{{ category }}">{{ category }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-4">
