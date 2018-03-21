@@ -32,19 +32,21 @@
                                 <div class="col-md-4">
                                     <label>Venue:</label><span class="required">*</span>
                                     <select name="showVenue" class="form-control" required>
-                                        <option>RKC Petz Forum (RKC)</option>
-                                        <option>Whiskerwick (WW)</option>
-                                        <option>Kasual Kennels (KK)</option>
+                                        {% for venue in dropdowns.venues %}
+                                            <option
+                                            {% if venue == show.venue %}selected{% endif %}
+                                            value="{{ venue }}">{{ venue }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label>Category:</label><span class="required">*</span>
                                     <select name="showCategory" class="form-control" required>
-                                        <option>EBW Pose Show (Dali)</option>
-                                        <option>EBW Pose Show (Dane)</option>
-                                        <option>Standard Pose Show (Dali)</option>
-                                        <option>Standard Pose Show (Dane)</option>
-                                        <option>Other/Contest</option>
+                                        {% for category in dropdowns.categories %}
+                                            <option
+                                            {% if category == show.category %}selected{% endif %}
+                                            value="{{ category }}">{{ category }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-md-4">

@@ -27,16 +27,21 @@
                                     <div class="col-md-3">
                                         <label>Category:</label><span class="required">*</span>
                                         <select name="projectCategory" class="form-control" required>
-                                            <option>Hexed Breed</option>
-                                            <option>Selective Breed</option>
+                                            {% for category in dropdowns.categories %}
+                                                <option
+                                                {% if category == project.category %}selected{% endif %}
+                                                value="{{ category }}">{{ category }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-2">
                                         <label>Status:</label><span class="required">*</span>
                                         <select name="projectStatus" class="form-control" required>
-                                            <option>Open</option>
-                                            <option>Limited</option>
-                                            <option>Closed</option>
+                                            {% for status in dropdowns.statuses %}
+                                                <option
+                                                {% if status == project.status %}selected{% endif%}
+                                                value="{{ status }}">{{ status }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>

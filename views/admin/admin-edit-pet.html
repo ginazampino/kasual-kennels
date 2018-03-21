@@ -26,7 +26,7 @@
                             <div class="col-md-2">
                                 <label>Gender:</label><span class="required">*</span>
                                 <select name="petGender" class="form-control" required>
-                                    {% for gender in picklists.genders %}
+                                    {% for gender in dropdowns.genders %}
                                     <option 
                                         {% if gender == pet.gender %}selected{% endif %}
                                         value="{{ gender }}">{{ gender }}</option>
@@ -36,7 +36,7 @@
                             <div class="col-md-2">
                                 <label>Breed:</label><span class="required">*</span>
                                 <select name="petBreed" class="form-control" required>
-                                    {% for breed in picklists.breeds %}
+                                    {% for breed in dropdowns.breeds %}
                                     <option 
                                         {% if breed.id == pet.breed_id %}selected{% endif %}
                                         value="{{ breed.id }}">{{ breed.breed_name }}</option>
@@ -61,12 +61,12 @@
                             <div class="col-md-2">
                                 <label>Origin:</label><span class="required">*</span>
                                 <select name="petOrigin" class="form-control" required>
-                                    <option>Breeding</option>
-                                    <option>Application</option>
-                                    <option>Purchase</option>
-                                    <option>Freebie</option>
-                                    <option>Hexing</option>
-                                    <option>Gift</option>
+                                    {% for origin in dropdowns.origins %}
+                                        <option
+                                            {% if origin == pet.origin %}selected{% endif %}
+                                            value="{{ origin }}">{{ origin }}
+                                            </option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="col-md-2">
@@ -112,6 +112,9 @@
                                 <label class="checkbox-inline no_indent">
                                     <input name="petBrexed" type="checkbox" value="Brexed"> Brexed
                                 </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input name="petLegacy" type="checkbox" value="Legacy"> Legacy
+                                </label>
                             </div>
                         </div>
                         <hr />
@@ -135,10 +138,11 @@
                             <div class="col-md-2">
                                 <label>Status:</label>
                                 <select name="petStatus" class="form-control">
-                                    <option>Not Applicable</option>
-                                    <option>Active</option>
-                                    <option>Inactive</option>
-                                    <option>Retired</option>
+                                    {% for status in dropdowns.statuses %}
+                                        <option
+                                            {% if status == pet.status%}selected{% endif %}
+                                            value="{{ status }}">{{ status }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="col-md-2">
@@ -195,18 +199,21 @@
                             <div class="col-md-2">
                                 <label>Page:</label><span class="required">*</span>
                                 <select name="petPage" class="form-control" required>
-                                    <option>Kennels</option>
-                                    <option>Crew</option>
-                                    <option>Singles</option>
-                                    <option>Litters</option>
+                                    {% for page in dropdowns.petpages %}
+                                    <option 
+                                        {% if page.id == pet.page_id %}selected{% endif %}
+                                        value="{{ page.id }}">{{ page.page_name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="col-md-3">
                                 <label>Litter:</label>
                                 <select name="petLitter" class="form-control">
-                                    <option>None</option>
-                                    <option>Sparky & Bowser</option>
-                                    <option>Spunky & Dart</option>
+                                    {% for litter in dropdowns.litters %}
+                                    <option
+                                        {% if litter.id == pet.litter_id %}selected{% endif %}
+                                        value="{{ litter.id }}">{{ litter.litter_name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
