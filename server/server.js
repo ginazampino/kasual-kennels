@@ -7,13 +7,6 @@ var mysql = require("./mysql");
 var app = express();
 var port = 8085;
 
-mysql.setConnectionInfo({
-    host     : "localhost",
-    database : "kasualkennels",
-    user     : "root",
-    password : ""
-});
-
 var middlewares = require('./middlewares');
 middlewares.install(app);
 
