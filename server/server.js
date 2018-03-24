@@ -14,17 +14,8 @@ mysql.setConnectionInfo({
     password : ""
 });
 
-// Static file handling:
-const pathToStatic = path.resolve(__dirname, "../wwwroot");
-app.use(express.static(pathToStatic));
-
-// Nunjucks initial configuration:
-const pathToViews = path.resolve(__dirname, "../views");
-nunjucks.configure(pathToViews, {
-    autoescape: true,
-    express: app,
-    noCache: true
-});
+var middlewares = require('./middlewares');
+middlewares.install(app);
 
 require('./routes/site.js')(app);
 require('./routes/admin.js')(app);
