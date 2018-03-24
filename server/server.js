@@ -17,8 +17,8 @@ mysql.setConnectionInfo({
 var middlewares = require('./middlewares');
 middlewares.install(app);
 
-require('./routes/site.js')(app);
-require('./routes/admin.js')(app);
+var routes = require('./routes');
+routes.install(app);
 
 // Port listening:
 app.listen(port, function () {
