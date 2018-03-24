@@ -1,4 +1,4 @@
-module.exports = class AdminBusiness {
+module.exports = class DropdownBusiness {
     constructor(conn) {
         this.conn = conn;
     }

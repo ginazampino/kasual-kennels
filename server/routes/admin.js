@@ -8,8 +8,8 @@ module.exports = function (app) {
         response.send({
             pet: { /* TODO: Populate me */ },
             dropdowns: {
-                breeds    : await request.business.admin.getBreeds(),
-                genders   : request.business.admin.getGenders()
+                breeds    : await request.business.dropdown.getBreeds(),
+                genders   : request.business.dropdown.getGenders()
             }
         });
     });
@@ -44,12 +44,12 @@ module.exports = function (app) {
         let vm = {
             pet: { /* TODO: Populate me */ },
             dropdowns: {
-                breeds    : await request.business.admin.getBreeds(),
-                genders   : request.business.admin.getGenders(),
-                origins   : request.business.admin.getOrigins(),
-                statuses  : request.business.admin.getStatuses(),
-                petpages  : await request.business.admin.getPetPages(),
-                litters   : await request.business.admin.getLitters()
+                breeds    : await request.business.dropdown.getBreeds(),
+                genders   : request.business.dropdown.getGenders(),
+                origins   : request.business.dropdown.getOrigins(),
+                statuses  : request.business.dropdown.getStatuses(),
+                petpages  : await request.business.dropdown.getPetPages(),
+                litters   : await request.business.dropdown.getLitters()
             }
         };
 
@@ -116,7 +116,7 @@ module.exports = function (app) {
         let vm = {
             download: { /* TODO */ },
             picklists: {
-                downloadpages : await request.business.admin.getDownloadPages()
+                downloadpages : await request.business.dropdown.getDownloadPages()
             }
         };
 
@@ -150,8 +150,8 @@ module.exports = function (app) {
         let vm = {
             project: { /* TODO */ },
             dropdowns: {
-                categories  : request.business.admin.getProjectCategories(),
-                statuses    : request.business.admin.getProjectStatuses()
+                categories  : request.business.dropdown.getProjectCategories(),
+                statuses    : request.business.dropdown.getProjectStatuses()
             }
         };
 
@@ -185,8 +185,8 @@ module.exports = function (app) {
         let vm = {
             show: { /* TODO */},
             dropdowns: {
-                venues      : request.business.admin.getShowVenues(),
-                categories  : request.business.admin.getShowCategories()
+                venues      : request.business.dropdown.getShowVenues(),
+                categories  : request.business.dropdown.getShowCategories()
             }
         };
 
@@ -220,9 +220,9 @@ module.exports = function (app) {
         let vm = {
             show: { /* TODO */ },
             dropdowns: {
-                placements  : request.business.admin.getPlacements(),
-                venues      : request.business.admin.getShowVenues(),
-                categories  : request.business.admin.getShowCategories()
+                placements  : request.business.dropdown.getPlacements(),
+                venues      : request.business.dropdown.getShowVenues(),
+                categories  : request.business.dropdown.getShowCategories()
             }
         };
 
@@ -257,7 +257,7 @@ module.exports = function (app) {
         let vm = {
             image: { /* TODO */},
             dropdowns: {
-                categories  : request.business.admin.getImageCategories()
+                categories  : request.business.dropdown.getImageCategories()
             }
         };
 
