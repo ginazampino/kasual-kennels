@@ -6,12 +6,14 @@
         {
             "label": "Start Express Server",
             "type": "shell",
-            "command": "npx nodemon server/server.js"
+            "command": "npx nodemon server/server.js",
+            "problemMatcher": []
         },
         {
             "label": "Start Sass Watcher",
             "type": "shell",
-            "command": "sass --watch scss:css"
+            "command": "sass --watch scss:css",
+            "problemMatcher": []
         }
     ]
 }
