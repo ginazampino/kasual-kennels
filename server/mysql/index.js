@@ -33,7 +33,8 @@ class Connection {
      * @param {object} entity The entity to insert.
      */
     insert(table, entity) {
-        const statement = `INSERT INTO ``${table}`` SET ?`;
+        const statement = 'INSERT INTO `' + table + '` SET ?';
+        //const statement = `INSERT INTO ``${table}`` SET ?`;
         return this.query(statement, entity);
     }
 
@@ -82,7 +83,7 @@ class Connection {
         if (!condition || typeof condition !== 'object') {
             throw new Error('Attempt to update an entity without a condition!');
         }
-        const statement = `UPDATE ``${table}`` SET ? WHERE ?`;
+        const statement = `UPDATE \`${table}\` SET ? WHERE ?`;
         return this.query(statement, entity, condition);
     }
 

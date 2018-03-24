@@ -30,8 +30,10 @@ module.exports = function (app) {
         
     */
     
-    app.get("/admin/pets", function (request, response) {
-        response.render("admin/admin-pets.html", {});
+    app.get("/admin/pets", async function (request, response) {
+        response.render("admin/admin-pets.html", {
+            pets: await request.business.pet.getAll()
+        });
     });
 
     /*
@@ -39,6 +41,11 @@ module.exports = function (app) {
         Edit Pets
         
     */
+
+    app.post("/admin/delete-pet", async function (request, response) {
+        await request.business.pet.delete(request.query.id);
+        response.send({ });
+    });
     
     app.get("/admin/edit-pet", async function (request, response) {
         let vm = {
@@ -54,7 +61,7 @@ module.exports = function (app) {
         };
 
         if (request.query.id) {
-            vm.pet = {}; // TODO
+            vm.pet = await request.business.pet.getOne(request.query.id);
         }
         else {
             vm.pet = {}; // TODO
@@ -64,16 +71,20 @@ module.exports = function (app) {
     });
 
     app.post("/admin/edit-pet", [
-        upload('daliImage', 'daneImage', 'photo', 'thumb')
-    ], function (request, response) {
+        upload('dali', 'dane', 'photo', 'thumb')
+    ], async function (request, response) {
         var id;
+
         if (request.query.id) {
             // TODO: update the entry.
+            await request.business.pet.update(request);
+            response.send({ });
         }
         else {
             // TODO: create the entry.
+            id = await request.business.pet.create(request);
+            response.send({ id });
         }
-        response.send({ id });
     });
 
     /*

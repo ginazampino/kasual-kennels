@@ -6,21 +6,21 @@ module.exports = function (app) {
 
     // Visit submenu:
     app.get("/crew", async function (request, response) {
-        response.render('crew.html', {
-            selectedNavItem: 'crew',
-            pets: await business.crew.getCrewPets()
-        });
-        // response.render("crew.html", {
-        //     selectedNavItem: "crew",
-        //     pets: [
-        //         {
-        //             name: "Hush",
-        //             gender: true,
-        //             img: "../img/crew/hush.gif",
-        //             description: "This is a pet description!"
-        //         }
-        //     ]
+        // response.render('crew.html', {
+        //     selectedNavItem: 'crew',
+        //     pets: await business.crew.getCrewPets()
         // });
+        response.render("crew.html", {
+            selectedNavItem: "crew",
+            pets: [
+                {
+                    name: "Hush",
+                    gender: true,
+                    img: "../img/crew/hush.gif",
+                    description: "This is a pet description!"
+                }
+            ]
+        });
     });
 
     app.get("/kennels", function (request, response) {
