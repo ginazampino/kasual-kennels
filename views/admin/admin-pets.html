@@ -37,13 +37,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for pet in pets %}
                     <tr>
-                        <th scope="row">1</th>
+                        <th scope="row">{{ pet.id }}</th>
                         <td>
-                            Dudley Beecham
+                            <a href="/admin/edit-pet?id={{pet.id}}">{{ pet.pet_name }}</a>
                         </td>
                         <td>
-                            Litters
+                            {{ pet.page_name }}
                         </td>
                         <td>
                             <div class="dropdown">
@@ -54,18 +55,31 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <a href="#">Edit</a>
+                                        <a href="/admin/edit-pet?id={{pet.id}}">Edit</a>
                                     </li>
                                     <li>
-                                        <a href="#">Delete</a>
+                                        <a href="#" onclick="deletePet({{pet.id}})">Delete</a>
                                     </li>
                                 </ul>
                             </div>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<script>
+    function deletePet(id) {
+        $.ajax({
+            url: '/admin/delete-pet?id=' + id,
+            method: 'POST',
+            success: function () {
+                window.location.reload(true);
+            }
+        })
+    }
+</script>
 {% endblock %}

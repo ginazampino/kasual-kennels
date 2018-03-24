@@ -21,11 +21,11 @@
                         <div class="form-group row">
                             <div class="col-md-3">
                                 <label>Name:</label><span class="required">*</span>
-                                <input name="petName" type="text" class="form-control" placeholder="N/A" required>
+                                <input name="pet_name" type="text" class="form-control" placeholder="N/A" required value="{{ pet.pet_name }}">
                             </div>
                             <div class="col-md-2">
                                 <label>Gender:</label><span class="required">*</span>
-                                <select name="petGender" class="form-control" required>
+                                <select name="gender" class="form-control" required>
                                     {% for gender in dropdowns.genders %}
                                     <option 
                                         {% if gender == pet.gender %}selected{% endif %}
@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Breed:</label><span class="required">*</span>
-                                <select name="petBreed" class="form-control" required>
+                                <select name="breed_id" class="form-control" required>
                                     {% for breed in dropdowns.breeds %}
                                     <option 
                                         {% if breed.id == pet.breed_id %}selected{% endif %}
@@ -45,22 +45,22 @@
                             </div>
                             <div class="col-md-1">
                                 <label>Gen(s):</label>
-                                <input name="petGeneration" type="text" class="form-control" placeholder="N/A">
+                                <input name="generation" type="number" class="form-control" placeholder="N/A" value="{{ pet.generation }}">
                             </div>
                             <div class="col-md-2">
                                 <label>Birth Date:</label>
-                                <input name="petBirthDate" type="text" class="form-control" placeholder="N/A">
+                                <input name="birth_date" type="text" class="form-control" placeholder="N/A" value="{{ pet.birth_date }}">
                             </div>
                             <div class="col-md-2">
                                 <label>Adoption Date:</label>
-                                <input name="petAdoptionDate" type="text" class="form-control" placeholder="N/A">
+                                <input name="adoption_date" type="text" class="form-control" placeholder="N/A" value="{{ pet.adoption_date }}">
                             </div>
                         </div>
                         <hr />
                         <div class="form-group row">
                             <div class="col-md-2">
                                 <label>Origin:</label><span class="required">*</span>
-                                <select name="petOrigin" class="form-control" required>
+                                <select name="origin" class="form-control" required>
                                     {% for origin in dropdowns.origins %}
                                         <option
                                             {% if origin == pet.origin %}selected{% endif %}
@@ -71,56 +71,56 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Previous Owner:</label>
-                                <input name="petPreviousOwner" type="text" class="form-control" placeholder="N/A">
+                                <input name="previous_owner" type="text" class="form-control" placeholder="N/A" value="{{ pet.previous_owner }}">
                             </div>
                             <div class="col-md-3">
                                 <label>Website:</label>
-                                <input name="petWebsite" type="text" class="form-control" placeholder="N/A">
+                                <input name="previous_site" type="text" class="form-control" placeholder="N/A" value="{{ pet.previous_site }}">
                             </div>
                             <div class="col-md-5">
                                 <label>URL:</label>
-                                <input name="petURL" type="text" class="form-control" placeholder="N/A">
+                                <input name="previous_url" type="text" class="form-control" placeholder="N/A" value="{{ pet.previous_url }}">
                             </div>
                         </div>
                         <hr />
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label class="checkbox-inline no_indent">
-                                    <input name="petInbred" type="checkbox" value="Inbred"> Inbred
+                                    <input name="inbred" type="checkbox" value="Inbred"> Inbred
                                 </label>
                                 <label class="checkbox-inline no_indent">
-                                    <input name="petOverbred" type="checkbox" value="Overbred"> Overbred
+                                    <input name="overbred" type="checkbox" value="Overbred"> Overbred
                                 </label>
                                 <label class="checkbox-inline no_indent">
-                                    <input name="petPedigreed" type="checkbox" value="Pedigreed"> Pedigreed
+                                    <input name="pedigreed" type="checkbox" value="Pedigreed"> Pedigreed
                                 </label>
                                 <label class="checkbox-inline no_indent">
-                                    <input name="petCrossbreed" type="checkbox" value="Crossbreed"> Crossbreed
+                                    <input name="crossbreed" type="checkbox" value="Crossbreed"> Crossbreed
                                 </label>
                                 <label class="checkbox-inline no_indent">
-                                    <input name="petSelectiveBreed" type="checkbox" value="Selective Breed"> Selective Breed
+                                    <input name="selective_breed" type="checkbox" value="Selective Breed"> Selective Breed
                                 </label>
                                 <label class="checkbox-inline no_indent">
-                                    <input name="petMixedBreed" type="checkbox" value="Mixed Breed"> Mixed Breed
+                                    <input name="mixed_breed" type="checkbox" value="Mixed Breed"> Mixed Breed
                                 </label>
                                 <label class="checkbox-inline no_indent">
-                                    <input name="petTreeTrimmed" type="checkbox" value="Tree Trimmed"> Tree Trimmed
+                                    <input name="tree_trimmed" type="checkbox" value="Tree Trimmed"> Tree Trimmed
                                 </label>
                                 <label class="checkbox-inline no_indent">
-                                    <input name="petHexed" type="checkbox" value="Hexed"> Hexed
+                                    <input name="hexed" type="checkbox" value="Hexed"> Hexed
                                 </label>
                                 <label class="checkbox-inline no_indent">
-                                    <input name="petBrexed" type="checkbox" value="Brexed"> Brexed
+                                    <input name="brexed" type="checkbox" value="Brexed"> Brexed
                                 </label>
                                 <label class="checkbox-inline no_indent">
-                                    <input name="petLegacy" type="checkbox" value="Legacy"> Legacy
+                                    <input name="legacy" type="checkbox" value="Legacy"> Legacy
                                 </label>
                             </div>
                         </div>
                         <hr />
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <textarea name="petDescription" class="form-control" rows="3" placeholder="Description..."></textarea>
+                                <textarea name="description" class="form-control" rows="3" placeholder="Description...">{{ pet.description }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                         <div class="form-group row">
                             <div class="col-md-2">
                                 <label>Status:</label>
-                                <select name="petStatus" class="form-control">
+                                <select name="career_status" class="form-control">
                                     {% for status in dropdowns.statuses %}
                                         <option
                                             {% if status == pet.status%}selected{% endif %}
@@ -147,12 +147,12 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Prefix Title(s):</label>
-                                <input name="petPrefixTitle" type="text" class="form-control" placeholder="N/A">
+                                <input name="prefix_titles" type="text" class="form-control" placeholder="N/A" value="{{ pet.prefix_titles }}">
                             </div>
                             <div class="col-md-2">
                                 <label>Show Prefix(es):</label>
                                 <div class="input-group">
-                                    <input name="petShowPrefix" type="text" class="form-control" placeholder="N/A">
+                                    <input name="show_prefixes" type="text" class="form-control" placeholder="N/A" value="{{ pet.show_prefixes }}">
                                     <span class="input-group-addon">/</span>
                                     <!-- Combine the two strings -->
                                 </div>
@@ -161,12 +161,12 @@
                                 <label>Show Name:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">KK's</span>
-                                    <input name="petShowName" type="text" class="form-control" placeholder="N/A">
+                                    <input name="show_name" type="text" class="form-control" placeholder="N/A" value="{{ pet.show_name }}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <label>Suffix Title(s):</label>
-                                <input name="petSuffixTitle" type="text" class="form-control" placeholder="N/A">
+                                <input name="suffix_titles" type="text" class="form-control" placeholder="N/A" value="{{ pet.suffix_titles }}">
                             </div>
                         </div>
                         <hr />
@@ -174,13 +174,19 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputFile">Dali (Portrait) Show Pose:</label>
-                                    <input type="file">
+                                    {% if pet.image_dali_id %}
+                                    <img class="thumbnail" src="/uploads/{{ pet.image_dali }}">
+                                    {% endif %}
+                                    <input name="dali" type="file">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputFile">Dane (Profile) Show Pose:</label>
-                                    <input type="file">
+                                    {% if pet.image_dane_id %}
+                                    <img class="thumbnail" src="/uploads/{{ pet.image_dane }}">
+                                    {% endif %}
+                                    <input name="dane" type="file">
                                 </div>
                             </div>
                         </div>
@@ -198,7 +204,7 @@
                         <div class="form-group row">
                             <div class="col-md-2">
                                 <label>Page:</label><span class="required">*</span>
-                                <select name="petPage" class="form-control" required>
+                                <select name="page_id" class="form-control" required>
                                     {% for page in dropdowns.petpages %}
                                     <option 
                                         {% if page.id == pet.page_id %}selected{% endif %}
@@ -208,7 +214,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Litter:</label>
-                                <select name="petLitter" class="form-control">
+                                <select name="litter_id" class="form-control">
                                     {% for litter in dropdowns.litters %}
                                     <option
                                         {% if litter.id == pet.litter_id %}selected{% endif %}
@@ -221,14 +227,20 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputFile">Photograph:</label><span class="required">*</span>
-                                    <input type="file" name="photo" required>
+                                    <label for="exampleInputFile">Photograph:</label>{% if not pet.id %}<span class="required">*</span>{% endif %}
+                                    {% if pet.image_photo_id %}
+                                    <img class="thumbnail" src="/uploads/{{ pet.image_photo }}">
+                                    {% endif %}
+                                    <input type="file" name="photo" {% if not pet.id %}required {% endif %}>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputFile">Thumbnail:</label>
-                                    <input type="file">
+                                    {% if pet.image_thumb_id %}
+                                    <img class="thumbnail" src="/uploads/{{ pet.image_thumb }}">
+                                    {% endif %}
+                                    <input name="thumb" type="file">
                                 </div>
                             </div>
                         </div>
@@ -257,11 +269,19 @@
             var form = new FormData(document.forms[0]);
 
             $.ajax({
-                url: '/admin/edit-pet',
+                url: window.location.href,
                 data: form,
                 type: 'POST',
                 processData: false,
-                contentType: false
+                contentType: false,
+                success: function (data) {
+                    if (data.id) {
+                        window.location.href = window.location.href + '?id=' + data.id;
+                    } else {
+                        window.location.reload(true);
+                        window.scrollTo(0, 0);
+                    }
+                }
             });
         } catch (err) {
             console.error(err);
