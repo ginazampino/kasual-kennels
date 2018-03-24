@@ -1,4 +1,5 @@
 var express = require("express");
+var path = require("path");
 var nunjucks = require("nunjucks");
 var mysql = require("./mysql");
 
@@ -14,10 +15,12 @@ mysql.setConnectionInfo({
 });
 
 // Static file handling:
-app.use(express.static("."));
+const pathToStatic = path.resolve(__dirname, "../wwwroot");
+app.use(express.static(pathToStatic));
 
 // Nunjucks initial configuration:
-nunjucks.configure("./views", {
+const pathToViews = path.resolve(__dirname, "../views");
+nunjucks.configure(pathToViews, {
     autoescape: true,
     express: app,
     noCache: true
