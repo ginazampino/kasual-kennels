@@ -7,6 +7,8 @@ module.exports.install = function (app) {
     addMysql(app);
     addStatic(app);
     addNunjucks(app);
+
+    require('./business').install(app);
 };
 
 function addMysql(app) {
@@ -14,7 +16,7 @@ function addMysql(app) {
         host     : "localhost",
         database : "kasualkennels",
         user     : "root",
-        password : ""
+        password : "1111"
     });    
 }
 

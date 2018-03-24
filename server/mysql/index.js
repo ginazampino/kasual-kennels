@@ -18,6 +18,15 @@ class Connection {
         this.conn = connection;
     }
 
+    close() {
+        return new Promise((resolve, reject) => {
+            this.conn.end((err) => {
+                if (err) reject(err);
+                else resolve();
+            });
+        });
+    }
+
     /**
      * Inserts an entity into a table asynchronously.
      * @param {string} table The table name.
