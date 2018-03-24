@@ -1,6 +1,6 @@
 //const multer = require('multer');
 //const upload = multer({ dest: 'C:/temp' });
-const business = require('../business');
+// const business = require('../business');
 const upload = require('../upload.js');
 
 module.exports = function (app) {
@@ -8,8 +8,8 @@ module.exports = function (app) {
         response.send({
             pet: { /* TODO: Populate me */ },
             dropdowns: {
-                breeds    : await business.admin.getBreeds(),
-                genders   : business.admin.getGenders()
+                breeds    : await request.business.admin.getBreeds(),
+                genders   : request.business.admin.getGenders()
             }
         });
     });
@@ -44,12 +44,12 @@ module.exports = function (app) {
         let vm = {
             pet: { /* TODO: Populate me */ },
             dropdowns: {
-                breeds    : await business.admin.getBreeds(),
-                genders   : business.admin.getGenders(),
-                origins   : business.admin.getOrigins(),
-                statuses  : business.admin.getStatuses(),
-                petpages  : await business.admin.getPetPages(),
-                litters   : await business.admin.getLitters()
+                breeds    : await request.business.admin.getBreeds(),
+                genders   : request.business.admin.getGenders(),
+                origins   : request.business.admin.getOrigins(),
+                statuses  : request.business.admin.getStatuses(),
+                petpages  : await request.business.admin.getPetPages(),
+                litters   : await request.business.admin.getLitters()
             }
         };
 
@@ -116,7 +116,7 @@ module.exports = function (app) {
         let vm = {
             download: { /* TODO */ },
             picklists: {
-                downloadpages : await business.admin.getDownloadPages()
+                downloadpages : await request.business.admin.getDownloadPages()
             }
         };
 
@@ -150,8 +150,8 @@ module.exports = function (app) {
         let vm = {
             project: { /* TODO */ },
             dropdowns: {
-                categories  : business.admin.getProjectCategories(),
-                statuses    : business.admin.getProjectStatuses()
+                categories  : request.business.admin.getProjectCategories(),
+                statuses    : request.business.admin.getProjectStatuses()
             }
         };
 
@@ -185,8 +185,8 @@ module.exports = function (app) {
         let vm = {
             show: { /* TODO */},
             dropdowns: {
-                venues      : business.admin.getShowVenues(),
-                categories  : business.admin.getShowCategories()
+                venues      : request.business.admin.getShowVenues(),
+                categories  : request.business.admin.getShowCategories()
             }
         };
 
@@ -220,9 +220,9 @@ module.exports = function (app) {
         let vm = {
             show: { /* TODO */ },
             dropdowns: {
-                placements  : business.admin.getPlacements(),
-                venues      : business.admin.getShowVenues(),
-                categories  : business.admin.getShowCategories()
+                placements  : request.business.admin.getPlacements(),
+                venues      : request.business.admin.getShowVenues(),
+                categories  : request.business.admin.getShowCategories()
             }
         };
 
@@ -257,7 +257,7 @@ module.exports = function (app) {
         let vm = {
             image: { /* TODO */},
             dropdowns: {
-                categories  : business.admin.getImageCategories()
+                categories  : request.business.admin.getImageCategories()
             }
         };
 
