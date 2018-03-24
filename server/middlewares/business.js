@@ -17,8 +17,7 @@ module.exports.install = function (app) {
             console.error(err);
             res.sendStatus(500);
         }
-
-        console.log('foo');
+        
         next();
     });
 };
