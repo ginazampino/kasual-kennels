@@ -1,10 +1,10 @@
 const crypto = require('crypto');
-const mime = require('mime');
+const mime = require('./node-mime');
 const multer = require('multer');
 const path = require('path');
 
 const storage = multer.diskStorage({
-    destination: path.resolve(__dirname, '../uploads'),
+    destination: path.resolve(__dirname, '../wwwroot/uploads'),
     filename: function (req, file, cb) {
         crypto.pseudoRandomBytes(16, (err, bytes) => {
             cb(null, bytes.toString('hex') + Date.now() + '.' + mime.getExtension(file.mimetype));

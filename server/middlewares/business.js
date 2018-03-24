@@ -39,6 +39,6 @@ async function createBusiness(req, res) {
     async function afterResponse() {
         res.removeListener('finish', afterResponse);
         res.removeListener('close', afterResponse);
-        await business.connection.close();
+        // await business.connection.close();
     }
 }
