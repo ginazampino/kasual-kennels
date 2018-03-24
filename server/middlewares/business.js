@@ -1,7 +1,8 @@
 const mysql = require('../mysql');
 
 const businessModules = {
-    'dropdown': require('../business/dropdown')
+    'dropdown': require('../business/dropdown'),
+    'pet': require('../business/pet')
 }
 
 /**
