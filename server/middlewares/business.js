@@ -1,7 +1,7 @@
 const mysql = require('../mysql');
 
 const businessModules = {
-    'admin': require('../business/admin')
+    'dropdown': require('../business/dropdown')
 }
 
 /**
