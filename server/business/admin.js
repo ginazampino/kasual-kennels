@@ -49,6 +49,10 @@ module.exports = class AdminBusiness {
         return this.conn.query(sql);
     };
 
+    getOrigins() {
+        return ['Adoption Center', 'Application', 'Breeding', 'Freebie', 'Gift', 'Grab Bag', 'Hexing', 'Sale', 'Trade'];
+    }
+
     getProjectCategories() {
         return ['Hexing Project', 'Breeding Project'];
     }
@@ -71,6 +75,10 @@ module.exports = class AdminBusiness {
 
     getImageCategories() {
         return ['Albums', 'Awards', 'Community Hubs', 'Fan Sites', 'Free-For-All Stamps', 'Limited Edition Stamps', 'Stamp Collection'];
+    }
+
+    getStatuses() {
+        return ['Not Applicable', 'Active', 'Inactive', 'Retired'];
     }
 };
 

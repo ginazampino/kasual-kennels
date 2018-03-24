@@ -16,7 +16,7 @@ function addMysql(app) {
         host     : "localhost",
         database : "kasualkennels",
         user     : "root",
-        password : "1111"
+        password : ""
     });    
 }
 
