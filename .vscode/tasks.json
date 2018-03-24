@@ -12,7 +12,7 @@
         {
             "label": "Start Sass Watcher",
             "type": "shell",
-            "command": "sass --watch scss:css",
+            "command": "sass --watch wwwroot/scss:wwwroot/css",
             "problemMatcher": []
         }
     ]
