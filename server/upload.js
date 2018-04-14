@@ -3,11 +3,20 @@ const mime = require('./node-mime');
 const multer = require('multer');
 const path = require('path');
 
+/* Matches invalid characters in file names. */
+const fileNameMask = /[^a-zA-Z0-9\-_]/g;
+
 const storage = multer.diskStorage({
     destination: path.resolve(__dirname, '../wwwroot/uploads'),
     filename: function (req, file, cb) {
-        crypto.pseudoRandomBytes(16, (err, bytes) => {
-            cb(null, bytes.toString('hex') + Date.now() + '.' + mime.getExtension(file.mimetype));
+        let filename = file.originalname;
+        filename = filename.replace(/\.[a-zA-Z0-9]+$/, '');
+        filename = filename.replace(fileNameMask, '');
+        crypto.pseudoRandomBytes(4, (err, buf) => {
+            if (err) return cb(err, null);
+            filename += '_' + buf.toString('hex');
+            filename += '.' + mime.getExtension(file.mimetype);
+            cb(null, filename);
         });
     }
 });

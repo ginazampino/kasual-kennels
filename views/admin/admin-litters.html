@@ -28,50 +28,17 @@
                         <th>
                             Name
                         </th>
-                        <th>
-                            Adoption(s)
-                        </th>
                         <th style="width: 5%">
                             Action
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            Spunky & Bowser
-                        </td>
-                        <td>
-                            Toto, Sparky, Max
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-default btn-xs" data-toggle="dropdown" role="button">
-                                    Manage
-                                    <span class="caret"></span>
-                                </button>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li>
-                                        <a href="#">Edit</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Delete</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
 
+                {% for litter in litters %}
                     <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            Coke & Pepsi
-                        </td>
-                        <td>
-                            Lemon, Lime, Orange, Peach
-                        </td>
+                        <th scope="row">{{ litter.id }}</th>
+                        <td>{{ litter.litter_name }}</td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-default btn-xs" data-toggle="dropdown" role="button">
@@ -81,19 +48,31 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <a href="#">Edit</a>
+                                        <a href="/admin/edit-litter?id={{litter.id}}">Edit</a>
                                     </li>
                                     <li>
-                                        <a href="#">Delete</a>
+                                        <a href="#" onclick="deleteLitter({{litter.id}})">Delete</a>
                                     </li>
                                 </ul>
                             </div>
                         </td>
                     </tr>
+                {% endfor %}
                 </tbody>
 
             </table>
         </div>
     </div>
 </div>
+<script>
+    function deleteLitter(id) {
+        $.ajax({
+            url: '/admin/delete-litter?id=' + id,
+            method: 'POST',
+            success: function () {
+               window.location.reload(true);
+            }
+        })
+    }
+</script>
 {% endblock %}

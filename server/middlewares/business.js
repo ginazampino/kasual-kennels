@@ -1,8 +1,14 @@
 const mysql = require('../mysql');
 
 const businessModules = {
+    'entry': require('../business/entry'),
     'dropdown': require('../business/dropdown'),
-    'pet': require('../business/pet')
+    'pet': require('../business/pet'),
+    'litter': require('../business/litter'),
+    'image': require('../business/image'),
+    'project': require('../business/project'),
+    'show': require('../business/show'),
+    'download': require('../business/download')
 }
 
 /**

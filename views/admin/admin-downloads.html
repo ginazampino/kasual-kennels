@@ -1,99 +1,90 @@
-{% extends "admin/admin.html" %} {% block main %}
-<div class="container" style="padding-top: 50px">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="page-header">
-                <h1>Downloads</h1>
+{% extends "admin/admin.html" %}
+{% block main %}
+{{ downloads }}
+    <div class="container" style="padding-top: 50px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>Downloads</h1>
+                </div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <div class="btn-toolbar col-md-12">
-                            <a href="/admin/edit-download" class="btn btn-default col-md-12">Add New</a>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <div class="btn-toolbar col-md-12">
+                                <a href="/admin/edit-download" class="btn btn-default col-md-12">Add New</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <hr/>
             </div>
-            <hr />
-        </div>
-        <div class="col-md-12">
-            <table class="table table-hover table-sm">
-                <thead>
-                    <tr>
-                        <th style="width: 5%">
-                            ID
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Page
-                        </th>
-                        <th style="width: 5%">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            Blue Pillow Recolor Set
-                        </td>
-                        <td>
-                            Toys
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-default btn-xs" data-toggle="dropdown" role="button">
-                                    Manage
-                                    <span class="caret"></span>
-                                </button>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li>
-                                        <a href="#">Edit</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Delete</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            Basic Friendship Bracelets
-                        </td>
-                        <td>
-                            Clothes
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-default btn-xs" data-toggle="dropdown" role="button">
-                                    Manage
-                                    <span class="caret"></span>
-                                </button>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li>
-                                        <a href="#">Edit</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Delete</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
+            <div class="col-md-12">
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%">
+                                ID
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Page
+                            </th>
+                            <th style="width: 5%">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for download in downloads %}
+                            <tr>
+                                <th scope="row">
+                                    {{ download.id }}
+                                </th>
+                                <td>
+                                    {{ download.download_name }}
+                                </td>
+                                <td>
+                                    {{download.page_name}}
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default btn-xs" data-toggle="dropdown" role="button">
+                                            Manage
+                                            <span class="caret"></span>
+                                        </button>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <a href="/admin/edit-download?id={{download.id}}">Edit</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" onclick="deleteDownload({{download.id}})">Delete</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
-
             </table>
         </div>
     </div>
 </div>
+<script>
+    function deleteDownload(id) {
+        $.ajax({
+            url: '/admin/delete-download?id=' + id,
+            method: 'POST',
+            success: function () {
+                window
+                    .location
+                    .reload(true);
+            }
+        })
+    }
+</script>
 {% endblock %}

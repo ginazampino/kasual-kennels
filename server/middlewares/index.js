@@ -1,9 +1,11 @@
+var bodyParser = require('body-parser');
 var express = require('express');
 var mysql = require('../mysql');
 var nunjucks = require('nunjucks');
 var path = require('path');
 
 module.exports.install = function (app) {
+    app.use(bodyParser.json());
     addMysql(app);
     addStatic(app);
     addNunjucks(app);

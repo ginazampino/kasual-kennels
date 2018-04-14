@@ -19,7 +19,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Image:</label><span class="required">*</span>
-                                            <input type="file" required>
+                                            {% if image.id %}
+                                            <img class="thumbnail" src="/uploads/{{ image.file_name }}">
+                                            {% endif %}
+                                            <input name="image" type="file"
+                                                {% if not image.id %}
+                                                required
+                                                {% endif %}
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -27,23 +34,23 @@
                                 <div class="form-group row">
                                     <div class="col-md-6">
                                         <label>Category:</label><span class="required">*</span>
-                                        <select name="imageCategory" class="form-control" required>
+                                        <select name="category_id" class="form-control" required>
                                             {% for category in dropdowns.categories %}
                                                 <option
-                                                {% if category == image.category %}selected{% endif %}
-                                                value="{{ category }}">{{ category }}</option>
+                                                {% if category.id == image.category_id %}selected{% endif %}
+                                                value="{{ category.id }}">{{ category.category_name }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label>Title:</label>
-                                        <input name="imageTitle" type="text" class="form-control" placeholder="N/A">
+                                        <input name="title" type="text" class="form-control" placeholder="N/A" value="{{ image.title }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label>URL:</label>
-                                        <input name="imageURL" type="text" class="form-control" placeholder="N/A">
+                                        <input name="url" type="text" class="form-control" placeholder="N/A" value="{{ image.url }}">
                                     </div>
                                 </div>
                             </div>
@@ -67,4 +74,31 @@
         </div>
     </div>
 </form>
+<script>
+    $('form').on('submit', function () {
+        try {
+            var form = new FormData(document.forms[0]);
+
+            $.ajax({
+                url: window.location.href,
+                data: form,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.id) {
+                        window.location.href = window.location.href + '?id=' + data.id;
+                    } else {
+                        window.location.reload(true);
+                        window.scrollTo(0, 0);
+                    }
+                }
+            });
+        } catch (err) {
+            console.error(err);
+        }
+
+        return false;
+    });
+</script>
 {% endblock %}

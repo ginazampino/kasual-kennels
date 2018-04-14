@@ -8,7 +8,7 @@ jQuery.fn.extend({
             return copies;
         });
 
-        var table = $(`<table class=table>
+        var table = $(`<table class=table style='margin-top: 10px'>
             <thead>
                 <tr>
                     <th style="width: 80px">#</th>

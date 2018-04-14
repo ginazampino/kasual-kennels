@@ -1,5 +1,6 @@
 {% extends "admin/admin.html" %} {% block main %}
 <form action="" method="POST" style="margin-bottom: 80px">
+    <input type="hidden" name="image_id" value="{{ download.image_id }}">
     <div class="container" style="padding-top: 50px">
         <div class="row">
             <div class="col-md-12">
@@ -18,25 +19,69 @@
                                 <div class="form-group row">
                                     <div class="col-md-9">
                                         <label>Name:</label><span class="required">*</span>
-                                        <input name="downloadName" type="text" class="form-control" placeholder="N/A" required>
+                                        <input name="download_name" type="text" class="form-control" placeholder="N/A" required value="{{ download.download_name }}">
                                     </div>
                                     <div class="col-md-3">
                                         <label>Page:</label><span class="required">*</span>
-                                        <select name="downloadPage" class="form-control" required>
-                                            {% for page in picklists.downloadpages %}
+                                        <select name="page_id" class="form-control" required>
+                                            {% for page in dropdowns.downloadpages %}
                                                 <option
-                                                {% if page == download.page_id %}selected{% endif %}
+                                                {% if page.id == download.page_id %}selected{% endif %}
                                                 value="{{ page.id }}">{{ page.page_name }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
+
                                 </div>
                                 <hr />
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <div class="form-group">
+                                            <label>Image:</label><span class="required">*</span>
+                                            {% if download.download_image %}
+                                            <img class="thumbnail" src="/uploads/{{ download.download_image }}">
+                                            {% endif %}
+                                            <input name="image" type="file" {% if not download.download_image %}required{% endif %}>
+                                        </div>
+                                     </div>
+                                </div>
+                                {% if download.files %}<hr>{% endif %}
+                                <div class="form-group row">
+                                    {% if download.files %}
+                                    <div class="col-md-12">
+                                        <h4>Existing Files</h4>
+
+                                        <table class="table table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 60px">ID</th>
+                                                    <th style="width: 35%">File Name</th>
+                                                    <th style="width: 15%">Size</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for file in download.files %}
+                                                <tr>
+                                                    <th>{{ file.id }}</th>
+                                                    <td>
+                                                        <input class="form-control" name="file_{{ file.id }}" type="text" value="{{ file.download_name }}">
+                                                    </td>
+                                                    <td>{{ file.file_size }}</td>
+                                                    <td><button type="button" class="btn btn-xs" data-delete-id="{{ file.id }}">Delete</button></td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
                                             <label>File:</label><span class="required">*</span>
-                                            <input id="files" type="file" multiple required>
+                                            <input id="files" type="file" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -61,11 +106,59 @@
         </div>
     </div>
 </form>
-{# <script>
-    $(function () {
-        $("input[type=file]").fileUpload();
+<script>
+    $('form').on('submit', function () {
+        try {
+            var form = new FormData(document.forms[0]);
+            var files = $("#files").data('files')();
 
-        $("button[type=submit]").on("click", function (event) {
+            files.forEach(file => form.append('files', file));
+
+            $.ajax({
+                url: window.location.href,
+                data: form,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.id) {
+                        window.location.href = window.location.href + '?id=' + data.id;
+                    } else {
+                        window.location.reload(true);
+                        window.scrollTo(0, 0);
+                    }
+                }
+            });
+        } catch (err) {
+            console.error(err);
+        }
+
+        return false;
+    });
+</script>
+<script>
+    $(function () {
+        $("#files").fileUpload();
+        $("[data-delete-id]").on("click", function () {
+            var button = $(this);
+            var id = $(this).attr("data-delete-id");
+
+            $.ajax({
+                url: "/admin/edit-download-delete-file",
+                data: JSON.stringify({ id }),
+                type: "POST",
+                contentType: "application/json",
+                success: function () {
+                    var row = button.closest("tr");
+                    row.remove();
+                }
+            });
+        });
+    })
+</script>
+{% endblock %}
+
+        {# $("button[type=submit]").on("click", function (event) {
             event.preventDefault();
             event.stopPropagation();
 
@@ -81,7 +174,4 @@
             });
 
             return false;
-        });
-    })
-</script> #}
-{% endblock %}
+        }); #}
