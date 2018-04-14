@@ -6,11 +6,19 @@ use `kasualkennels`;
 --  General Tables
 --
 
+CREATE TABLE image_categories (
+    id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    category_name   VARCHAR(255) UNIQUE NOT NULL
+);
+
 CREATE TABLE images (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     file_name       VARCHAR(1000) NOT NULL,
     title           VARCHAR(255) NULL,
-    url             VARCHAR(255) NULL
+    url             VARCHAR(255) NULL,
+    active          BIT DEFAULT 1 NOT NULL,
+    category_id     INT NULL, -- image_categories
+    FOREIGN KEY (category_id) REFERENCES image_categories(id)
 );
 
 CREATE TABLE pages (
@@ -25,6 +33,7 @@ CREATE TABLE projects (
     project_status  ENUM('Open', 'Limited', 'Closed') NOT NULL,
     completed_date  VARCHAR(255) NULL,
     description     TEXT NULL,
+    active          BIT DEFAULT 1 NOT NULL,
     image_id        INT NOT NULL, -- images   
     FOREIGN KEY (image_id) REFERENCES images(id)
 );
@@ -40,6 +49,7 @@ CREATE TABLE pet_breeds (
 
 CREATE TABLE pets (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    active          BIT DEFAULT 1 NOT NULL,
 
     -- Biography
     pet_name       VARCHAR(255) UNIQUE NOT NULL,
@@ -68,7 +78,7 @@ CREATE TABLE pets (
     -- Website
     page_id         INT NULL, -- pages
     litter_id       INT NULL, -- litters
-    image_photo_id  INT NOT NULL, -- images
+    image_photo_id  INT NULL, -- images
     image_thumb_id  INT NULL, -- images
 
     -- Foreign Keys
@@ -77,11 +87,11 @@ CREATE TABLE pets (
     FOREIGN KEY (image_dane_id) REFERENCES images(id),
     FOREIGN KEY (image_photo_id) REFERENCES images(id),
     FOREIGN KEY (image_thumb_id) REFERENCES images(id)
-
 );
 
 CREATE TABLE litters (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    active          BIT DEFAULT 1 NOT NULL,
     litter_name     VARCHAR(255) UNIQUE NOT NULL,
     requester       VARCHAR(255) NULL,
     description     TEXT NULL,
@@ -92,7 +102,6 @@ CREATE TABLE litters (
 --
 --  Shows and Show Entries Tables
 --
-
 
 CREATE TABLE show_venues (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -105,8 +114,15 @@ CREATE TABLE show_categories (
     category_name   VARCHAR(255) UNIQUE NOT NULL
 );
 
+CREATE TABLE placements (
+    id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    placement_name  VARCHAR(255) NOT NULL,
+    points          INT NOT NULL
+);
+
 CREATE TABLE shows (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    active          BIT DEFAULT 1 NOT NULL,
     show_name       VARCHAR(255) UNIQUE NOT NULL,
     url             VARCHAR(1000) NOT NULL,
     venue_id        INT NOT NULL, -- show_venues
@@ -119,22 +135,26 @@ CREATE TABLE shows (
 CREATE TABLE show_entries (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     entry_name      VARCHAR(255) UNIQUE NOT NULL,
-    place           INT NOT NULL,
-    show_id         INT NOT NULL
+    placement_id    INT NOT NULL, -- placements
+    show_id         INT NOT NULL,
+    FOREIGN KEY (placement_id) REFERENCES placements(id),
+    FOREIGN KEY (show_id) REFERENCES shows(id)
 );
 
 CREATE TABLE my_entries (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    active          BIT DEFAULT 1 NOT NULL,
     pet_id          INT NOT NULL, -- pets
     show_name       VARCHAR(255) NOT NULL,
-    place           INT NOT NULL,
+    placement_id    INT NOT NULL, -- placements
     url             VARCHAR(1000) NULL,
     venue_id        INT NOT NULL, -- show_venues
     category_id     INT NOT NULL, -- show_categories
     show_date       VARCHAR(255) NULL,
     FOREIGN KEY (pet_id) REFERENCES pets(id),
     FOREIGN KEY (venue_id) REFERENCES show_venues(id),
-    FOREIGN KEY (category_id) REFERENCES show_categories(id) 
+    FOREIGN KEY (category_id) REFERENCES show_categories(id),
+    FOREIGN KEY (placement_id) REFERENCES placements(id)
 );
 
 --
@@ -143,6 +163,7 @@ CREATE TABLE my_entries (
 
 CREATE TABLE downloads (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    active          BIT DEFAULT 1 NOT NULL,
     download_name   VARCHAR(255) UNIQUE NOT NULL,
     description     TEXT NULL,
     image_id        INT NOT NULL, -- images
@@ -160,4 +181,36 @@ CREATE TABLE download_files (
     FOREIGN KEY (download_id) REFERENCES downloads(id)
 );
 
+INSERT INTO image_categories (category_name)
+VALUES ('Albums'), ('Awards'), ('Community Hubs'), 
+       ('Fan Sites'), ('Free-For-All Stamps'), 
+       ('Limited Edition Stamps'), ('Stamp Collection');
 
+INSERT INTO pages (page_name)
+VALUES ('Crew'), ('Kennels'), ('Litters'), ('Singles');
+
+INSERT INTO pet_breeds (breed_name)
+VALUES ('Bulldog'), ('Chihuahua'), ('Dachshund'), ('Dalmatian'),
+       ('Great Dane'), ('Labrador'), ('Mutt'), ('Pooddle'),
+       ('Scottie'), ('Sheepdog'), ('Brexed'), ('Hexed'), ('Wildz'),
+       ('Overwrite'), ('Nonoverwrite');
+
+INSERT INTO show_venues (venue_name, url)
+VALUES ('RKC Petz Forum (RKC)', 'http://petzforum.proboards.com/'),
+       ('Whiskerwick (WW)', 'http://whiskerwick.boards.net/'),
+       ('Kasual Kennels (KK)', 'http://kasualkennels.petz.site');
+
+INSERT INTO show_categories (category_name)
+VALUES ('EBW Pose Show (Dali)'),
+       ('EBW Pose Show (Dane)'),
+       ('Standard Pose Show (Dali)'),
+       ('Standard Pose Show (Dane)'),
+       ('Contest');
+
+INSERT INTO placements (placement_name, points)
+VALUES ('BIS', 5),
+       ('1st', 4),
+       ('2nd', 3),
+       ('3rd', 2),
+       ('HM', 1),
+       ('P', 0);

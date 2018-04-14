@@ -28,7 +28,6 @@ module.exports = class PetBusiness {
             previous_owner: body.previous_owner,
             previous_site: body.previous_site,
             previous_url: body.previous_url,
-            // traits go here?
             description: body.description,
             career_status: body.career_status,
             prefix_titles: body.prefix_titles,
@@ -45,10 +44,14 @@ module.exports = class PetBusiness {
 
     delete(id) {
         const sql = `
-            UPDATE pets
-                SET active = 0
-                WHERE id = ?
+            UPDATE 
+                pets
+            SET 
+                active = 0
+            WHERE 
+                id = ?
         `;
+        
         return this.conn.query(sql, id);
     }
 
@@ -66,6 +69,7 @@ module.exports = class PetBusiness {
             ORDER BY
                 pet_name;
         `;
+
         return this.conn.query(sql);
     }
 
@@ -90,8 +94,24 @@ module.exports = class PetBusiness {
             WHERE
                 pets.id = ?
         `;
+
         let rows = await this.conn.query(sql, id);
         return rows && rows[0];
+    }
+
+    search(term) {
+        const sql = `
+            SELECT 
+                pets.id
+            ,   pets.pet_name as text
+            FROM   
+                pets
+            WHERE  
+                pet_name LIKE ?
+        `;
+        term = '%' + term + '%';
+
+        return this.conn.query(sql, term);
     }
 
     update(request) {
@@ -108,7 +128,6 @@ module.exports = class PetBusiness {
             previous_owner: body.previous_owner,
             previous_site: body.previous_site,
             previous_url: body.previous_url,
-            // traits go here?
             description: body.description,
             career_status: body.career_status,
             prefix_titles: body.prefix_titles,

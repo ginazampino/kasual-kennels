@@ -19,7 +19,11 @@
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label>Pet:</label><span class="required">*</span>
-                                        <input name="entryPet" type="text" class="form-control" placeholder="N/A" required>
+                                        <select class="form-control" id="pet_id" name="pet_id" placeholder="N/A" required>
+                                            {% if entry.pet_id %}
+                                            <option selected="selected" value="{{ entry.pet_id }}">{{ entry.pet_name }}</option>
+                                            {% endif %}
+                                        </select>
                                     </div>
 
                                 </div>
@@ -27,48 +31,52 @@
                                 <div class="form-group row">
                                     <div class="col-md-5">
                                         <label>Show:</label><span class="required">*</span>
-                                        <input name="entryShow" type="text" class="form-control" placeholder="N/A" required>
+                                        <input name="show_name" type="text" class="form-control" placeholder="N/A" required
+                                            value="{{ entry.show_name }}"
+                                        >
                                     </div>
                                     <div class="col-md-2">
                                         <label>Placement:</label><span class="required">*</span>
-                                        <select name="entryPlacement" class="form-control" required>
+                                        <select name="placement_id" class="form-control" required>
                                             {% for placement in dropdowns.placements %}
                                                 <option
                                                 {% if placement == entry.placement %}selected{% endif %}
-                                                value="{{ placement }}">{{ placement }}</option>
+                                                value="{{ placement.id }}">{{ placement.placement_name }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-5">
                                         <label>URL:</label><span class="required">*</span>
-                                        <input name="entryURL" type="text" class="form-control" placeholder="N/A" required>
+                                        <input name="url" type="text" class="form-control" placeholder="N/A" required
+                                            value="{{ entry.url }}"
+                                        >
                                     </div>
                                 </div>
                                 <hr />
                                 <div class="form-group row">
                                     <div class="col-md-4">
                                         <label>Venue:</label><span class="required">*</span>
-                                        <select name="entryVenue" class="form-control" required>
+                                        <select name="venue_id" class="form-control" required>
                                             {% for venue in dropdowns.venues %}
                                                 <option
                                                 {% if venue == entry.venue %}selected{% endif %}
-                                                value="{{ venue }}">{{ venue }}</option>
+                                                value="{{ venue.id }}">{{ venue.venue_name }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Category:</label><span class="required">*</span>
-                                        <select name="entryCategory" class="form-control" required>
+                                        <select name="category_id" class="form-control" required>
                                             {% for category in dropdowns.categories %}
                                                 <option
                                                 {% if category == entry.category %}selected{% endif %}
-                                                value="{{ category }}">{{ category }}</option>
+                                                value="{{ category.id }}">{{ category.category_name }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Date:</label>
-                                        <input name="entryDate" type="text" class="form-control" placeholder="N/A">
+                                        <input name="show_date" type="text" class="form-control" placeholder="N/A">
                                     </div>
                                 </div>
                             </div>
@@ -94,4 +102,38 @@
         </div>
     </div>
 </form>
+<script>
+    $('#pet_id').select2({
+        ajax: {
+            dataType: 'json',
+            url: '/admin/ajax/pets'
+        }
+    });
+
+    $('form').on('submit', function () {
+        try {
+            var form = new FormData(document.forms[0]);
+
+            $.ajax({
+                url: window.location.href,
+                data: form,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.id) {
+                        window.location.href = window.location.href + '?id=' + data.id;
+                    } else {
+                        window.location.reload(true);
+                        window.scrollTo(0, 0);
+                    }
+                }
+            });
+        } catch (err) {
+            console.error(err);
+        }
+
+        return false;
+    });
+</script>
 {% endblock %}

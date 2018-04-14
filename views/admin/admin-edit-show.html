@@ -1,4 +1,5 @@
 {% extends "admin/admin.html" %} {% block main %}
+<form action="" method="POST" style="margin-bottom: 80px">
 
 <div class="container" style="padding-top: 50px">
     <div class="row">
@@ -18,12 +19,12 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label>Name:</label><span class="required">*</span>
-                                    <input name="showName" type="text" class="form-control" placeholder="N/A" required>
+                                    <input name="show_name" type="text" class="form-control" placeholder="N/A" required value="{{ show.show_name }}">
                                 </div>
                                 <div class="form-group row">
                                 <div class="col-md-6">
                                     <label>URL:</label>
-                                    <input name="showURL" type="text" class="form-control" placeholder="N/A">
+                                    <input name="url" type="text" class="form-control" placeholder="N/A" value="{{ show.url }}">
                                 </div>
                             </div>
                             </div>
@@ -31,27 +32,27 @@
                             <div class="form-group row">
                                 <div class="col-md-4">
                                     <label>Venue:</label><span class="required">*</span>
-                                    <select name="showVenue" class="form-control" required>
+                                    <select name="venue_id" class="form-control" required value="{{ show.venue_name }}">
                                         {% for venue in dropdowns.venues %}
                                             <option
-                                            {% if venue == show.venue %}selected{% endif %}
-                                            value="{{ venue }}">{{ venue }}</option>
+                                            {% if venue.id == show.venue_id %}selected{% endif %}
+                                            value="{{ venue.id }}">{{ venue.venue_name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label>Category:</label><span class="required">*</span>
-                                    <select name="showCategory" class="form-control" required>
+                                    <select name="category_id" class="form-control" required>
                                         {% for category in dropdowns.categories %}
                                             <option
-                                            {% if category == show.category %}selected{% endif %}
-                                            value="{{ category }}">{{ category }}</option>
+                                            {% if category.id == show.category_id %}selected{% endif %}
+                                            value="{{ category.id }}">{{ category.category_name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label>Date:</label><span class="required">*</span>
-                                    <input name="showDate" type="text" class="form-control" placeholder="N/A" required>
+                                    <input name="show_date" type="text" class="form-control" placeholder="N/A" required value="{{ show.show_date }}">
                                 </div>
                             </div>
                         </div>
@@ -65,46 +66,16 @@
                             <h1 class="panel-title">Entries</h1>
                         </div>
                         <div class="panel-body">
+                            {% for entry in show.entries %}
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <div class="input-group">
-                                        <span class="input-group-addon">BIS</span>
-                                        <input name="showBIS" type="text" class="form-control" placeholder="N/A">
+                                        <span class="input-group-addon">{{ entry.placement_name }}</span>
+                                        <input name="entries" type="text" class="form-control" placeholder="N/A" value="{{ entry.entry_name }}">
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">1st</span>
-                                        <input name="showFirst" type="text" class="form-control" placeholder="N/A">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">2nd</span>
-                                        <input name="showSecond" type="text" class="form-control" placeholder="N/A">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">3rd</span>
-                                        <input name="showThird" type="text" class="form-control" placeholder="N/A">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">HM</span>
-                                        <input name="showHM" type="text" class="form-control" placeholder="N/A">
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -125,4 +96,33 @@
         </div>
     </div>
 </div>
+</form>
+<script>
+    $('form').on('submit', function () {
+        try {
+            var form = new FormData(document.forms[0]);
+
+            $.ajax({
+                url: window.location.href,
+                data: form,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.id) {
+                        window.location.href = window.location.href + '?id=' + data.id;
+                    } else {
+                        window.location.reload(true);
+                        window.scrollTo(0, 0);
+                    }
+                }
+            });
+        } catch (err) {
+            console.error(err);
+        }
+
+        return false;
+
+    });
+</script>
 {% endblock %}

@@ -37,15 +37,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            Kas's EBW Dali Pose Show #1
-                        </td>
-                        <td>
-                            Whiskerwick (WW)
-                        </td>
-                        <td>
+                    {% for show in shows %}
+                        <tr>
+                            <th scope="row">
+                                {{ show.id }}
+                            </th>
+                            <td>
+                                {{ show.show_name }}
+                            </td>
+                            <td>
+                                {{ show.venue_name }}
+                            </td>
+                            <td>
                             <div class="dropdown">
                                 <button class="btn btn-default btn-xs" data-toggle="dropdown" role="button">
                                     Manage
@@ -54,19 +57,31 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <a href="#">Edit</a>
+                                        <a href="/admin/edit-show?id={{show.id}}">Edit</a>
                                     </li>
                                     <li>
-                                        <a href="#">Delete</a>
+                                        <a href="#" onclick="deleteShow({{show.id}})">Delete</a>
                                     </li>
                                 </ul>
                             </div>
                         </td>
-                    </tr>
+                        </tr>
+                    {% endfor %}
                 </tbody>
 
             </table>
         </div>
     </div>
 </div>
+<script>
+    function deleteShow(id) {
+        $.ajax({
+            url: '/admin/delete-show?id=' + id,
+            method: 'POST',
+            success: function () {
+                window.location.reload(true);
+            }
+        })
+    }
+</script>
 {% endblock %}
