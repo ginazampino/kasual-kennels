@@ -6,6 +6,31 @@ const MAX_CONNECTION_ATTEMPTS = 5;
 /** The wait interval after a failed conncetion before retrying. */
 const CONNECTION_RETRY_INTERVAL = 100;
 
+function connectInternalAsync(options) {
+    // Stores the MySQL connection object.
+    let connection;
+
+    // Stores the remaining attempts to connect.
+    let attempts = MAX_CONNECTION_ATTEMPTS;
+
+    return new Promise((resolve, reject) => {
+        makeConnectionAttempt();
+
+        function makeConnectionAttempt() {
+            connection = mysql.createConnection(options);
+            connection.connect((err) => {
+                if (!err)
+                    return resolve(connection);
+
+                if (--attempts)
+                    return setTimeout(makeConnectionAttempt, CONNECTION_RETRY_INTERVAL);
+
+                reject(err);
+            });
+        }
+    });
+}
+
 /**
  * Represents a MySQL/MariaDB connection with promisified queries.
  */
@@ -16,6 +41,7 @@ class Connection {
      */
     constructor(connection) {
         this.conn = connection;
+        this._handleErrors();
     }
 
     close() {
@@ -109,6 +135,22 @@ class Connection {
         });
     }
 
+    _handleErrors() {
+        this.conn.on('error', (err) => {
+            if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+                /*
+                    This error is both known and expected.
+
+                    Mainly because MySQL occasionally drops TCP/IP connections if
+                    it has been running for a long period of time.
+
+                    Since we expect these errors occasionally, we want to recover gracefully.
+                 */
+                this.conn = await connectInternalAsync(Connection.ConnectionInfo);
+            }
+        });
+    }
+
     _rollback() {
         return new Promise((resolve, reject) => {
             this.conn.rollback((err) => {
@@ -123,26 +165,28 @@ class Connection {
     /**
      * Establishes a MySQL connection asynchronously.
      */
-    static connect() {
-        return new Promise((resolve, reject) => {
-            let attempts = MAX_CONNECTION_ATTEMPTS;
-            let connection;
+    async static connect() {
+        return new Connection(await connectInternalAsync(Connection.ConnectionInfo));
+    
+        // return new Promise((resolve, reject) => {
+        //     let attempts = MAX_CONNECTION_ATTEMPTS;
+        //     let connection;
 
-            tryConnect();
+        //     tryConnect();
 
-            function tryConnect() {
-                connection = mysql.createConnection(Connection.ConnectionInfo);
-                connection.connect((err) => {
-                    if (err) {
-                        if (!attempts) {
-                            return reject(err);
-                        }
-                        return setTimeout(tryConnect, CONNECTION_RETRY_INTERVAL);
-                    }
-                    return resolve(new Connection(connection));
-                });
-            }
-        });
+        //     function tryConnect() {
+        //         connection = mysql.createConnection(Connection.ConnectionInfo);
+        //         connection.connect((err) => {
+        //             if (err) {
+        //                 if (!attempts) {
+        //                     return reject(err);
+        //                 }
+        //                 return setTimeout(tryConnect, CONNECTION_RETRY_INTERVAL);
+        //             }
+        //             return resolve(new Connection(connection));
+        //         });
+        //     }
+        // });
     }
 
     /**
