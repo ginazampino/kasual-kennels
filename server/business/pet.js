@@ -1,23 +1,43 @@
-module.exports = class PetBusiness {
+const BaseClass = require('./base');
+
+module.exports = class PetBusiness extends BaseClass {
     constructor(conn) {
+        super();
         this.conn = conn;
     }
 
     async create(request) {
-        var body = request.body;
-        var files = request.files;
+        const body = request.body;
+        const files = request.files;
 
-        // image uploads
-        var dali = files.dali && files.dali[0];
-        var dane = files.dane && files.dane[0];
-        var photo = files.photo[0];
-        var thumb = files.thumb && files.thumb[0];
+        let dali = files.dali && files.dali[0];
+        let dane = files.dane && files.dane[0];
+        let photo = files.photo[0];
+        let thumb = files.thumb && files.thumb[0];
+
+        if (dali) {
+            dali = await this.conn.insert('images', {
+                file_name: dali.filename
+            });
+        }
+
+        if (dane) {
+            dane = await this.conn.insert('images', {
+                file_name: dane.filename
+            });
+        }
 
         photo = await this.conn.insert('images', {
             file_name: photo.filename
         });
 
-        var pet = await this.conn.insert('pets', {
+        if (thumb) {
+            thumb = await this.conn.insert('images', {
+                file_name: thumb.filename
+            });
+        }
+
+        var entity = await this.conn.insert('pets', {
             pet_name: body.pet_name,
             gender: body.gender,
             breed_id: body.breed_id,
@@ -36,10 +56,25 @@ module.exports = class PetBusiness {
             show_prefixes: body.show_prefixes,
             page_id: body.page_id,
             litter_id: body.litter_id,
-            image_photo_id: photo.insertId
+            image_dali_id: dali && dali.insertId || null,
+            image_dane_id: dane && dane.insertId || null,
+            image_photo_id: photo.insertId,
+            image_thumb_id: thumb && thumb.insertId || null
         });
+        const petId = entity.insertId;
 
-        return pet.insertId;
+        if (body.traits) {
+            for (let i = 0; i < body.traits.length; i++) {
+                let traitId = body.traits[i];
+
+                await this.conn.insert("pet_trait_values", {
+                    pet_id: petId,
+                    trait_id: traitId
+                });
+            }
+        }
+
+        return entity.insertId;
     }
 
     delete(id) {
@@ -95,8 +130,27 @@ module.exports = class PetBusiness {
                 pets.id = ?
         `;
 
-        let rows = await this.conn.query(sql, id);
-        return rows && rows[0];
+        const pets = await this.conn.query(sql, id);
+        const pet = pets[0];
+
+        pet.traits = await this.getTraits(id);
+
+        return pet;
+    }
+
+    getTraits(petId) {
+        const sql = `
+            SELECT
+                pet_traits.id,
+                pet_traits.trait_name,
+                CASE
+                    WHEN EXISTS (SELECT * FROM pet_trait_values WHERE pet_id = ? and trait_id = pet_traits.id) THEN 1
+                    ELSE 0
+                END as value
+            FROM
+                pet_traits
+        `;
+        return this.conn.query(sql, petId);
     }
 
     search(term) {
@@ -114,10 +168,35 @@ module.exports = class PetBusiness {
         return this.conn.query(sql, term);
     }
 
-    update(request) {
-        var body = request.body;
+    async update(request) {
+        const body = request.body;
+        const files = request.files;
 
-        this.conn.update('pets', {
+        let dali = files.dali && files.dali[0];
+        let dane = files.dane && files.dane[0];
+        let photo = files.photo && files.photo[0];
+        let thumb = files.thumb && files.thumb[0];
+
+        const pet = {};
+
+        if (dali) {
+            pet.image_dali_id = await this.upsertImage(body.image_dali_id, dali);
+        };
+
+        if (dane) {
+            pet.image_dane_id = await this.upsertImage(body.image_dane_id, dane);
+        };
+
+        if (thumb) {
+            pet.image_thumb_id = await this.upsertImage(body.image_thumb_id, thumb);
+        };
+
+        // required
+        if (photo) {
+            pet.image_photo_id = await this.upsertImage(body.image_photo_id, photo);
+        };
+
+        Object.assign(pet, {
             pet_name: body.pet_name,
             gender: body.gender,
             breed_id: body.breed_id,
@@ -135,8 +214,26 @@ module.exports = class PetBusiness {
             suffix_titles: body.suffix_titles,
             show_prefixes: body.show_prefixes,
             page_id: body.page_id,
-            litter_id: body.litter_id,
-            //image_photo_id: photo.insertId
-        }, { id: request.query.id });
-    }
+            litter_id: body.litter_id
+        });
+
+        if (pet.page_id != 3) {
+            pet.litter_id = null;
+        }
+
+        await this.conn.update('pets', pet, { id: request.query.id });
+
+        this.conn.query('DELETE FROM pet_trait_values WHERE pet_id = ?', request.query.id);
+
+        if (body.traits) {
+            for (let i = 0; i < body.traits.length; i++) {
+                let traitId = body.traits[i];
+
+                await this.conn.insert("pet_trait_values", {
+                    pet_id: request.query.id,
+                    trait_id: traitId
+                });
+            }
+        }
+    };
 };

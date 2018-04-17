@@ -25,6 +25,16 @@ module.exports = class DropdownBusiness {
         return this.conn.query(sql);
     };
 
+    getPetTraits() {
+        const sql = `
+            SELECT *
+            FROM   pet_traits
+            ORDER BY
+                trait_name;
+        `;
+        return this.conn.query(sql);
+    }
+
     getLitters() {
         const sql = `
             SELECT *

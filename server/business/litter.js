@@ -76,7 +76,7 @@ module.exports = class LitterBusiness {
             }, {
                 id: body.image_id
             });
-        }
+        };
 
         this.conn.update("litters", {
             litter_name: body.litter_name,
