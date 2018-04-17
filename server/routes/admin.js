@@ -1,15 +1,6 @@
 const upload = require('../upload.js');
 
 module.exports = function (app) {
-    app.get("/test", async function (request, response) {
-        response.send({
-            pet: { /* TODO: Populate me */ },
-            dropdowns: {
-                breeds: await request.business.dropdown.getBreeds(),
-                genders: request.business.dropdown.getGenders()
-            }
-        });
-    });
 
     /*
 
@@ -55,7 +46,9 @@ module.exports = function (app) {
             vm.pet = await request.business.pet.getOne(request.query.id);
         }
         else {
-            vm.pet = {};
+            vm.pet = {
+                traits: await request.business.dropdown.getPetTraits()
+            };
         }
 
         response.render("admin/admin-edit-pet.html", vm);

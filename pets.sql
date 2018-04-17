@@ -47,6 +47,11 @@ CREATE TABLE pet_breeds (
     breed_name      VARCHAR(255) UNIQUE NOT NULL
 );
 
+CREATE TABLE pet_traits (
+    id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    trait_name      VARCHAR(255) UNIQUE NOT NULL
+);
+
 CREATE TABLE pets (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     active          BIT DEFAULT 1 NOT NULL,
@@ -87,6 +92,14 @@ CREATE TABLE pets (
     FOREIGN KEY (image_dane_id) REFERENCES images(id),
     FOREIGN KEY (image_photo_id) REFERENCES images(id),
     FOREIGN KEY (image_thumb_id) REFERENCES images(id)
+); 
+
+CREATE TABLE pet_trait_values (
+    pet_id          INT NOT NULL,
+    trait_id        INT NOT NULL,
+    PRIMARY KEY (pet_id, trait_id),
+    FOREIGN KEY (pet_id) REFERENCES pets(id),
+    FOREIGN KEY (trait_id) REFERENCES pet_traits(id)
 );
 
 CREATE TABLE litters (
@@ -191,9 +204,12 @@ VALUES ('Crew'), ('Kennels'), ('Litters'), ('Singles');
 
 INSERT INTO pet_breeds (breed_name)
 VALUES ('Bulldog'), ('Chihuahua'), ('Dachshund'), ('Dalmatian'),
-       ('Great Dane'), ('Labrador'), ('Mutt'), ('Pooddle'),
+       ('Great Dane'), ('Labrador'), ('Mutt'), ('Poodle'),
        ('Scottie'), ('Sheepdog'), ('Brexed'), ('Hexed'), ('Wildz'),
        ('Overwrite'), ('Nonoverwrite');
+
+INSERT INTO pet_traits (trait_name)
+VALUES ('Inbred'), ('Mixbreed'), ('Purebread');
 
 INSERT INTO show_venues (venue_name, url)
 VALUES ('RKC Petz Forum (RKC)', 'http://petzforum.proboards.com/'),
@@ -214,3 +230,12 @@ VALUES ('BIS', 5),
        ('3rd', 2),
        ('HM', 1),
        ('P', 0);
+
+INSERT INTO pet_traits (trait_name)
+VALUES ('Brexed'), -- If not selected, pet is considered noninbred.
+       ('Full-Tree'), -- The pet's family tree is fully completed.
+       ('Tree-Trimmed'), -- The pet's family tree has been trimmed to reduce file size.
+       ('Mixed Breed'), -- If not selected, pet is considered purebred.
+       ('Selective Breed'),
+       ('Brexed'),
+       ('Legacy')

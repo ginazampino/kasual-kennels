@@ -136,7 +136,7 @@ class Connection {
     }
 
     _handleErrors() {
-        this.conn.on('error', (err) => {
+        this.conn.on('error', async (err) => {
             if (err.code === 'PROTOCOL_CONNECTION_LOST') {
                 /*
                     This error is both known and expected.
@@ -165,7 +165,7 @@ class Connection {
     /**
      * Establishes a MySQL connection asynchronously.
      */
-    async static connect() {
+    static async connect() {
         return new Connection(await connectInternalAsync(Connection.ConnectionInfo));
     
         // return new Promise((resolve, reject) => {
