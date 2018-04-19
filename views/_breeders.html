@@ -1,4 +1,4 @@
-{% extends "index.html" %} {% block main %}
+{# {% extends "index.html" %} {% block main %}
 <a name="top"></a>
 <section class="content-container">
 
@@ -19,28 +19,46 @@
     </div>
 
     <div class="sub-section">
-        {% for breeder in downloads %}
-        <div class="sub-section-header-image">
-            <img alt="" src="/uploads/{{ breeder.img }}">
-        </div>
+        {% for breeder in breeders %}
+        <span class="sub-section-header">
+            {{ breeder.title }}
+        </span>
+
+        <p>
+            {{ breeder.description }}
+        </p>
+
         <div class="sub-section-content-container">
-            <span class="sub-section-header">
-                {{ breeder.name }}
-            </span>
-            <ul class="download-link">
-                {% for file in breeder.files %}
-                <li>
-                    <a href="/uploads/{{ file.file_name }}" download>
-                        <i class="fas fa-download"></i> Download for {{ file.download_name }}</a>
-                </li>
-                {% endfor %}
-            </ul>
+
+            {% for pet in breeder.pets %}
+            <div class="breeder-item">
+
+                <img alt="" src="{{ pet.img }}">
+
+                <span class="sub-section-header">{{ pet.label }}</span>
+
+                {% if pet.genders.male %}
+                <div class="download-link">
+                    <a href="{{ pet.genders.male }}" download>
+                        <i class="fas fa-download"></i> Male</a>
+                </div>
+                {% endif %} {% if pet.genders.female %}
+                <div class="download-link">
+                    <a href="{{ pet.genders.female }}" download>
+                        <i class="fas fa-download"></i> Female</a>
+                </div>
+                {% endif %}
+
+            </div>
+            {% endfor %}
         </div>
+
         {% if not loop.last %}
         <div class="divider-container-sm">
             <div class="divider-sm"></div>
         </div>
         {% endif %} {% endfor %}
+
     </div>
 
     <div class="divider-container-lg">
@@ -59,4 +77,4 @@
 
 </section>
 
-{% endblock %}
+{% endblock %} #}

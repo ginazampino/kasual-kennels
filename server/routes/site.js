@@ -152,55 +152,11 @@ module.exports = function (app) {
     });
 
     // Adopt submenu:
-    app.get("/breeders", function (request, response) {
-        response.render("breeders.html", {
-            selectedNavItem: "breeders",
-            breeders: [
-                {
-                    title: "Patchless AC Mutts",
-                    description: "",
-                    pets: [
-                        {
-                            label: "Right Ear",
-                            img: "../img/breeders/kk-mutt-patchless-right.png",
-                            genders: {
-                                male: "",
-                                female: "../files/KK Breeders - Patchless AC Mutts - Right Ear (F).zip"
-                            }
-                        },
-                        {
-                            label: "Both Ears",
-                            img: "../img/breeders/kk-mutt-patchless-both.png",
-                            genders: {
-                                male: "../files/KK Breeders - Patchless AC Mutts - Both Ears (M).zip",
-                                female: "../files/KK Breeders - Patchless AC Mutts - Both Ears (F).zip"
-                            }
-                        },
-                        {
-                            label: "Left Ear",
-                            img: "../img/breeders/kk-mutt-patchless-left.png",
-                            genders: {
-                                male: "../files/KK Breeders - Patchless AC Mutts - Left Ear (M).zip",
-                                female: ""
-                            }
-                        }
-                    ]
-                },
-                {
-                    title: "One-Patch AC Mutts",
-                    description: "",
-                    pets: [
-                        {
-                            label: "Tail Tip",
-                            img: "../img/breeders/kk-mutt-onepatch-tailtip.png",
-                            genders: {
-                                female: "../files/KK Breeders - One-Patch AC Mutts - Tail Tip (F).zip"
-                            }
-                        }
-                    ]
-                }
-            ]
-        });
+    app.get("/breeders", async function (request, response) {
+        const vm = await request.business.download.getViewModel('Breeders');
+        vm.selectedNavItem = 'breeders';
+
+        response.render("breeders.html", vm);
     });
 
     app.get("/singles", function (request, response) {
@@ -301,35 +257,18 @@ module.exports = function (app) {
     });
 
     // Work submenu:
-    app.get("/toys", function (request, response) {
-        response.render("toys.html", {
-            selectedNavItem: "toys",
-            toys: [
-                {
-                    name: "Blue Pillow Recolor Set",
-                    file: "../files/Blue Pillow Recolor Set (v1).zip",
-                    img: "../img/toys/kk-blue-pillow-recolors.png"
-                },
-                {
-                    name: "Brown Picture Frame Set",
-                    file: "../files/Brown Picture Frame Set (v4b).zip",
-                    img: "../img/toys/kk-brown-picture-frames.png"
-                }
-            ]
-        });
+    app.get("/toys", async function (request, response) {
+        const vm = await request.business.download.getViewModel('Toys');
+        vm.selectedNavItem = 'toys';
+
+        response.render("toys.html", vm);
     });
 
-    app.get("/clothes", function (request, response) {
-        response.render("clothes.html", {
-            selectedNavItem: "clothes",
-            clothes: [
-                {
-                    name: "Friendship Bracelets",
-                    file: "#",
-                    img: "../img/clothes/kk-friendship-bracelets.png"
-                }
-            ]
-        });
+    app.get("/clothes", async function (request, response) {
+        const vm = await request.business.download.getViewModel('Clothes');
+        vm.selectedNavItem = 'clothes';
+
+        response.render("clothes.html", vm);
     });
 
     app.get("/playscenes", async function (request, response) {
@@ -337,26 +276,6 @@ module.exports = function (app) {
         vm.selectedNavItem = 'playscenes';
 
         response.render("playscenes.html", vm);
-        // response.render("playscenes.html", {
-        //     selectedNavItem: "playscenes",
-        //     playscenes: [
-        //         {
-        //             name: "Roller Rink",
-        //             description: "",
-        //             files: [
-        //                 {
-        //                     version: "Petz 4 (Sound)",
-        //                     url: "../files/Roller Rink (v1).zip",
-        //                 },
-        //                 {
-        //                     version: "Petz 4 (Silent)",
-        //                     url: "../files/Roller Rink (v1b).zip",
-        //                 }
-        //             ],
-        //             img: "../img/playscenes/kk-roller-rink.png"
-        //         }
-        //     ]
-        // });
     });
 
     app.get("/shows", function (request, response) {

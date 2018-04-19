@@ -14,18 +14,22 @@
     </div>
 
     <div class="sub-section">
-        {% for clothing in clothes %}
+        {% for clothing in downloads %}
         <div class="sub-section-header-image">
-            <img alt="" src="{{ clothing.img }}">
+            <img alt="" src="/uploads/{{ clothing.img }}">
         </div>
         <div class="sub-section-content-container">
             <span class="sub-section-header">
                 {{ clothing.name }}
             </span>
-            <div class="sub-section-description download-link">
-                <a href="{{ clothing.file }}" download>
-                    <i class="fas fa-download"></i> Download for Petz 4</a>
-            </div>
+            <ul class="download-link">
+                {% for file in clothing.files %}
+                <li>
+                    <a href="/uploads/{{ file.file_name }}" download>
+                        <i class="fas fa-download"></i> Download for {{ file.download_name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
         {% if not loop.last %}
         <div class="divider-container-sm">
