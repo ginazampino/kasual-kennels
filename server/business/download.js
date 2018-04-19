@@ -102,6 +102,32 @@ module.exports = class DownloadBusiness {
         return this.conn.query(sql, downloadId);
     }
 
+    async getViewModel(pageName) {
+        const downloads = await this.conn.query(`
+            SELECT
+                downloads.id
+            ,   downloads.download_name as name
+            ,   downloads.description
+            ,   images.file_name as img
+            FROM
+                downloads
+            INNER JOIN
+                pages ON downloads.page_id = pages.id
+            INNER JOIN
+                images ON downloads.image_id = images.id
+            WHERE
+                page_name = ?
+        `, pageName);
+
+        for (let i = 0; i < downloads.length; i++) {
+            let download = downloads[i];
+
+            download.files = await this.getFiles(download.id);
+        }
+
+        return { downloads };
+    }
+
     async update(request) {
         const body = request.body;
         const files = request.files;

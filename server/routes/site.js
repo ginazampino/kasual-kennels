@@ -332,27 +332,31 @@ module.exports = function (app) {
         });
     });
 
-    app.get("/playscenes", function (request, response) {
-        response.render("playscenes.html", {
-            selectedNavItem: "playscenes",
-            playscenes: [
-                {
-                    name: "Roller Rink",
-                    description: "",
-                    files: [
-                        {
-                            version: "Petz 4 (Sound)",
-                            url: "../files/Roller Rink (v1).zip",
-                        },
-                        {
-                            version: "Petz 4 (Silent)",
-                            url: "../files/Roller Rink (v1b).zip",
-                        }
-                    ],
-                    img: "../img/playscenes/kk-roller-rink.png"
-                }
-            ]
-        });
+    app.get("/playscenes", async function (request, response) {
+        const vm = await request.business.download.getViewModel('Playscenes');
+        vm.selectedNavItem = 'playscenes';
+
+        response.render("playscenes.html", vm);
+        // response.render("playscenes.html", {
+        //     selectedNavItem: "playscenes",
+        //     playscenes: [
+        //         {
+        //             name: "Roller Rink",
+        //             description: "",
+        //             files: [
+        //                 {
+        //                     version: "Petz 4 (Sound)",
+        //                     url: "../files/Roller Rink (v1).zip",
+        //                 },
+        //                 {
+        //                     version: "Petz 4 (Silent)",
+        //                     url: "../files/Roller Rink (v1b).zip",
+        //                 }
+        //             ],
+        //             img: "../img/playscenes/kk-roller-rink.png"
+        //         }
+        //     ]
+        // });
     });
 
     app.get("/shows", function (request, response) {
