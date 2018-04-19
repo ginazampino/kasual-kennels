@@ -177,7 +177,7 @@ CREATE TABLE my_entries (
 CREATE TABLE downloads (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     active          BIT DEFAULT 1 NOT NULL,
-    download_name   VARCHAR(255) UNIQUE NOT NULL,
+    download_name   VARCHAR(255) NOT NULL,
     description     TEXT NULL,
     image_id        INT NOT NULL, -- images
     page_id         INT NOT NULL, -- pages
@@ -187,7 +187,7 @@ CREATE TABLE downloads (
 
 CREATE TABLE download_files (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    download_name   VARCHAR(255) UNIQUE NOT NULL,
+    download_name   VARCHAR(255) NOT NULL,
     file_name       VARCHAR(1000) NOT NULL,
     file_size       VARCHAR(255) NOT NULL,
     download_id     INT NOT NULL, -- downloads
@@ -200,7 +200,7 @@ VALUES ('Albums'), ('Awards'), ('Community Hubs'),
        ('Limited Edition Stamps'), ('Stamp Collection');
 
 INSERT INTO pages (page_name)
-VALUES ('Crew'), ('Kennels'), ('Litters'), ('Singles');
+VALUES ('Crew'), ('Kennels'), ('Litters'), ('Singles'), ('Playscenes');
 
 INSERT INTO pet_breeds (breed_name)
 VALUES ('Bulldog'), ('Chihuahua'), ('Dachshund'), ('Dalmatian'),
@@ -231,11 +231,11 @@ VALUES ('BIS', 5),
        ('HM', 1),
        ('P', 0);
 
-INSERT INTO pet_traits (trait_name)
+/* INSERT INTO pet_traits (trait_name)
 VALUES ('Brexed'), -- If not selected, pet is considered noninbred.
        ('Full-Tree'), -- The pet's family tree is fully completed.
        ('Tree-Trimmed'), -- The pet's family tree has been trimmed to reduce file size.
        ('Mixed Breed'), -- If not selected, pet is considered purebred.
        ('Selective Breed'),
        ('Brexed'),
-       ('Legacy')
+       ('Legacy') */

@@ -3,8 +3,18 @@ const mime = require('./node-mime');
 const multer = require('multer');
 const path = require('path');
 
+const extensionsByMimeType = {
+    'application/x-zip-compressed': 'zip'
+};
+
 /* Matches invalid characters in file names. */
 const fileNameMask = /[^a-zA-Z0-9\-_]/g;
+
+function getExtension(type) {
+    return extensionsByMimeType[type.toLowerCase()]
+        || mime.getExtension(type)
+        || 'txt';
+}
 
 const storage = multer.diskStorage({
     destination: path.resolve(__dirname, '../wwwroot/uploads'),
@@ -15,7 +25,7 @@ const storage = multer.diskStorage({
         crypto.pseudoRandomBytes(4, (err, buf) => {
             if (err) return cb(err, null);
             filename += '_' + buf.toString('hex');
-            filename += '.' + mime.getExtension(file.mimetype);
+            filename += '.' + getExtension(file.mimetype);
             cb(null, filename);
         });
     }

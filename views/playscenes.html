@@ -15,9 +15,9 @@
     </div>
 
     <div class="sub-section">
-        {% for playscene in playscenes %}
+        {% for playscene in downloads %}
         <div class="sub-section-header-image rounded">
-            <img alt="" src="{{ playscene.img }}">
+            <img alt="" src="/uploads/{{ playscene.img }}">
         </div>
         <div class="sub-section-content-container">
             <span class="sub-section-header">
@@ -26,8 +26,8 @@
             <ul class="download-link">
                 {% for file in playscene.files %}
                 <li>
-                    <a href="{{ playscene.file }}" download>
-                        <i class="fas fa-download"></i> Download for {{ file.version }}</a>
+                    <a href="/uploads/{{ file.file_name }}" download>
+                        <i class="fas fa-download"></i> Download for {{ file.download_name }}</a>
                 </li>
                 {% endfor %}
             </ul>
