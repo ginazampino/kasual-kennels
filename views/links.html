@@ -19,7 +19,7 @@
             Link Back
         </span>
         <div class="sub-section-content-container">
-            <img alt="" src="./img/links/link-kasualkennels.png">
+            <img alt="" src="./img/link-kasualkennels.png">
         </div>
         <span class="links-url">
             http://kasualkennels.petz.site
@@ -35,10 +35,12 @@
             Communities
         </span>
         <div class="sub-section-content-container no-hover">
-            {% for link in communityLinks %}
-            <a target="_blank" href="{{ link.url }}">
-                <img alt="" title="{{ link.title }}" src="{{ link.img }}">
+            {% for image in images %}
+            {% if image.category_name == 'Community Hubs' %}
+            <a target="_blank" href="{{ image.url }}">
+                <img alt="" title="{{ image.title }}" src="/uploads/{{ image.file_name }}">
             </a>
+            {% endif %}
             {% endfor %}
         </div>
     </section>
@@ -52,10 +54,12 @@
             Fansites
         </span>
         <div class="sub-section-content-container no-hover">
-            {% for link in personalLinks %}
-            <a target="_blank" href="{{ link.url }}">
-                <img alt="" title="{{ link.title }}" src="{{ link.img }}">
+            {% for image in images %}
+            {% if image.category_name == 'Fan Sites' %}
+            <a target="_blank" href="{{ image.url }}">
+                <img alt="" title="{{ image.title }}" src="/uploads/{{ image.file_name }}">
             </a>
+            {% endif %}
             {% endfor %}
         </div>
     </section>
@@ -76,5 +80,12 @@
         </div>
     </footer>
 </section>
-
+<script>
+    tippy('[title]', {
+        theme: 'kk',
+        arrow: true,
+        flip: true,
+        size: 'small',
+    });
+</script>
 {% endblock %}

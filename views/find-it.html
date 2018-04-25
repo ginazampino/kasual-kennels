@@ -5,7 +5,7 @@
     <div class="content-introduction">
         <h2>{{ selectedNavItem | title}}</h2>
         <p>
-            Win these find-its to earn stamps for your collection!
+            Win these find-its to earn stamps and other goodies!
         </p>
     </div>
 
@@ -14,23 +14,18 @@
     </div>
 
     <div class="sub-section">
-        {% for findIt in findIts %}
         <div class="sub-section-header-image">
-            <img alt="" src="{{ findIt.img }}">
+            <img alt="" src="../img/findit-01-paws-searching.png">
         </div>
         <div class="sub-section-content-container">
             <span class="sub-section-header">
-                {{ findIt.title }}
+                Lost Friendship Bracelet
             </span>
             <p>
-                {{ findIt.description }}
+                Oh, no! Paws lost his custom friendship bracelet, made just for him by his best friend, Busy! 
+                Please, could you help him find it before Busy notices and feelings are hurt?
             </p>
         </div>
-        {% if not loop.last %}
-        <div class="divider-container-sm">
-            <div class="divider-sm"></div>
-        </div>
-        {% endif %} {% endfor %}
     </div>
 
     <div class="divider-container-lg">
@@ -45,5 +40,12 @@
 
 
 </section>
-
+<script>
+    tippy('[title]', {
+        theme: 'kk',
+        arrow: true,
+        flip: true,
+        size: 'small',
+    });
+</script>
 {% endblock %}}

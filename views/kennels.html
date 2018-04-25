@@ -1,176 +1,138 @@
-{% extends "index.html" %} {% block main %}
+{% extends "index.html" %}
+{% block main %}
 
-<a name="top"></a>
-<section class="content-container">
-    <div class="content-introduction">
-        <h2>{{ selectedNavItem | title}}</h2>
-        <p>
-            To browse our petz, use the dropdown filters below!
-        </p>
-    </div>
-    <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-        <option>New</option>
-        <optgroup label="Gender">
-            <option>Male</option>
-            <option>Female</option>
-        </optgroup>
-        <optgroup label="Ancestry">
-            <option>Noninbred</option>
-            <option>Purebred</option>
-        </optgroup>
-        <optgroup label="Breeds">
-            <option>Bulldog</option>
-            <option>Chihuahua</option>
-            <option>Dachshund</option>
-            <option>Dalmatian</option>
-            <option>Great Dane</option>
-            <option>Labrador</option>
-            <option>Mutt</option>
-            <option>Poodle</option>
-            <option>Scottie</option>
-            <option>Sheepdog</option>
-            <option>Wildz</option>
-        </optgroup>
-        <optgroup label="Other">
-            <option>Brexed</option>
-            <option>Non-OW</option>
-            <option>OW</option>
-        </optgroup>
-    </select>
-
-    <div class="divider-container-lg">
-        <div class="divider-lg"></div>
-    </div>
-
-    <div class="sub-section clearfix">
-        <ul class="kennel-item-container clearfix">
-            <li class="kennel-item clearfix">
-                <div class=" kennel-item-image clearfix">
-                    <img alt=" " src="../img/kennels/gacrux.png ">
-                </div>
-                <div class="kennel-item-details clearfix">
-                    <ul>
-                        <li>
-                            <img alt="" src="../img/kennels/gacrux-thumb.png">
-                        </li>
-                        <li>
-                            <strong>Name:</strong> Kara
-                        </li>
-                        <li>
-                            <strong>Gender:</strong> Female
-                        </li>
-                        <li>
-                            <strong>Breed:</strong> Hexed
-                        </li>
-                        <li>
-                            <strong>Origin:</strong> Midnightwolf
-                        </li>
-                        <li>
-                            <strong>Method:</strong> Gift
-                        </li>
-                        <li>
-                            <strong>Notes:</strong> 1 Texture File
-                        </li>
-                    </ul>
-                </div>
-
-            </li>
-
-            <div class="divider-container-sm">
-                <div class="divider-sm"></div>
-            </div>
-
-            <li class="kennel-item clearfix">
-                <div class=" kennel-item-image clearfix">
-                    <img alt=" " src="../img/kennels/kara.png ">
-                </div>
-                <div class="kennel-item-details clearfix">
-                    <ul>
-                        <li>
-                            <img alt="" src="../img/kennels/kara-thumb.png">
-                        </li>
-                        <li>
-                            <strong>Name:</strong> Kara
-                        </li>
-                        <li>
-                            <strong>Gender:</strong> Female
-                        </li>
-                        <li>
-                            <strong>Breed:</strong> Hexed
-                        </li>
-                        <li>
-                            <strong>Origin:</strong> Midnightwolf
-                        </li>
-                        <li>
-                            <strong>Method:</strong> Gift
-                        </li>
-                        <li>
-                            <strong>Notes:</strong> 1 Ext. Texture
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <div class="divider-container-sm">
-                <div class="divider-sm"></div>
-            </div>
-
-            <li class="kennel-item">
-                <div class=" kennel-item-image ">
-                    <img alt=" " src="../img/kennels/spike.png ">
-                </div>
-                <div class="kennel-item-details ">
-                    <ul>
-                        <li>
-                            <img alt="" src="../img/kennels/spike-thumb.png">
-                        </li>
-                        <li>
-                            <strong>Name:</strong> Spike
-                        </li>
-                        <li>
-                            <strong>Gender:</strong> Male
-                        </li>
-                        <li>
-                            <strong>Breed:</strong> Hexed
-                        </li>
-                        <li>
-                            <strong>Origin:</strong> Midnightwolf
-                        </li>
-                        <li>
-                            <strong>Method:</strong> RKC
-                        </li>
-                        <li>
-                            <strong>Notes:</strong> Custom
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-        <!-- <div class="kennel-item-container clearfix ">
-            <div class="kennel-item clearfix ">
-                <div class="kennel-item-image ">
-                    <img alt=" " src="../img/kennels/kara.png ">
-                </div>
-                <div class="kennel-item-details ">
-                    <span class="sub-section-header ">
-                        Kara
-                    </span>
-                </div>
-            </div>
-        </div> -->
-    </div>
-
-    <div class="divider-container-lg ">
-        <div class="divider-lg "></div>
-    </div>
-
-    <footer>
-        <div class="download-link">
-            <a href="#top">
-                <i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+    <a name="top"></a>
+    <section class="content-container">
+        <div class="content-introduction">
+            <h2>{{ selectedNavItem | title}}</h2>
+            <p>
+                To browse our petz, use the dropdown filters below!
+            </p>
         </div>
-    </footer>
 
-</section>
+        <div class="filter-container clearfix">
+            <div class="col col-4">
+                <select class="filter-dropdown" id="gender" data-placeholder="Gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
 
+            <div class="col col-4">
+                <select class="filter-dropdown" id="ancestry" data-placeholder="Ancestry">
+                    <option value="Inbred">Inbred</option>
+                    <option value="Noninbred">Noninbred</option>
+                </select>
+            </div>
+
+            <div class="col col-4">
+                <select class="filter-dropdown" id="breed" data-placeholder="Breed">
+                    {% for breed in filters.breeds %}
+                        <option value="{{ breed.id }}">{{ breed.breed_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="divider-container-lg">
+            <div class="divider-lg"></div>
+        </div>
+
+        <div class="sub-section clearfix">
+            <div class="kennel-item-container">
+                <div class="kennel-item">
+                    <img alt=" " src=" ../img/kennels/gacrux.png" class="test" data-tippy>
+                </div>
+                <div class="kennel-item">
+                    <img alt=" " src=" ../img/kennels/gacrux.png" class="test" data-tippy>
+                </div>
+                <div class="kennel-item">
+                    <img alt=" " src=" ../img/kennels/gacrux.png" class="test" data-tippy>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider-container-lg ">
+            <div class="divider-lg "></div>
+        </div>
+
+        <footer>
+            <p>
+                Breeds are categorized by head types.
+            </p>
+            <div class="download-link margin-t-10">
+                <a href="#top">
+                    <i class="fas fa-arrow-alt-up"></i>
+                    Return to the top</a>
+            </div>
+        </footer>
+    </section>
+
+    <div id="kennelsTippy" style="display: none;">
+        <div class="kennel-item-details clearfix">
+            <ul>
+                <li>
+                    <img alt="" src="../img/kennels/gacrux-thumb.png" class="margin-top-10 info test" data-tippy="data-tippy">
+                </li>
+                <li>
+                    <i alt="Female" title="Female" class="fas fa-venus female"></i>
+                    <strong>Name</strong>
+                    the <strong>Breed</strong>
+                </li>
+                <li>
+                    Method by Owner @ Website
+                </li>
+                <li class="margin-top-10">
+                    <strong>Gen(s):</strong> 1
+                </li>
+                <li>
+                    <strong>Trait(s):</strong> Inbred, Selective Breed, Tree-Trimmed
+                </li>
+                <li class="margin-top-10">
+                    <strong>Note(s):</strong> N/A
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // Select2
+        $(function () {
+            $('select').each(function () {
+                var placeholder = $(this).attr("data-placeholder");
+                $(this).select2({minimumResultsForSearch: -1, placeholder: placeholder, allowClear: true});
+                $(this)
+                    .val(null)
+                    .trigger('change');
+            });
+
+            setTimeout(function () {
+                $('select').on('change', updateFilters);
+                updateFilters();
+            }, 1);
+
+            function updateFilters() {
+                var gender = $('#gender').val();
+                var ancestry = $('#ancestry').val();
+                var breed = $('#breed').val();
+
+                $
+                    .get('/api/search-pets', {
+                        gender: gender,
+                        ancestry: ancestry,
+                        breed: breed
+                    })
+                    .done(function (pets) {});
+            }
+        });
+    </script>
+    <script>
+        tippy('.test', {
+            html: '#kennelsTippy',
+            theme: 'kk',
+            followCursor: true,
+        });
+    </script>
 {% endblock %}

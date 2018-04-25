@@ -91,4 +91,22 @@ module.exports = class ProjectBusiness {
             description: body.description,
         }, { id: request.query.id });
     };
+
+    async getProjects() {
+        const projects = await this.conn.query(`
+            SELECT
+                projects.project_name
+            ,   projects.category
+            ,	projects.project_status
+            ,	projects.completed_date
+            ,	projects.description
+            ,	images.file_name as img
+            FROM
+                projects
+            INNER JOIN
+                images on projects.image_id = images.id
+        `);
+
+        return { projects };
+    };
 };

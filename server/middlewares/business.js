@@ -3,6 +3,7 @@ const mysql = require('../mysql');
 const businessModules = {
     'entry': require('../business/entry'),
     'dropdown': require('../business/dropdown'),
+    filter: require('../business/filter'),
     'pet': require('../business/pet'),
     'litter': require('../business/litter'),
     'image': require('../business/image'),
@@ -45,6 +46,7 @@ async function createBusiness(req, res) {
     async function afterResponse() {
         res.removeListener('finish', afterResponse);
         res.removeListener('close', afterResponse);
-        // await business.connection.close();
+        business.connection.close().catch(() => null);
+        // try { await business.connection.close(); }
     }
 }

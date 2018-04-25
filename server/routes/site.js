@@ -1,31 +1,30 @@
 module.exports = function (app) {
-    // Nunjucks route configuration:
-    app.get("/", function (request, response) {
-        response.render("home.html", {});
-    });
 
-    // Visit submenu:
-    app.get("/crew", async function (request, response) {
-        // response.render('crew.html', {
-        //     selectedNavItem: 'crew',
-        //     pets: await business.crew.getCrewPets()
-        // });
-        response.render("crew.html", {
-            selectedNavItem: "crew",
-            pets: [
-                {
-                    name: "Hush",
-                    gender: true,
-                    img: "../img/crew/hush.gif",
-                    description: "This is a pet description!"
-                }
-            ]
+    app.get("/", function (request, response) {
+        response.render("home.html", {
+            update: {
+                date: "02/11/1929",
+                notes: "Update notes."
+            }
         });
     });
 
-    app.get("/kennels", function (request, response) {
+    app.get("/crew", async function (request, response) {
+        const vm = await request.business.pet.getCrewPets();
+        vm.selectedNavItem = 'crew';
+        response.render("crew.html", vm);
+    });
+
+    app.get("/api/search-pets", async function (request, response) {
+        response.send(await request.business.filter.search(request.query));
+    });
+
+    app.get("/kennels", async function (request, response) {
         response.render("kennels.html", {
             selectedNavItem: "kennels",
+            filters: {
+                breeds: await request.business.filter.getBreeds()
+            },
             pets: [
                 {
                     name: "pet name",
@@ -39,293 +38,112 @@ module.exports = function (app) {
         });
     });
 
-    app.get("/showroom", function (request, response) {
-        response.render("showroom.html", {
-            selectedNavItem: "showroom",
-            pets: [
-                {
-                    name: "Verdant",
-                    showName: "SGCh. KK's Peace on Paper",
-                    title: "Supreme Grand Champion (SGCh.)",
-                    poses: {
-                        dali: "../img/showroom/kk-verdant-dali.png",
-                        dane: "../img/showroom/kk-verdant-dane.png"
-                    },
-                    active: true,
-                    bis: [
-                        { name: "Commander's EBW Dali Show #27"},
-                        { name: "Show name 2"}
-                    ],
-                    first: [
-                        { name: "Commander's EBW Dali Show #27"},
-                        { name: "Show name 2"}
-                    ],
-                    second: [
-                        { name: "Commander's EBW Dali Show #27"},
-                    ],
-                    third: [
-                        { name: "Commander's EBW Dali Show #27"},
-                    ],
-                    hm: [
-                        { name: "Commander's EBW Dali Show #27"},
-                    ],
-                    part: [
-                        { name: "Commander's EBW Dali Show #27"},
-                    ]
-                }
-            ]
-        });
+    app.get("/showroom", async function (request, response) {
+        const vm = await request.business.entry.getShowroom();
+        vm.selectedNavItem = 'showroom';
+        response.render("showroom.html", vm);
+        // console.log(vm.pets[0]);
     });
 
-    app.get("/awards", function (request, response) {
-        response.render("awards.html", {
-            selectedNavItem: "awards",
-            awards: [
-                { img: "../img/awards/award-1.png" }
-            ]
-        });
+    app.get("/awards", async function (request, response) {
+        const vm = await request.business.image.getAwardImages();
+        vm.selectedNavItem = 'awards';
+        response.render("awards.html", vm);
     });
 
-    app.get("/gifts", function (request, response) {
-        response.render("gifts.html", {
-            selectedNavItem: "gifts",
-            gifts: [
-                { img: "../img/gifts/ww-vday-2018-1.png" },
-                { img: "../img/gifts/ww-vday-2018-2.jpg" }
-            ]
-        });
+    app.get("/gifts", async function (request, response) {
+        const vm = await request.business.image.getGiftImages();
+        vm.selectedNavItem = 'gifts';
+        response.render("gifts.html", vm);
     });
 
-    app.get("/albums", function (request, response) {
-        response.render("albums.html", {
-            selectedNavItem: "albums",
-            albums: [
-                {
-                    title: "Paws and Busy",
-                    images: [
-                        { img: "../img/albums/paws-busy-01.png" },
-                        { img: "../img/albums/paws-busy-02.png" }
-                    ]
-                }
-            ]
-        });
+    app.get("/album", async function (request, response) {
+        const vm = await request.business.image.getAlbumImages();
+        vm.selectedNavItem = 'album';
+        response.render("album.html", vm);
     });
 
-    app.get("/links", function (request, response) {
-        response.render("links.html", {
-            selectedNavItem: "links",
-            communityLinks: [
-                {
-                    title: "RKC Petz Forum",
-                    url: "http://petzforum.proboards.com/",
-                    img: "../img/links/link-rkc.png"
-                },
-                {
-                    title: "Whiskerwick",
-                    url: "http://whiskerwick.boards.net/",
-                    img: "../img/links/link-whiskerwick.gif"
-                },
-                {
-                    title: "Petz Universal Game Site",
-                    url: "https://www.petzuniversal.com/index.php",
-                    img: "../img/links/link-pugs.png"
-                },
-                {
-                    title: "Petz Kennel Club",
-                    url: "http://petzkennelclub.co.uk",
-                    img: "../img/links/link-petzkennelclub.png"
-                },
-                {
-                    title: "Duke's Group",
-                    url: "http://dj7.proboards.com/",
-                    img: "../img/links/link-dukesgroup.png"
-                },
-            ],
-            personalLinks: [
-                {
-                    title: "Halcyon",
-                    url: "http://homebody.eu/halcyon/",
-                    img: "../img/links/link-halcyon.png"
-                }
-            ]
-        });
+    app.get("/links", async function (request, response) {
+        const vm = await request.business.image.getLinkImages();
+        vm.selectedNavItem = 'links';
+        response.render("links.html", vm);
     });
 
-    // Adopt submenu:
     app.get("/breeders", async function (request, response) {
         const vm = await request.business.download.getViewModel('Breeders');
         vm.selectedNavItem = 'breeders';
-
         response.render("breeders.html", vm);
     });
 
-    app.get("/singles", function (request, response) {
-        response.render("singles.html", {
-            selectedNavItem: "singles",
-            adoptions: [
-                {
-                    name: "Howdy",
-                    breed: "Mixed Breed",
-                    gender: false,
-                    inbred: true,
-                    description: "This is a description. This dog has eyes, a nose, and a mouth.",
-                    img: "../img/singles/kk-singles-howdy.png"
-                },
-                {
-                    name: "Patchi",
-                    breed: "Mixed Breed",
-                    gender: true,
-                    inbred: true,
-                    description: "",
-                    img: "../img/singles/kk-singles-patchi.png"
-                }
-            ]
-        });
+    app.get("/singles", async function (request, response) {
+        const vm = await request.business.pet.getSingles();
+        vm.selectedNavItem = 'singles';
+        response.render("singles.html", vm);
     });
 
-    app.get("/litters", function (request, response) {
-        response.render("litters.html", {
-            selectedNavItem: "litters",
-            litters: [
-                {
-                    name: "Alistair & Hart",
-                    requester: "Jill",
-                    description: "Lomond features a curly coat, a stub tail, white mutt patches, and a double chest patch. Lomond features a curly coat, a stub tail, white mutt patches, and a double chest patch.",
-                    img: "../img/litters/kk-litter-alistair_hart.png",
-                    adoptions: [
-                        {
-                            name: "Lomond",
-                            breed: "Mixed Breed",
-                            gender: true,
-                            inbred: true,
-                            img: "../img/litters/kk-litter-alistair_hart-lomond.png"
-                        },
-                        {
-                            name: "Lomond2",
-                            breed: "Mixed Breed",
-                            gender: true,
-                            inbred: true,
-                            img: "../img/litters/kk-litter-alistair_hart-lomond.png"
-                        }
-                    ]
-                },
-                {
-                    name: "Alistair & Hart",
-                    requester: "Jill",
-                    description: "Lomond features a curly coat, a stub tail, white mutt patches, and a double chest patch. Lomond features a curly coat, a stub tail, white mutt patches, and a double chest patch.",
-                    img: "../img/litters/kk-litter-alistair_hart.png",
-                    adoptions: [
-                        {
-                            name: "Lomond",
-                            breed: "Mixed Breed",
-                            gender: false,
-                            inbred: true,
-                            img: "../img/litters/kk-litter-alistair_hart-lomond.png"
-                        },
-                        {
-                            name: "Lomond2",
-                            breed: "Mixed Breed",
-                            gender: false,
-                            inbred: true,
-                            img: "../img/litters/kk-litter-alistair_hart-lomond.png"
-                        }
-                    ]
-                }
-            ]
-        });
+    app.get("/litters", async function (request, response) {
+        const vm = await request.business.litter.getLitters();
+        vm.selectedNavItem = 'litters';
+        response.render("litters.html", vm);
     });
 
-    app.get("/archive", function (request, response) {
-        response.render("archive.html", {
-            selectedNavItem: "archive",
-            projects: [
-                {
-                    name: "Threaded Dalis",
-                    status: "Closed",
-                    date: "September 2017",
-                    description: "project description",
-                    img: "../img/archive/kk-archive-threaded_dalis.png"
-                }
-            ]
-        });
+    app.get("/projects", async function (request, response) {
+        const vm = await request.business.project.getProjects('Projects');
+        vm.selectedNavItem = 'projects';
+        response.render("projects.html", vm);
     });
 
-    app.get("/apply", function (request, response) { // WIP
+    app.get("/apply", function (request, response) {
         response.render("apply.html", {
             selectedNavItem: "apply"
         });
     });
 
-    // Work submenu:
     app.get("/toys", async function (request, response) {
         const vm = await request.business.download.getViewModel('Toys');
         vm.selectedNavItem = 'toys';
-
         response.render("toys.html", vm);
     });
 
     app.get("/clothes", async function (request, response) {
         const vm = await request.business.download.getViewModel('Clothes');
         vm.selectedNavItem = 'clothes';
-
         response.render("clothes.html", vm);
     });
 
     app.get("/playscenes", async function (request, response) {
         const vm = await request.business.download.getViewModel('Playscenes');
         vm.selectedNavItem = 'playscenes';
-
         response.render("playscenes.html", vm);
     });
 
-    app.get("/shows", function (request, response) {
-        response.render("shows.html", {
-            selectedNavItem: "shows",
-            shows: [
-                {
-                    title: "Kas's EBW Dali Pose Show #1",
-                    venue: "Whiskerwick",
-                    date: "February 21, 2018",
-                    stamp: "../img/shows/winner.png",
-                    bis: "PF's Show Name",
-                    first: "PF's Show Name 2",
-                    second: "PF's Show Name 3",
-                    third: "PF's Show Name 4",
-                    hm: "PF's Show Name 5",
-                    url: "http://whiskerwick.boards.net/thread/5693/kass-dali-pose-show-full"
-                },
-                {
-                    title: "Kas's EBW Dali Pose Show #1",
-                    venue: "Whiskerwick",
-                    date: "February 21, 2018",
-                    stamp: "../img/shows/winner.png",
-                    bis: "PF's Show Name",
-                    first: "PF's Show Name 2",
-                    second: "PF's Show Name 3",
-                    third: "PF's Show Name 4",
-                    hm: "PF's Show Name 5",
-                    url: "http://whiskerwick.boards.net/thread/5693/kass-dali-pose-show-full"
-                }
-            ]
+    app.get("/shows", async function (request, response) {
+        const vm = await request.business.show.getShows();
+        vm.selectedNavItem = 'shows';
+        response.render("shows.html", vm);
+    });
+
+    app.get("/stamps", async function (request, response) {
+        const vm = await request.business.image.getStampImages();
+        vm.selectedNavItem = 'stamps';
+        response.render("stamps.html", vm);
+    });
+
+    app.get("/guides", function (request, response) {
+        response.render("guides.html", {
+            selectedNavItem: "guides"
         });
     });
 
-    app.get("/stamps", function (request, response) {
-        response.render("stamps.html", {
-            selectedNavItem: "stamps",
-            limitedStamps: [
-                { img: "../img/stamps/kk-le-vday.png" }
-            ],
-            ffaStamps: [
-                { img: "../img/stamps/kk-ffa-busy.png" },
-                { img: "../img/stamps/kk-ffa-paws.png" }
-            ],
-            collectedStamps: [
-                {
-                    img: "../img/stamps/lpk10.png",
-                    url: "https://lukkypenniedal.wixsite.com/luckypennykennels"
-                }
-            ]
+    app.get("/genepoolz", function (request, response) {
+        response.render("genepoolz.html", {
+            selectedNavItem: "guides"
+        });
+    });
+
+    app.get("/contact", function (request, response) {
+        response.render("contact.html", {
+            selectedNavItem: "contact"
         });
     });
 
@@ -334,16 +152,24 @@ module.exports = function (app) {
             selectedNavItem: "find-it",
             findIts: [
                 {
-                    title: "Busy is hiding!",
-                    description: "He was playing hide-and-seek. Can you find him?",
-                    img: "../img/find-its/findit-busy.png",
-                },
-                {
-                    title: "Busy is hiding!",
-                    description: "He was playing hide-and-seek. Can you find him?",
-                    img: "../img/find-its/findit-busy.png",
+                    title: "Friendship Bracelets",
+                    description: "description",
+                    img: "../img/findit-busy.png",
                 }
             ]
+        });
+    });
+
+    app.get("/found-it-U9X2", function (request, response) {
+        response.render("found-it-01.html", {
+            selectedNavItem: "find-it",
+            // findIts: [
+            //     {
+            //         title: "Friendship Bracelets",
+            //         description: "description",
+            //         img: "../img/findit-busy.png",
+            //     }
+            // ]
         });
     });
 };

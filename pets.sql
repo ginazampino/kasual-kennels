@@ -67,7 +67,6 @@ CREATE TABLE pets (
     previous_owner  VARCHAR(255) NULL,
     previous_site   VARCHAR(255) NULL,
     previous_url    VARCHAR(255) NULL,
-    traits          INT NULL, -- (Binary trick?)
     description     TEXT NULL,
 
     -- Career
@@ -194,22 +193,45 @@ CREATE TABLE download_files (
     FOREIGN KEY (download_id) REFERENCES downloads(id)
 );
 
+--
+--  Other Tables
+--
+
+CREATE TABLE updates (
+    id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    update_date     VARCHAR(255) NOT NULL,
+    update_notes    TEXT NULL
+);
+
+--
+--  Data Inserts
+--
+
 INSERT INTO image_categories (category_name)
 VALUES ('Albums'), ('Awards'), ('Community Hubs'), 
-       ('Fan Sites'), ('Free-For-All Stamps'), 
+       ('Fan Sites'), ('Free-For-All Stamps'), ('Gifts'),
        ('Limited Edition Stamps'), ('Stamp Collection');
 
 INSERT INTO pages (page_name)
-VALUES ('Crew'), ('Kennels'), ('Litters'), ('Singles'), ('Playscenes');
+VALUES ('Crew'), ('Kennels'), ('Litters'), ('Singles'),
+       ('Breeders'), ('Clothes'), ('Playscenes'), ('Toys');
 
 INSERT INTO pet_breeds (breed_name)
 VALUES ('Bulldog'), ('Chihuahua'), ('Dachshund'), ('Dalmatian'),
        ('Great Dane'), ('Labrador'), ('Mutt'), ('Poodle'),
-       ('Scottie'), ('Sheepdog'), ('Brexed'), ('Hexed'), ('Wildz'),
+       ('Scottie'), ('Sheepdog'), ('Hexed Breed'), ('Wildz'),
        ('Overwrite'), ('Nonoverwrite');
 
 INSERT INTO pet_traits (trait_name)
-VALUES ('Inbred'), ('Mixbreed'), ('Purebread');
+VALUES ('Mixed Breed'),
+       ('Inbred'),
+       ('Tree-Trimmed'),
+       ('Full-Tree'),
+       ('Selective Breed'), 
+       ('Custom'),
+       ('Brexed'),
+       ('Gender Swapped'),
+       ('Legacy');
 
 INSERT INTO show_venues (venue_name, url)
 VALUES ('RKC Petz Forum (RKC)', 'http://petzforum.proboards.com/'),
@@ -230,12 +252,3 @@ VALUES ('BIS', 5),
        ('3rd', 2),
        ('HM', 1),
        ('P', 0);
-
-/* INSERT INTO pet_traits (trait_name)
-VALUES ('Brexed'), -- If not selected, pet is considered noninbred.
-       ('Full-Tree'), -- The pet's family tree is fully completed.
-       ('Tree-Trimmed'), -- The pet's family tree has been trimmed to reduce file size.
-       ('Mixed Breed'), -- If not selected, pet is considered purebred.
-       ('Selective Breed'),
-       ('Brexed'),
-       ('Legacy') */

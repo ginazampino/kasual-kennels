@@ -40,7 +40,7 @@
                                         <select name="placement_id" class="form-control" required>
                                             {% for placement in dropdowns.placements %}
                                                 <option
-                                                {% if placement == entry.placement %}selected{% endif %}
+                                                {% if placement.id == entry.placement_id %}selected{% endif %}
                                                 value="{{ placement.id }}">{{ placement.placement_name }}</option>
                                             {% endfor %}
                                         </select>
@@ -59,7 +59,7 @@
                                         <select name="venue_id" class="form-control" required>
                                             {% for venue in dropdowns.venues %}
                                                 <option
-                                                {% if venue == entry.venue %}selected{% endif %}
+                                                {% if venue.id == entry.venue_id %}selected{% endif %}
                                                 value="{{ venue.id }}">{{ venue.venue_name }}</option>
                                             {% endfor %}
                                         </select>
@@ -69,7 +69,7 @@
                                         <select name="category_id" class="form-control" required>
                                             {% for category in dropdowns.categories %}
                                                 <option
-                                                {% if category == entry.category %}selected{% endif %}
+                                                {% if category.id == entry.category_id %}selected{% endif %}
                                                 value="{{ category.id }}">{{ category.category_name }}</option>
                                             {% endfor %}
                                         </select>

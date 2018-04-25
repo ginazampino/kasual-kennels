@@ -236,4 +236,64 @@ module.exports = class PetBusiness extends BaseClass {
             }
         }
     };
+
+    async getCrewPets() {
+        const pets = await this.conn.query(`
+        SELECT
+            pets.pet_name
+        ,	pets.gender
+        ,	pets.description
+        ,	images.file_name as img
+        FROM
+            pets
+        INNER JOIN
+            pages ON pets.page_id = pages.id
+        INNER JOIN
+            images on pets.image_photo_id = images.id
+        WHERE
+            page_id = 1
+        `);
+
+        return { pets };
+    };
+
+    async getSingles() {
+        const pets = await this.conn.query(`
+            SELECT
+                pets.id
+            ,   pets.pet_name
+            , 	pets.gender
+            ,	images.file_name as img
+            FROM
+                pets
+            INNER JOIN
+                pages on pets.page_id = pages.id
+            INNER JOIN
+                images on pets.image_photo_id = images.id
+            WHERE
+                page_id = 4
+        `);
+
+        for (let i = 0; i < pets.length; i++) {
+            let pet = pets[i];
+            pet.traits = await this.getPetTraits(pet.id);
+        }
+
+        return { pets };
+    };
+
+    async getPetTraits(petId) {
+        const traits = await this.conn.query(`
+            SELECT 
+                pet_traits.trait_name 
+            FROM 
+                kasualkennels.pet_trait_values
+            INNER JOIN
+                pet_traits on pet_trait_values.trait_id = pet_traits.id
+            WHERE
+                pet_id = ?
+        `, petId);
+
+        return traits;
+    };
 };

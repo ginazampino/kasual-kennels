@@ -18,15 +18,15 @@
         <div class="pet-item-container margin-none">
             <div class="pet-item">
                 <div class="pet-item-image-container">
-                    <img alt="" src="{{ pet.img }}">
+                    <img alt="" src="/uploads/{{ pet.img }}">
                 </div>
 
                 <span class="sub-section-header">
-                    {% if pet.gender %}
+                    {% if pet.gender == 'Male' %}
                     <i alt="Male" title="Male" class="fas fa-mars male"></i>
                     {% else %}
                     <i alt="Female" title="Female" class="fas fa-venus female"></i>
-                    {% endif %} {{ pet.name }}
+                    {% endif %} {{ pet.pet_name }}
                 </span>
 
             </div>
@@ -34,7 +34,11 @@
                 {{ pet.description }}
             </p>
         </div>
-        {% endfor %}
+        {% if not loop.last %}
+        <div class="divider-container-sm">
+            <div class="divider-sm"></div>
+        </div>
+        {% endif %} {% endfor %}
     </div>
 
     <div class="divider-container-lg">
@@ -49,5 +53,12 @@
 
 
 </section>
-
+<script>
+    tippy('[title]', {
+        theme: 'kk',
+        arrow: true,
+        flip: true,
+        size: 'small',
+    });
+</script>
 {% endblock%}

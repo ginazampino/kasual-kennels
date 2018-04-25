@@ -77,4 +77,62 @@ module.exports = class EntryBusiness {
             show_date: body.show_date
         }, { id: request.query.id });
     };
+
+    async getShowroom() {
+        const pets = await this.conn.query(`
+            SELECT
+                pets.id
+            ,	pets.pet_name
+            ,	pets.prefix_titles
+            , 	pets.show_prefixes
+            ,	pets.show_name
+            , 	pets.suffix_titles
+            ,   pets.career_status
+            , 	dali.file_name as dali_img
+            , 	dane.file_name as dane_img
+            FROM
+                pets
+            LEFT JOIN
+                images as dali on pets.image_dali_id = dali.id
+            LEFT JOIN
+                images as dane on pets.image_dane_id = dane.id
+            WHERE
+                career_status = 'Active'
+            OR
+                career_status = 'Retired'
+        `);
+
+        for (let i = 0; i < pets.length; i++) {
+            let pet = pets[i];
+            pet.entries = await this.getShowroomEntries(pet.id);
+        };
+
+        return { pets }
+    };
+
+    async getShowroomEntries(petId) {
+        const entries = await this.conn.query(`
+            SELECT
+                my_entries.show_name
+            , 	my_entries.url
+            ,	my_entries.show_date
+            ,	placements.placement_name
+            ,	show_categories.category_name
+            ,	show_venues.venue_name
+            FROM
+                my_entries
+            INNER JOIN
+                placements on my_entries.placement_id = placements.id
+            INNER JOIN
+                show_categories on my_entries.category_id = show_categories.id
+            INNER JOIN
+                show_venues on my_entries.venue_id = show_venues.id
+            WHERE
+                pet_id = ?
+            ORDER BY
+                points DESC
+        `, petId);
+        
+        return entries;
+    };
 };
