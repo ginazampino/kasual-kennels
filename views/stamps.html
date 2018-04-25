@@ -4,7 +4,7 @@
 <section class="content-container">
 
     <div class="content-introduction">
-        <h2>{{ selectedNavItem | title}}</h2>
+        <h2>{{ selectedNavItem | title }}</h2>
         <p>
             Stamps to collect on your website or forum home!
         </p>
@@ -20,8 +20,11 @@
         </span>
 
         <div class="sub-section-content-container">
-            {% for limitedStamp in limitedStamps %}
-            <img alt="" src="{{ limitedStamp.img }}"> {% endfor %}
+            {% for image in images %}
+                {% if image.category_name == 'Limited Edition Stamps' %}
+                <img alt="" title="{{ image.title }}" src="/uploads/{{ image.file_name }}"> 
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 
@@ -31,12 +34,15 @@
 
     <div class="sub-section">
         <span class="sub-section-header">
-            Free for All
+            Free-for-All
         </span>
 
         <div class="sub-section-content-container">
-            {% for ffaStamp in ffaStamps %}
-            <img alt="" src="{{ ffaStamp.img }}"> {% endfor %}
+            {% for image in images %}
+                {% if image.category_name == 'Free-For-All Stamps' %}
+                <img alt="" title="{{ image.title }}" src="/uploads/{{ image.file_name }}"> 
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 
@@ -50,11 +56,15 @@
         </span>
 
         <div class="sub-section-content-container normalize-stamps no-hover">
-            {% for collectedStamp in collectedStamps %}
-            <a target="_blank" href="{{ collectedStamp.url }}">
-                <img alt="" src="{{ collectedStamp.img }}">
-            </a>
+            <div class="sub-section-content-container">
+            {% for image in images %}
+                {% if image.category_name == 'Stamp Collection' %}
+                <a href="{{ image.url }}" target="_blank">
+                    <img alt="" title="{{ image.title }}" src="/uploads/{{ image.file_name }}">
+                </a>
+                {% endif %}
             {% endfor %}
+            </div>
         </div>
     </div>
 
@@ -74,5 +84,12 @@
     </footer>
 
 </section>
-
+<script>
+    tippy('[title]', {
+        theme: 'kk',
+        arrow: true,
+        flip: true,
+        size: 'small',
+    });
+</script>
 {% endblock %}}

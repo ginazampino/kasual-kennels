@@ -17,29 +17,40 @@
     <div class="sub-section">
         {% for show in shows %}
         <div class="sub-section-header margin-0">
-            {{ show.title }}
+            {{ show.show_name }}
             <span class="sub-section-header-descriptor">
                 @
-                <a target="_blank" href="{{ show.url }}">Whiskerwick</a>, {{ show.date }}
+                <a target="_blank" href="
+                {% if show.show_url %}
+                {{ show.show_url }}
+                {% else %}
+                {{ show.venue_url }}
+                {% endif %}
+                ">{{ show.venue }}</a>, 
+                {{ show.show_date }}
             </span>
         </div>
-        <img alt="" class="show-stamp" src="{{ show.stamp }}">
-        <div class="show-results">
+        <div class="show-results margin-top-25">
             <ul class="show-placements">
                 <li>
-                    <strong>BIS:</strong> {{ show.bis }}
+                    <strong>BIS:</strong> 
+                    {{ show.entries[0].entry_name }}
                 </li>
                 <li>
-                    <strong>1st:</strong> {{ show.first }}
+                    <strong>1st:</strong>
+                    {{ show.entries[1].entry_name }}
                 </li>
                 <li>
-                    <strong>2nd:</strong> {{ show.second }}
+                    <strong>2nd:</strong>
+                    {{ show.entries[2].entry_name }}
                 </li>
                 <li>
-                    <strong>3rd:</strong> {{ show.third }}
+                    <strong>3rd:</strong>
+                    {{ show.entries[3].entry_name }}
                 </li>
                 <li>
-                    <strong>HM:</strong> {{ show.hm }}
+                    <strong>HM:</strong> 
+                    {{ show.entries[4].entry_name }}
                 </li>
             </ul>
         </div>
@@ -68,5 +79,12 @@
     </footer>
 
 </section>
-
+<script>
+    tippy('[title]', {
+        theme: 'kk',
+        arrow: true,
+        flip: true,
+        size: 'small',
+    });
+</script>
 {% endblock %}

@@ -1,85 +1,80 @@
-{% extends "index.html" %} {% block main %}
+{% extends "index.html" %}
+{% block main %}
 
-<a name="top"></a>
-<section class="content-container">
+    <a name="top"></a>
+    <section class="content-container">
 
-    <div class="content-introduction">
-        <h2>{{ selectedNavItem | title}}</h2>
-        <p>
-            Meet the stars of our kennels!
-        </p>
-    </div>
+        <div class="content-introduction">
+            <h2>{{ selectedNavItem | title}}</h2>
+            <p>
+                Meet the stars of our kennels!
+            </p>
+        </div>
 
-    <div class="divider-container-lg">
-        <div class="divider-lg"></div>
-    </div>
+        <div class="divider-container-lg">
+            <div class="divider-lg"></div>
+        </div>
 
-    <div class="sub-section">
+        <div class="sub-section">
             {% for pet in pets %}
-            <div class="sub-section-header-image">
-                {% if pet.poses.dane %}
-                <div class="pet-item">
-                    <div class="pet-item-image-container">
-                        <img alt="" title="Profile (Dane) Pose" src="{{ pet.poses.dane }}">
+                {% if pet.career_status == 'Active' %}
+                    <div class="sub-section-header-image">
+                        {% if pet.dane_img %}
+                            <div class="pet-item">
+                                <div class="pet-item-image-container">
+                                    <img alt="" title="Profile (Dane) Pose" src="/uploads/{{ pet.dane_img }}">
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if pet.dali_img %}
+                            <div class="pet-item">
+                                <div class="pet-item-image-container">
+                                    <img alt="" title="Front-Facing (Dali) Pose" src="/uploads/{{ pet.dali_img }}">
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
-                {% endif %} {% if pet.poses.dali %}
-                <div class="pet-item">
-                    <div class="pet-item-image-container">
-                        <img alt="" title="Front-Facing (Dali) Pose" src="{{ pet.poses.dali }}">
+                    <div>
+                        <div class="sub-section-header">
+                            <span class="highlight">{{ pet.pet_name }}</span>
+                            <span>
+                                <strong>{{ pet.prefix_titles}}
+                                    {{ pet.show_prefixes }}/KK's
+                                    {{ pet.show_name }}
+                                    {{ pet.suffix_titles}}</strong>
+                            </span>
+                        </div>
                     </div>
-                </div>
+
+                    {% for entry in pet.entries %}
+                        {% if entry.placement_name == 'BIS' %}
+                            <img alt="" title="{{ entry.show_name }}" src="/img/ribbon_bis.gif">
+                        {% endif %}
+                        {% if entry.placement_name == '1st' %}
+                            <img alt="" title="{{ entry.show_name }}" src="/img/ribbon_1st.gif">
+                        {% endif %}
+                        {% if entry.placement_name == '2nd' %}
+                            <img alt="" title="{{ entry.show_name }}" src="/img/ribbon_2nd.gif">
+                        {% endif %}
+                        {% if entry.placement_name == '3rd' %}
+                            <img alt="" title="{{ entry.show_name }}" src="/img/ribbon_3rd.gif">
+                        {% endif %}
+                        {% if entry.placement_name == 'HM' %}
+                            <img alt="" title="{{ entry.show_name }}" src="/img/ribbon_hm.gif">
+                        {% endif %}
+                        {% if entry.placement_name == 'P' %}
+                            <img alt="" title="{{ entry.show_name }}" src="/img/ribbon_p.gif">
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not loop.last %}
+                        <div class="divider-container-sm">
+                            <div class="divider-sm"></div>
+                        </div>
+                    {% endif %}
+
                 {% endif %}
-            </div>
-            <div>
-                <div class="sub-section-header">
-                    <span class="highlight">{{ pet.name }}</span> 
-                    <span><strong>{{ pet.showName }}</strong></span>
-                </div>
-            </div>
-
-            {% if pet.bis %}
-                {% for show in pet.bis %}
-                    <img alt="" title="{{ show.name }}" src="../img/showroom/ribbons/award_bis.gif">
-                {% endfor %}
-            {% endif %}
-            
-            {% if pet.first %}
-                {% for show in pet.first %}
-                    <img alt="" title="{{ show.name }}" src="../img/showroom/ribbons/award_1st.gif">
-                {% endfor %}
-            {% endif %}
-
-            {% if pet.second %}
-                {% for show in pet.second %}
-                    <img alt="" title="{{ show.name }}" src="../img/showroom/ribbons/award_2nd.gif">
-                {% endfor %}
-            {% endif %}
-
-            {% if pet.third %}
-                {% for show in pet.third %}
-                    <img alt="" title="{{ show.name }}" src="../img/showroom/ribbons/award_3rd.gif">
-                {% endfor %}
-            {% endif %}
-
-            {% if pet.hm %}
-                {% for show in pet.hm %}
-                    <img alt="" title="{{ show.name }}" src="../img/showroom/ribbons/award_hm.gif">
-                {% endfor %}
-            {% endif %}
-
-            {% if pet.part %}
-                {% for show in pet.part %}
-                    <img alt="" title="{{ show.name }}" src="../img/showroom/ribbons/award_part.png">
-                {% endfor %}
-            {% endif %}
-
-            {% if not loop.last %}
-            <div class="divider-container-sm">
-                <div class="divider-sm"></div>
-            </div>
-            {% endif %} {% endfor %}
-
+            {% endfor %}
         </div>
 
         <div class="divider-container-lg">
@@ -88,13 +83,25 @@
 
         <footer>
             <p>
-                Ribbons were designed by <a target="_blank" href="http://petzforum.proboards.com/thread/141/show-points-titles-system">Ratqueen</a> and edited by <a target="_blank" href="http://petzforum.proboards.com/thread/63900/verms-showroom">Vermidia</a>.
+                Ribbons were designed by
+                <a target="_blank" href="http://petzforum.proboards.com/thread/141/show-points-titles-system">Ratqueen</a>
+                and edited by
+                <a target="_blank" href="http://petzforum.proboards.com/thread/63900/verms-showroom">Vermidia</a>.
             </p>
             <div class="download-link margin-t-10">
-                <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+                <a href="#top">
+                    <i class="fas fa-arrow-alt-up"></i>
+                    Return to the top</a>
             </div>
         </footer>
 
-</section>
-
+    </section>
+<script>
+    tippy('[title]', {
+        theme: 'kk',
+        arrow: true,
+        flip: true,
+        size: 'small',
+    });
+</script>
 {% endblock %}

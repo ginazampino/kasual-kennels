@@ -1,11 +1,12 @@
 {% extends "index.html" %} {% block main %}
+
 <a name="top"></a>
 <section class="content-container">
 
     <div class="content-introduction">
         <h2>{{ selectedNavItem | title}}</h2>
         <p>
-            Awards we earned from games and contests!
+            Work in progress.
         </p>
     </div>
 
@@ -13,10 +14,7 @@
         <div class="divider-lg"></div>
     </div>
 
-    <div class="sub-section no-hover">
-        {% for image in images %}
-        <a href="{{ image.url }}" target="_blank"><img alt="" title="{{ image.title }}" src="/uploads/{{ image.file_name }}"></a> {% endfor %}
-    </div>
+    <em>Work in progress.</em>
 
     <div class="divider-container-lg">
         <div class="divider-lg"></div>
@@ -28,14 +26,7 @@
         </div>
     </footer>
 
-
 </section>
-<script>
-    tippy('[title]', {
-        theme: 'kk',
-        arrow: true,
-        flip: true,
-        size: 'small',
-    });
-</script>
+<!-- </section> -->
+
 {% endblock %}

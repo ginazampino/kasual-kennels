@@ -84,4 +84,44 @@ module.exports = class LitterBusiness {
             description: body.description
         }, { id: request.query.id });
     };
+
+    async getLitters() {
+        const litters = await this.conn.query(`
+            SELECT
+            litters.id
+        ,   litters.litter_name
+        , 	litters.requester
+        , 	litters.description
+        ,	images.file_name as img
+        FROM
+            litters
+        INNER JOIN
+            images on litters.image_id = images.id
+        `);
+
+        for (let i = 0; i < litters.length; i++) {
+            let litter = litters[i];
+            litter.pets = await this.getLitterPets(litter.id);
+        };
+
+        return { litters };
+    };
+
+    async getLitterPets(litterId) {
+        const pets = await this.conn.query(`
+            SELECT
+                pets.pet_name
+            ,	pets.gender
+            ,   pets.description
+            ,   images.file_name as img
+            FROM
+                pets
+            INNER JOIN
+                images on pets.image_photo_id = images.id
+            WHERE
+                litter_id = ?
+        `, litterId);
+
+        return pets;
+    };
 };

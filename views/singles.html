@@ -23,33 +23,30 @@
     </div>
 
     <div class="sub-section">
-        <span class="sub-section-header">
-            Current Adoptions
-        </span>
-
-        {% for adoption in adoptions %}
+        {% for pet in pets %}
         <div class="pet-item">
-
             <div class="pet-item-image-container">
-                <img alt="" src="{{ adoption.img }}">
+                <img alt="" src="/uploads/{{ pet.img }}">
             </div>
 
             <div class="item-header">
-                <span class="display-block">{% if adoption.gender %}
+                <span class="display-block">
+                    {% if pet.gender == 'Male' %}
                     <i alt="Male" title="Male" class="fas fa-mars male"></i>
                     {% else %}
                     <i alt="Female" title="Female" class="fas fa-venus female"></i>
-                    {% endif %} {{ adoption.name }}
+                    {% endif %} {{ pet.pet_name }}
                 </span>
                 <span class="item-header-details">
-                    {% if adoption.inbred %}Inbred {% elif not adoption.inbred %} Noninbred{% endif %}{{ adoption.breed }}
+                    {% for trait in pet.traits %}
+                        {{ trait.trait_name }}
+                    {% endfor %}
                 </span>
             </div>
 
             <span class="download-link">
                <a href="/apply"><i class="fas fa-external-link"></i> Adopt</a>
             </span>
-
         </div>
         {% endfor %}
     </div>
@@ -60,7 +57,7 @@
 
     <footer>
         <p>
-            All adoptions are for
+            All pets are for
             <a target="_blank" href="https://en.wikipedia.org/wiki/Petz">Petz 4</a>.
         </p>
         <div class="download-link margin-t-10">
@@ -68,5 +65,12 @@
         </div>
     </footer>
 </section>
-
+<script>
+    tippy('[title]', {
+        theme: 'kk',
+        arrow: true,
+        flip: true,
+        size: 'small',
+    });
+</script>
 {% endblock %}

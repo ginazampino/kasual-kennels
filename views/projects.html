@@ -22,18 +22,18 @@
         {% for project in projects %}
 
         <div class="sub-section-header-image">
-            <img alt="" src="{{ project.img }}">
+            <img alt="" src="/uploads/{{ project.img }}">
         </div>
 
         <div class="sub-section-content-container">
             <span>
-                <strong>{{ project.name }}</strong>
+                <strong>{{ project.project_name }}</strong>
             </span>
             <span class="sub-section-header-descriptor">
-                {{ project.date }}
+                {{ project.completed_date }}
             </span>
             <span>
-                <strong>Status:</strong> {{ project.status }}
+                <strong>Status:</strong> {{ project.project_status }}
             </span>
         </div>
 
@@ -55,5 +55,12 @@
     </footer>
 
 </section>
-
+<script>
+    tippy('[title]', {
+        theme: 'kk',
+        arrow: true,
+        flip: true,
+        size: 'small',
+    });
+</script>
 {% endblock %}

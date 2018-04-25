@@ -40,3 +40,25 @@
         filter: drop-shadow( #222 .1em .1em 0);
     }
 };
+
+@mixin outline($color) {
+    -webkit-filter: drop-shadow(1px 1px 0 $color)
+        drop-shadow(-1px 1px 0 $color)
+        drop-shadow(1px -1px 0 $color)
+        drop-shadow(-1px -1px 0 $color);
+    filter: drop-shadow(1px 1px 0 $color)
+        drop-shadow(-1px 1px 0 $color)
+        drop-shadow(1px -1px 0 $color)
+        drop-shadow(-1px -1px 0 $color);
+}
+
+@mixin outline-hover($color) {
+    webkit-filter: drop-shadow(2px 2px 0 $color)
+        drop-shadow(-2px 2px 0 $color)
+        drop-shadow(2px -2px 0 $color)
+        drop-shadow(-2px -2px 0 $color);
+    filter: drop-shadow(2px 2px 0 $color)
+        drop-shadow(-2px 2px 0 $color)
+        drop-shadow(2px -2px 0 $color)
+        drop-shadow(-2px -2px 0 $color);
+}

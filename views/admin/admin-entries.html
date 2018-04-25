@@ -40,35 +40,49 @@
                     <tbody>
 
                         {% for entry in entries %}
-                            <th scope="row">{{ entry.id }}</th>
-                            <td>
-                                {{ entry.show_name }}
-                            </td>
-                            <td>
-                                {{ entry.pet_name }}
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-default btn-xs" data-toggle="dropdown" role="button">
-                                        Manage
-                                        <span class="caret"></span>
-                                    </button>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li>
-                                        <a href="#">Edit</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Delete</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    {% endfor %}
-                </tbody>
+                            <tr>
+                                <th scope="row">{{ entry.id }}</th>
+                                <td>
+                                    {{ entry.show_name }}
+                                </td>
+                                <td>
+                                    {{ entry.pet_name }}
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default btn-xs" data-toggle="dropdown" role="button">
+                                            Manage
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li>
+                                                <a href="/admin/edit-entry?id={{entry.id}}">Edit</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" onclick="deleteEntry({{entry.id}})">Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+    <script>
+        function deleteEntry(id) {
+            $.ajax({
+                url: '/admin/delete-entry?id=' + id,
+                method: 'POST',
+                success: function () {
+                    window
+                        .location
+                        .reload(true);
+                }
+            })
+        }
+    </script>
 {% endblock %}

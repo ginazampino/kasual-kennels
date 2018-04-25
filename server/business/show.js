@@ -122,4 +122,49 @@ module.exports = class ShowBusiness {
             show_date: body.show_date
         }, { id: request.query.id });
     };
+
+    async getShows() {
+        const shows = await this.conn.query(`
+            SELECT
+                shows.id
+            ,   shows.show_name
+            , 	shows.url as show_url
+            , 	shows.show_date
+            ,	show_venues.venue_name as venue
+            ,   show_venues.url as venue_url
+            , 	show_categories.category_name as category
+            FROM
+                shows
+            INNER JOIN
+                show_venues on shows.venue_id = show_venues.id
+            INNER JOIN
+                show_categories on shows.category_id = show_categories.id
+        `);
+
+        for (let i = 0; i < shows.length; i++) {
+            let show = shows[i];
+            show.entries = await this.getShowEntries(show.id);
+        };
+
+        return { shows };
+    };
+
+    async getShowEntries(showId) {
+        const entries = await this.conn.query(`
+            SELECT
+                show_entries.entry_name
+            ,   placements.placement_name as placement
+            ,   placements.points
+            FROM
+                show_entries
+            INNER JOIN
+                placements on show_entries.placement_id = placements.id
+            WHERE
+                show_id = ?
+            ORDER BY
+                points DESC
+        `, showId);
+
+        return entries;
+    };
 };

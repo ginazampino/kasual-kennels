@@ -1,0 +1,72 @@
+{% extends "index.html" %}
+{% block main %}
+    <a name="top"></a>
+    <section class="content-container">
+
+        <div class="content-introduction">
+            <h2>Found It!</h2>
+            <p>
+                You found the
+                <strong>lost friendship bracelet</strong>!
+            </p>
+        </div>
+
+        <div class="divider-container-lg">
+            <div class="divider-lg"></div>
+        </div>
+
+        <div class="sub-section">
+            <div class="sub-section-header-image">
+                <img alt="" src="../img/findit-01-paws-busy.png">
+            </div>
+            <div class="sub-section-content-container">
+                <p>
+                    Paws slips on his friendship bracelet just as Busy invites him to play! But he's none the wiser...thanks to you!
+                </p>
+            </div>
+            <div class="divider-container-sm">
+                <div class="divider-sm"></div>
+            </div>
+            <div class="sub-section-header-image">
+                <img alt="" src="../img/findit-01-found-bracelet.png">
+            </div>
+            <div class="sub-section-content-container">
+                <span class="sub-section-header">
+                    Kas's Friendship Bracelets
+                </span>
+                <ul class="download-link">
+                        <li>
+                            <a href="/files/Kas's Friendship Bracelets.zip" download>
+                                <i class="fas fa-download"></i>
+                                Download for Petz 4
+                            </a>
+                        </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider-container-lg">
+            <div class="divider-lg"></div>
+        </div>
+
+        <footer>
+            <p>
+                Not sure what just happened? Click <a href="/find-it">here</a>!
+            </p>
+            <div class="download-link margin-t-10">
+                <a href="#top">
+                    <i class="fas fa-arrow-alt-up"></i>
+                    Return to the top</a>
+            </div>
+        </footer>
+
+    </section>
+    <script>
+        tippy('[title]', {
+            theme: 'kk',
+            arrow: true,
+            flip: true,
+            size: 'small'
+        });
+    </script>
+{% endblock %}}

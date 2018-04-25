@@ -1,11 +1,12 @@
 {% extends "index.html" %} {% block main %}
+
 <a name="top"></a>
 <section class="content-container">
 
     <div class="content-introduction">
-        <h2>{{ selectedNavItem | title}}</h2>
+        <h2>GenePoolz Guide</h2>
         <p>
-            Awards we earned from games and contests!
+            <em>Coming soon!</em>
         </p>
     </div>
 
@@ -13,21 +14,22 @@
         <div class="divider-lg"></div>
     </div>
 
-    <div class="sub-section no-hover">
-        {% for image in images %}
-        <a href="{{ image.url }}" target="_blank"><img alt="" title="{{ image.title }}" src="/uploads/{{ image.file_name }}"></a> {% endfor %}
-    </div>
+    <em>None available.</em>
 
     <div class="divider-container-lg">
         <div class="divider-lg"></div>
     </div>
 
     <footer>
-        <div class="download-link">
+        <p>
+            GenePoolz developed by Reflet at
+            <a target="_blank" href="https://reflettage.wixsite.com/yabiko">
+                <em>Yabiko</em></a>.
+        </p>
+        <div class="download-link margin-t-10">
             <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
         </div>
     </footer>
-
 
 </section>
 <script>

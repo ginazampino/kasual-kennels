@@ -74,5 +74,101 @@ module.exports = class ImageBusiness {
         }
 
         return this.conn.update("images", entity, { id: request.query.id });
-    }
+    };
+
+    async getAlbumImages() {
+        const images = await this.conn.query(`
+            SELECT
+                images.file_name
+            , 	images.title
+            , 	images.url
+            ,	image_categories.category_name
+            FROM
+                images
+            INNER JOIN
+                image_categories ON images.category_id = image_categories.id
+            WHERE
+                category_id = 1
+        `);
+
+        return { images };
+    };
+
+    async getAwardImages() {
+        const images = await this.conn.query(`
+            SELECT
+                images.file_name
+            , 	images.title
+            , 	images.url
+            ,	image_categories.category_name
+            FROM
+                images
+            INNER JOIN
+                image_categories ON images.category_id = image_categories.id
+            WHERE
+                category_id = 2
+        `);
+
+        return { images };
+    };
+
+    async getGiftImages() {
+        const images = await this.conn.query(`
+            SELECT
+                images.file_name
+            , 	images.title
+            , 	images.url
+            ,	image_categories.category_name
+            FROM
+                images
+            INNER JOIN
+                image_categories ON images.category_id = image_categories.id
+            WHERE
+                category_id = 6
+        `);
+
+        return { images };
+    };
+
+    async getStampImages() {
+        const images = await this.conn.query(`
+            SELECT
+                images.file_name
+            ,   images.url
+            , 	images.title
+            , 	image_categories.category_name
+            FROM
+                images
+            INNER JOIN
+                image_categories ON images.category_id = image_categories.id
+            WHERE
+                category_id = 5
+            OR
+                category_id = 7
+            OR
+                category_id = 8
+        `);
+
+        return { images };
+    };
+
+    async getLinkImages() {
+        const images = await this.conn.query(`
+            SELECT
+                images.file_name
+            ,   images.url
+            , 	images.title
+            , 	image_categories.category_name
+            FROM
+                images
+            INNER JOIN
+                image_categories ON images.category_id = image_categories.id
+            WHERE
+                category_id = 3
+            OR
+                category_id = 4
+        `);
+        
+        return { images };
+    };
 };

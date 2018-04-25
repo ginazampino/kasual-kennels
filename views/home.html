@@ -20,9 +20,14 @@
     </div>
 
     <footer>
-        <div class="download-link">
-            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        <div>
+            <strong>Updated:</strong> {{ update.date }}
         </div>
+        {% if update.notes %}
+        <div class="margin-top-10">
+            {{ update.notes }}
+        </div>
+        {% endif %}
     </footer>
 
 </section>

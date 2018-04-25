@@ -25,12 +25,12 @@
         {% for litter in litters %}
 
         <div class="sub-section-header-image">
-            <img alt="" src="{{ litter.img }}">
+            <img alt="" src="/uploads/{{ litter.img }}">
         </div>
         <span class="sub-section-header">
-            {{ litter.name }}
+            {{ litter.litter_name }}
             <span class="sub-section-header-descriptor">
-                Requested by {{ litter.requester }}
+                for {{ litter.requester }}
             </span>
         </span>
         <p class="sub-section-content-container">
@@ -38,28 +38,23 @@
         </p>
 
         <div class="pet-item-container">
-            {% for adoption in litter.adoptions %}
+            {% for pet in litter.pets %}
             <div class="pet-item">
                 <div class="pet-item-image-container">
-                    <img alt="" src="{{ adoption.img }}">
+                    <img alt="" src="/uploads/{{ pet.img }}">
                 </div>
 
                 <div class="item-header">
-                    {% if adoption.gender %}
+                    {% if pet.gender == 'Male ' %}
                     <i alt="Male" title="Male" class="fas fa-mars male"></i>
                     {% else %}
                     <i alt="Female" title="Female" class="fas fa-venus female"></i>
-                    {% endif %} {{ adoption.name }}
-                    <span class="item-header-details">
-                        {% if adoption.inbred %}Inbred {% elif not adoption.inbred %} Noninbred{% endif %}{{ adoption.breed }}
-                    </span>
+                    {% endif %} {{ pet.pet_name }}
                 </div>
 
                 <span class="download-link">
-                    <a href="/apply"><i class="fas fa-external-link"></i> Adopt</a>
+                    <a href="/apply"><i class="fas fa-external-link margin-top-25"></i> Adopt</a>
                 </span>
-
-                {% if adoption.description %} {% endif%}
             </div>
             {% endfor %}
         </div>
@@ -86,5 +81,12 @@
     </footer>
 
 </section>
-
+<script>
+    tippy('[title]', {
+        theme: 'kk',
+        arrow: true,
+        flip: true,
+        size: 'small',
+    });
+</script>
 {% endblock %}

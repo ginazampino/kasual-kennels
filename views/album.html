@@ -14,22 +14,11 @@
     </div>
 
     <div class="sub-section">
-        {% for album in albums %}
-
-        <span class="sub-section-header">
-                {{ album.title }}
-        </span>
-
-        <div class="sub-section-content-container">
-            {% for image in album.images %}
-            <img alt="" src="{{ image.img }}"> {% endfor %}
+        {% for image in images %}
+        <div class="sub-section">
+            <img alt="" title="{{ image.title }}" src="/uploads/{{ image.file_name }}">
         </div>
-
-        {% if not loop.last %}
-        <div class="divider-container-sm">
-            <div class="divider-sm"></div>
-        </div>
-        {% endif %} {% endfor %}
+        {% endfor %}
     </div>
 
     <div class="divider-container-lg">
@@ -43,5 +32,12 @@
     </footer>
 
 </section>
-
+<script>
+    tippy('[title]', {
+        theme: 'kk',
+        arrow: true,
+        flip: true,
+        size: 'small',
+    });
+</script>
 {% endblock %}

@@ -1,6 +1,8 @@
 @import "variables";
 @import "mixins";
 
+
+
 /*
 
     Elements
@@ -445,7 +447,7 @@ strong {
     display: block;
     font-weight: 700;
     .item-header-details {
-        display: block; // font-size: 10px;
+        display: block;
         font-weight: 400;
         letter-spacing: 0.5px;
         margin: 5px 0 25px 0;
@@ -488,44 +490,51 @@ strong {
 */
 
 .kennel-item-container {
-    // background-color: red;
-    height: 250px;
+    align-items: center;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    width: 100%;
     .kennel-item {
-        height: 100%; // background-color: blue;
-        width: 100%;
-        .kennel-item-image {
-            align-items: center; // background-color: orange;
-            display: flex;
-            float: left;
-            height: 100%;
-            justify-content: center;
-            width: 250px;
-            img {
-                max-width: 210px;
-            }
+        height: 200px;
+        justify-content: center;
+        width: 200px;
+        img {
+            transition: .1s ease-in;
         }
-        .kennel-item-details {
-            // background-color: yellow;
-            align-items: center;
-            display: flex;
-            height: 100%;
-            justify-content: center;
-            padding: 20px;
-            width: calc(100% - 250px);
-            text-align: center;
-            img {
-                margin-bottom: 10px;
-            }
-            ul {
-                font-size: 10px;
-                strong {
-                    text-transform: uppercase;
-                }
-            }
+        img:hover {
+            @include outline-hover($accent); 
+            cursor: help;
+            transition: .1s ease-out;
         }
-    } // li + li {
-    //     margin-top: 40px;
-    // }
+    }
+}
+
+.kennel-item-details {
+    height: 100%;
+    padding: 0 10px 10px 10px;
+    width: 175px;
+    text-align: center;
+    img {
+        margin-bottom: 10px;
+    }
+    ul {
+        font-size: 10px;
+        strong {
+            text-transform: uppercase;
+        }
+        li {
+            display: inline-block;
+        }
+    }
+    .info {
+        color: $accent;
+        display: inline-block;
+        font-size: 16px; // Add shadow on hover.
+        svg:hover {
+            cursor: help;
+        }
+    }
 }
 
 
@@ -545,7 +554,7 @@ strong {
     }
     svg {
         color: $accent;
-        font-size: 10px; // Add shadow on hover somehow.
+        font-size: 10px; // Add shadow on hover.
     }
     li+li {
         margin-top: 10px;
@@ -580,51 +589,89 @@ strong {
     margin: 0;
 }
 
-// Select2 Overrides
-.select2-container--default {
-    font-family: "Source Code Pro" !important;
-    width: 75% !important;
+.margin-top-10 {
+    margin-top: 10px;
 }
 
-.select2-container--default.select2-container--focus .select2-selection--multiple,
-.select2-container--default .select2-selection--multiple {
+.margin-top-25 {
+    margin-top: 25px;
+}
+
+.filter-container {
+    margin-top: 50px;
+
+    .col {
+        float: left;
+        padding: 0 15px;
+    }
+
+    @for $i from 1 through 12 {
+        .col-#{$i} {
+            width: percentage($i / 12);
+        }
+    }
+}
+
+// Select2 Overrides
+
+.select2, .select2 * {
+    box-sizing: content-box;
+    outline: 0;
+}
+
+.select2-container {
+    font-family: 'Source Code Pro' !important;
+    width: 100% !important;
+}
+
+.select2-container .select2-selection {
     border: 3px dashed $accent !important;
     border-radius: 0;
-    min-height: 20px !important;
-    padding: 4px !important;
-    margin-top: 40px !important;
+    height: 32px;
 }
 
-.select2-dropdown {
+.select2-container .select2-dropdown {
     font-size: 12px !important;
     border: 3px dashed $accent;
     border-top: none;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
-    border: none;
-    border-radius: 0;
-    border-color: $accent;
-    background-color: #fff;
-    &:hover {
-        cursor: default;
-    }
-}
-
-.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-    color: $accent;
-    font-weight: 900 !important;
-    padding: 0 4px 0 6px!important;
-    transition: .1s ease-in;
-    &:hover {
-        transition: .1s ease-out;
-        @include highlight-hover($accent);
-    }
-}
-
-.select2-container--default .select2-results__option--highlighted[aria-selected] {
+.select2-container .select2-results__option--highlighted[aria-selected] {
     background-color: rgba(255, 89, 95, 0.25);
     color: #222;
+}
+
+.select2-container .select2-results__option[aria-selected=true] {
+    background-color: white;
+    opacity: 0.5;
+    cursor: default !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__arrow {
+    top: 3px !important;
+    right: 5px !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__clear {
+    font-weight: 900 !important;
+    padding: 0 4px 0 6px !important;
+}
+
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-color: transparent transparent #222 transparent;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #222 transparent transparent transparent;
+}
+
+.select2-container .select2-selection--single .select2-selection__clear {
+    color: #222;
+    transition: .1s ease-in;
+    &:hover {
+        color: $accent;
+        transition: .1s ease-out;
+    }
 }
 
 ::-webkit-input-placeholder {
@@ -652,11 +699,42 @@ strong {
     Hover override for <a> elements containing images:
 
 */
-
 .no-hover {
     a:hover {
         box-shadow: none;
         text-shadow: none;
         padding: 0;
     }
+}
+
+/*
+
+    Tippy
+
+*/
+
+.tippy-tooltip.kk-theme {
+    background-color: white;
+    border: 2.5px dashed $accent;
+    font-size: 11px;
+    color: #333;
+    .div {
+        padding: 20px;
+    }
+}
+
+.tippy-tooltip.kk-theme .tippy-backdrop {
+    background-color: white;
+  }
+
+.tippy-popper[x-placement^=top] .tippy-tooltip.kk-theme .tippy-arrow {
+    border-top: 7px solid $accent !important;
+    border-right: 7px solid transparent;
+    border-left: 7px solid transparent;
+}
+
+.tippy-popper[x-placement^=bottom] .tippy-tooltip.kk-theme .tippy-arrow {
+    border-bottom: 7px solid $accent !important;
+    border-right: 7px solid transparent;
+    border-left: 7px solid transparent;
 }

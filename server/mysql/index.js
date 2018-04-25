@@ -53,6 +53,10 @@ class Connection {
         });
     }
 
+    escape(...args) {
+        return this.conn.escape(...args);
+    }
+
     /**
      * Inserts an entity into a table asynchronously.
      * @param {string} table The table name.
