@@ -6,6 +6,12 @@ use `kasualkennels`;
 --  General Tables
 --
 
+CREATE TABLE users (
+    id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    username        VARCHAR(255) UNIQUE NOT NULL,
+    password        VARCHAR(255) DEFAULT '' NOT NULL
+);
+
 CREATE TABLE image_categories (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     category_name   VARCHAR(255) UNIQUE NOT NULL

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        {% if fail %}
+        <div style="color: red">
+            Invalid username or password.
+        </div>
+        {% endif %}
+        <form action="" method="POST">
+            Username/Email: <input type="text" name="username" value=""><br>
+            Password: <input type="password" name="password" value=""><br>
+            <input type="submit">
+        </form>
+    </body>
+</html>

@@ -1,4 +1,5 @@
 .sass-cache/
+.session-cache/
 files/
 img/
 node_modules/
