@@ -27,7 +27,7 @@
                 {% for file in toy.files %}
                 <li>
                     <a href="/uploads/{{ file.file_name }}" download>
-                        <i class="fas fa-download"></i> Download for {{ file.download_name }}</a>
+                        <i class="fas fa-download"></i> Download {{ file.download_name }}</a>
                 </li>
                 {% endfor %}
             </ul>
