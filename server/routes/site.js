@@ -135,8 +135,8 @@ module.exports = function (app) {
         });
     });
 
-    app.get("/genepoolz", function (request, response) {
-        response.render("genepoolz.html", {
+    app.get("/genes", function (request, response) {
+        response.render("genes.html", {
             selectedNavItem: "guides"
         });
     });
@@ -144,6 +144,12 @@ module.exports = function (app) {
     app.get("/contact", function (request, response) {
         response.render("contact.html", {
             selectedNavItem: "contact"
+        });
+    });
+
+    app.get("/resources", function (request, response) {
+        response.render("resources.html", {
+            selectedNavItem: "resources"
         });
     });
 
@@ -163,13 +169,6 @@ module.exports = function (app) {
     app.get("/found-it-U9X2", function (request, response) {
         response.render("found-it-01.html", {
             selectedNavItem: "find-it",
-            // findIts: [
-            //     {
-            //         title: "Friendship Bracelets",
-            //         description: "description",
-            //         img: "../img/findit-busy.png",
-            //     }
-            // ]
         });
     });
 };
