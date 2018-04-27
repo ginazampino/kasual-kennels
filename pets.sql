@@ -152,7 +152,7 @@ CREATE TABLE shows (
 
 CREATE TABLE show_entries (
     id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    entry_name      VARCHAR(255) UNIQUE NOT NULL,
+    entry_name      VARCHAR(255) NOT NULL,
     placement_id    INT NOT NULL, -- placements
     show_id         INT NOT NULL,
     FOREIGN KEY (placement_id) REFERENCES placements(id),

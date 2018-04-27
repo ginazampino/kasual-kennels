@@ -39,7 +39,7 @@ module.exports = class ImageBusiness {
             WHERE
                 category_id IS NOT NULL
             ORDER BY
-                images.id
+                images.id DESC
         `;
         return this.conn.query(sql);
     }
@@ -107,6 +107,8 @@ module.exports = class ImageBusiness {
                 image_categories ON images.category_id = image_categories.id
             WHERE
                 category_id = 2
+            ORDER BY
+                images.id DESC
         `);
 
         return { images };
@@ -147,6 +149,8 @@ module.exports = class ImageBusiness {
                 category_id = 7
             OR
                 category_id = 8
+            ORDER BY
+                images.id DESC
         `);
 
         return { images };

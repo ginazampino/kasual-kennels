@@ -55,7 +55,7 @@ module.exports = class ShowBusiness {
             INNER JOIN
                 show_categories ON shows.category_id = show_categories.id
             ORDER BY
-                show_date;
+                id DESC;
         `;
 
         return this.conn.query(sql);
@@ -139,6 +139,8 @@ module.exports = class ShowBusiness {
                 show_venues on shows.venue_id = show_venues.id
             INNER JOIN
                 show_categories on shows.category_id = show_categories.id
+            ORDER BY
+                shows.id DESC
         `);
 
         for (let i = 0; i < shows.length; i++) {

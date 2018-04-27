@@ -5,7 +5,7 @@
     <div class="content-introduction">
         <h2>{{ selectedNavItem | title}}</h2>
         <p>
-            When we have time, we like to hex, too!
+            When we have time, we like to breed and hex, too!
         </p>
         <p>
             <strong>Available</strong> means the file is up for adoption.
@@ -30,8 +30,13 @@
                 <strong>{{ project.project_name }}</strong>
             </span>
             <span class="sub-section-header-descriptor">
-                {{ project.completed_date }}
+                {{ project.category }} ({{ project.completed_date}})
             </span>
+            {% if project.description %}
+            <p class="margin-bottom-25">
+                {{ project.description }}
+            </p>
+            {% endif %}
             <span>
                 <strong>Status:</strong> {{ project.project_status }}
             </span>
@@ -49,7 +54,11 @@
     </div>
 
     <footer>
-        <div class="download-link">
+        <p>
+            All adoptions are for
+            <a target="_blank" href="https://en.wikipedia.org/wiki/Petz">Petz 4</a>.
+        </p>
+        <div class="download-link margin-t-10">
             <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
         </div>
     </footer>
