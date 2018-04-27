@@ -21,7 +21,7 @@ module.exports = function (app) {
     const router = express.Router();
     router.use(isLoggedIn);
 
-    app.use(router);
+    app.use("/admin", router);
     
     /*
 
@@ -29,7 +29,7 @@ module.exports = function (app) {
 
     */
 
-   router.get("/admin", function (request, response) {
+   router.get("/", function (request, response) {
         console.log(request.user);
         response.render("admin/admin.html", {});
     });
@@ -40,18 +40,18 @@ module.exports = function (app) {
         
     */
 
-    router.get("/admin/pets", async function (request, response) {
+    router.get("/pets", async function (request, response) {
         response.render("admin/admin-pets.html", {
             pets: await request.business.pet.getAll()
         });
     });
 
-    router.post("/admin/delete-pet", async function (request, response) {
+    router.post("/delete-pet", async function (request, response) {
         await request.business.pet.delete(request.query.id);
         response.send({});
     });
 
-    router.get("/admin/edit-pet", async function (request, response) {
+    router.get("/edit-pet", async function (request, response) {
         let vm = {
             pet: {},
             dropdowns: {
@@ -76,7 +76,7 @@ module.exports = function (app) {
         response.render("admin/admin-edit-pet.html", vm);
     });
 
-    router.post("/admin/edit-pet", [
+    router.post("/edit-pet", [
         upload('dali', 'dane', 'photo', 'thumb')
     ], async function (request, response) {
         var id;
@@ -97,18 +97,18 @@ module.exports = function (app) {
         
     */
 
-    router.get("/admin/litters", async function (request, response) {
+    router.get("/litters", async function (request, response) {
         response.render("admin/admin-litters.html", {
             litters: await request.business.litter.getAll()
         });
     });
 
-    router.post("/admin/delete-litter", async function (request, response) {
+    router.post("/delete-litter", async function (request, response) {
         await request.business.litter.delete(request.query.id);
         response.send({});
     });
 
-    router.get("/admin/edit-litter", async function (request, response) {
+    router.get("/edit-litter", async function (request, response) {
         let vm = {
             litter: {},
         };
@@ -123,7 +123,7 @@ module.exports = function (app) {
         response.render("admin/admin-edit-litter.html", vm);
     });
 
-    router.post("/admin/edit-litter", [
+    router.post("/edit-litter", [
         upload("family")
     ], async function (request, response) {
         var id;
@@ -144,14 +144,14 @@ module.exports = function (app) {
         
     */
 
-    router.get("/admin/downloads", async function (request, response) {
+    router.get("/downloads", async function (request, response) {
         response.render("admin/admin-downloads.html", {
             downloads: await request.business.download.getAll()
         });
     });
 
 
-    router.get("/admin/edit-download", async function (request, response) {
+    router.get("/edit-download", async function (request, response) {
         let vm = {
             download: {},
             dropdowns: {
@@ -169,7 +169,7 @@ module.exports = function (app) {
         response.render("admin/admin-edit-download.html", vm);
     });
 
-    router.post("/admin/edit-download", [
+    router.post("/edit-download", [
         upload('image', 'files')
     ], async function (request, response) {
         var id;
@@ -183,7 +183,7 @@ module.exports = function (app) {
         }
     });
 
-    router.post("/admin/edit-download-delete-file", async function (request, response) {
+    router.post("/edit-download-delete-file", async function (request, response) {
         await request.business.download.deleteFile(request.body.id);
         response.send({ });
     });
@@ -194,18 +194,18 @@ module.exports = function (app) {
         
     */
 
-    router.get("/admin/projects", async function (request, response) {
+    router.get("/projects", async function (request, response) {
         response.render("admin/admin-projects.html", {
             projects: await request.business.project.getAll()
         });
     });
 
-    router.post("/admin/delete-project", async function (request, response) {
+    router.post("/delete-project", async function (request, response) {
         await request.business.project.delete(request.query.id);
         response.send({});
     });
 
-    router.get("/admin/edit-project", async function (request, response) {
+    router.get("/edit-project", async function (request, response) {
         let vm = {
             project: {},
             dropdowns: {
@@ -224,7 +224,7 @@ module.exports = function (app) {
         response.render("admin/admin-edit-project.html", vm);
     });
 
-    router.post("/admin/edit-project", [
+    router.post("/edit-project", [
         upload('image')
     ], async function (request, response) {
         var id;
@@ -245,18 +245,18 @@ module.exports = function (app) {
         
     */
 
-    router.get("/admin/shows", async function (request, response) {
+    router.get("/shows", async function (request, response) {
         response.render("admin/admin-shows.html", {
             shows: await request.business.show.getAll()
         });
     });
 
-    router.post("/admin/delete-show", async function (request, response) {
+    router.post("/delete-show", async function (request, response) {
         await request.business.show.delete(request.query.id);
         response.send({});
     });
 
-    router.get("/admin/edit-show", async function (request, response) {
+    router.get("/edit-show", async function (request, response) {
         let vm = {
             show: {},
             dropdowns: {
@@ -277,7 +277,7 @@ module.exports = function (app) {
         response.render("admin/admin-edit-show.html", vm);
     });
 
-    router.post("/admin/edit-show", upload(''),
+    router.post("/edit-show", upload(''),
         async function (request, response) {
             var id;
 
@@ -291,7 +291,7 @@ module.exports = function (app) {
             }
         });
 
-    router.post("/admin/edit-show", upload(''),
+    router.post("/edit-show", upload(''),
         async function (request, response) {
             var id;
 
@@ -311,18 +311,18 @@ module.exports = function (app) {
         
     */
 
-    router.get("/admin/entries", async function (request, response) {
+    router.get("/entries", async function (request, response) {
         response.render("admin/admin-entries.html", {
             entries: await request.business.entry.getAll()
         });
     });
 
-    router.post("/admin/delete-entries", async function (request, response) {
+    router.post("/delete-entries", async function (request, response) {
         await request.business.entry.delete(request.query.id);
         response.send({});
     });
 
-    router.get("/admin/edit-entry", async function (request, response) {
+    router.get("/edit-entry", async function (request, response) {
         let vm = {
             entry: {},
             dropdowns: {
@@ -342,7 +342,7 @@ module.exports = function (app) {
         response.render("admin/admin-edit-entry.html", vm);
     });
 
-    router.post("/admin/edit-entry", upload(''),
+    router.post("/edit-entry", upload(''),
         async function (request, response) {
             var id;
 
@@ -362,18 +362,18 @@ module.exports = function (app) {
         
     */
 
-    router.get("/admin/images", async function (request, response) {
+    router.get("/images", async function (request, response) {
         response.render("admin/admin-images.html", {
             images: await request.business.image.getAll()
         });
     });
 
-    router.post("/admin/delete-images", async function (request, response) {
+    router.post("/delete-images", async function (request, response) {
         await request.business.image.delete(request.query.id);
         response.send({});
     });
 
-    router.get("/admin/edit-image", async function (request, response) {
+    router.get("/edit-image", async function (request, response) {
         let vm = {
             image: {},
             dropdowns: {
@@ -388,7 +388,7 @@ module.exports = function (app) {
         response.render("admin/admin-edit-image.html", vm);
     });
 
-    router.post("/admin/edit-image", [
+    router.post("/edit-image", [
         upload("image")
     ], async function (request, response) {
         var id;
@@ -403,7 +403,7 @@ module.exports = function (app) {
         }
     });
 
-    router.get("/admin/ajax/pets", async function (request, response) {
+    router.get("/ajax/pets", async function (request, response) {
         // The search term:
         const term = request.query.term;
         const results = await request.business.pet.search(term || '');
