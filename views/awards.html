@@ -1,41 +1,50 @@
-{% extends "index.html" %} {% block main %}
-<a name="top"></a>
-<section class="content-container">
+{% extends "index.html" %}
+{% block main %}
+    <a name="top"></a>
+    <section class="content-container">
 
-    <div class="content-introduction">
-        <h2>{{ selectedNavItem | title}}</h2>
-        <p>
-            Awards we earned from games and contests!
-        </p>
-    </div>
-
-    <div class="divider-container-lg">
-        <div class="divider-lg"></div>
-    </div>
-
-    <div class="sub-section no-hover">
-        {% for image in images %}
-        <a href="{{ image.url }}" target="_blank"><img alt="" title="{{ image.title }}" src="/uploads/{{ image.file_name }}"></a> {% endfor %}
-    </div>
-
-    <div class="divider-container-lg">
-        <div class="divider-lg"></div>
-    </div>
-
-    <footer>
-        <div class="download-link">
-            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        <div class="content-introduction">
+            <h2>{{ selectedNavItem | title}}</h2>
+            <p>
+                Awards we earned from games and contests!
+            </p>
         </div>
-    </footer>
 
+        <div class="divider-container-lg">
+            <div class="divider-lg"></div>
+        </div>
 
-</section>
-<script>
-    tippy('[title]', {
-        theme: 'kk',
-        arrow: true,
-        flip: true,
-        size: 'small',
-    });
-</script>
+        <div class="sub-section no-hover">
+        <div class="images-container">
+            {% for image in images %}
+                    <div>
+                        <a href="{{ image.url }}" target="_blank">
+                            <img alt="" title="{{ image.title }}" src="/uploads/{{ image.file_name }}">
+                        </a>
+                    </div>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div class="divider-container-lg">
+            <div class="divider-lg"></div>
+        </div>
+
+        <footer>
+            <div class="download-link">
+                <a href="#top">
+                    <i class="fas fa-arrow-alt-up"></i>
+                    Return to the top</a>
+            </div>
+        </footer>
+
+    </section>
+    <script>
+        tippy('[title]', {
+            theme: 'kk',
+            arrow: true,
+            flip: true,
+            size: 'small'
+        });
+    </script>
 {% endblock %}
