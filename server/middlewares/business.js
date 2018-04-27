@@ -46,7 +46,10 @@ async function createBusiness(req, res) {
     async function afterResponse() {
         res.removeListener('finish', afterResponse);
         res.removeListener('close', afterResponse);
-        business.connection.close().catch(() => null);
+        business.connection.close()
+        .then(() => console.log('Closed connection!'))
+        .catch(() => console.log('Closed connection - error!'));
+        // business.connection.close().catch(() => null);
         // try { await business.connection.close(); }
     }
 }

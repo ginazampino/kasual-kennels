@@ -3,11 +3,11 @@ $("a[data-display-menu]").on("click", function () {
     // The <a> being clicked on.
     var menuItem = $(this),
 
-    // The name of the sub menu to display.
-    menuToDisplayName = menuItem.attr("data-display-menu"),
+        // The name of the sub menu to display.
+        menuToDisplayName = menuItem.attr("data-display-menu"),
 
-    // The <nav> to display.
-    menuToDisplay = $("[data-sub-menu=" + menuToDisplayName + "]");
+        // The <nav> to display.
+        menuToDisplay = $("[data-sub-menu=" + menuToDisplayName + "]");
 
     $("[data-sub-menu]").hide();
     menuToDisplay.show();
@@ -49,3 +49,24 @@ $(function () {
 
     selectedNavParent.show();
 });
+
+// Contact form.
+
+$('select')
+    .change(function () {
+        var value = $(this).val();
+        var formSwitch = $('#switch');
+        $('[data-switch]').each(function () {
+            var elem = $(this);
+            var switchValue = elem.attr('data-switch');
+            if (switchValue == value) {
+                formSwitch.append(elem);
+                elem.show();
+            } else {
+                elem.appendTo(document.body);
+                elem.hide();
+            }
+        });
+    })
+    .change();
+

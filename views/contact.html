@@ -1,32 +1,201 @@
-{% extends "index.html" %} {% block main %}
+{% extends "index.html" %}
+{% block main %}
 
-<a name="top"></a>
-<section class="content-container">
+    <a name="top"></a>
+    <section class="content-container">
 
-    <div class="content-introduction">
-        <h2>{{ selectedNavItem | title}}</h2>
-        <p>
-            Work in progress.
-        </p>
-    </div>
-
-    <div class="divider-container-lg">
-        <div class="divider-lg"></div>
-    </div>
-
-    <em>Work in progress.</em>
-
-    <div class="divider-container-lg">
-        <div class="divider-lg"></div>
-    </div>
-
-    <footer>
-        <div class="download-link">
-            <a href="#top"><i class="fas fa-arrow-alt-up"></i> Return to the top</a>
+        <div class="content-introduction">
+            <h2>{{ selectedNavItem | title}}</h2>
+            <p>
+                Want to submit an application or get in touch?
+            </p>
         </div>
-    </footer>
 
-</section>
-<!-- </section> -->
+        <div class="divider-container-lg">
+            <div class="divider-lg"></div>
+        </div>
 
+        <div class="sub-section">
+            <span class="sub-section-header">
+                Limitations:
+            </span>
+            <ul>
+                <li>
+                    <strong>1.</strong>
+                    <strong>One</strong>
+                    (1) hexed petz per person per project.
+                </li>
+                <li>
+                    <strong>2.</strong>
+                    <strong>Unlimited</strong>
+                    (∞) non-hexed petz per person.
+                </li>
+            </ul>
+        </div>
+
+        <div class="sub-section margin-top-25">
+            <span class="sub-section-header">
+                Restrictions:
+            </span>
+            <ul>
+                <li>
+                    <strong>1.</strong>
+                    <strong>Don't</strong>
+                    distribute copies or upload for public download.
+                </li>
+                <li>
+                    <strong>2.</strong>
+                    <strong>Don't</strong>
+                    (re)sell for points, bones, or other currency.
+                </li>
+                <li>
+                    <strong>3.</strong>
+                    You
+                    <strong>may</strong>
+                    MPA, trade, gift, or return if no longer wanted.
+                </li>
+                <li>
+                    <strong>4.</strong>
+                    You
+                    <strong>may</strong>
+                    modify in any way, so long as credit is provided.
+                </li>
+                <li>
+                    <strong>5.</strong>
+                    You
+                    <strong>may</strong>
+                    participate in playdates, at your discretion.
+                </li>
+                <li>
+                    <strong>6.</strong>
+                    Please use KK, Kasual, or Kasual Kennels as prefixes.
+                </li>
+                <li></li>
+            </ul>
+        </div>
+
+        <div class="sub-section margin-top-25">
+            <span class="sub-section-header">
+                Disclaimer:
+            </span>
+            <p>
+                Please assume
+                <strong>all</strong>
+                petz are bred or hexed in
+                <a target="_blank" href="https://en.wikipedia.org/wiki/Petz">Petz 4</a>
+                and are high-generation, original-breed (OB) adults, mixed and inbred with PC lines,
+                <strong>unless</strong>
+                expressed otherwise.
+            </p>
+        </div>
+
+        <div class="divider-container-lg">
+            <div class="divider-lg"></div>
+        </div>
+
+        <div class="sub-section">
+            <form action="/contact" method="post" id="contact-form">
+                <ul>
+                    <li>
+                        <span>Name:</span>
+                        <div>
+                            <input name="Name" type="text" placeholder="Your name. (Required)" required="required">
+                        </div>
+                    </li>
+                    <li>
+                        <span>Email:</span>
+                        <input name="Email" type="email" placeholder="Your email. (Required)" required="required">
+                    </li>
+                    <li>
+                        <span>URL:</span>
+                        <input name="Website" type="url" placeholder="Your website. (Optional)">
+                    </li>
+                    <li>
+                        <span>Form:</span>
+                        <select class="appType" name="Application Type">
+                            <option value="Select">Select (Required)</option>
+                            <option value="Petz Adoption">Petz Adoption</option>
+                            <option value="Litter Request">Litter Request</option>
+                            <option value="Trade Offer">Trade Offer</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </li>
+                    <div id="switch">
+
+                        <ul data-switch="Petz Adoption" id="petz-adoption">
+                            <li>
+                                <span>Petz:</span>
+                                <div>
+                                    <input name="Petz Name" type="text" placeholder="Name of desired petz. (Required)" required="required">
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul data-switch="Litter Request" id="litter-request">
+                            <li>
+                                 <span>Male:</span>
+                                <div>
+                                    <input name="Male Name" type="text" placeholder="Name of male petz. (Required)" required="required">
+                                </div>
+                            </li>
+                            <li>
+                                <span>Female:</span>
+                                <div>
+                                    <input name="Female Name" type="text" placeholder="Name of female petz. (Required)" required="required">
+                                </div>
+                            </li>
+                            <li class="textarea-list-item">
+                                <span class="label">Why:</span>
+                                <div class="form-block">
+                                    <textarea name="Features" placeholder="What features do you like about the parents? (Optional)"></textarea>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul data-switch="Trade Offer" id="trade-offer">
+                            <li>
+                                <span>Wanted:</span>
+                                <input name="Trade Request" type="text" placeholder="Your request. (Required)" required="required">
+                            </li>
+                            <li>
+                                <span>Offering:</span>
+                                <input name="Trade Offer" type="text" placeholder="Your offer. (Required)" required="required">
+                            </li>
+                            <li class="textarea-list-item">
+                                <span class="label">Proposal:</span>
+                                <div class="form-block">
+                                    <textarea name="Trade Proposal" placeholder="Tell me a bit more about the trade you're proposing. (Optional)"></textarea>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul data-switch="Other" id="other">
+                            <li class="textarea-list-item">
+                                <span class="label">Message:</span>
+                                <div class="form-block">
+                                    <textarea name="Message" placeholder="What's on your mind? (Required)" required></textarea>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <li>
+                        <button value="submit">Submit</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+
+        <div class="divider-container-lg">
+            <div class="divider-lg"></div>
+        </div>
+
+        <footer>
+            <div class="download-link">
+                <a href="#top">
+                    <i class="fas fa-arrow-alt-up"></i>
+                    Return to the top</a>
+            </div>
+        </footer>
+
+    </section>
 {% endblock %}
