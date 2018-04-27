@@ -38,18 +38,16 @@ async function createBusiness(req, res) {
         business[name] = new businessModules[name](business.connection);
     });
 
+    res.on('error', afterResponse);
     res.on('finish', afterResponse);
     res.on('close', afterResponse);
 
     return business;
 
     async function afterResponse() {
+        res.removeListener('error', afterResponse);
         res.removeListener('finish', afterResponse);
         res.removeListener('close', afterResponse);
-        business.connection.close()
-        .then(() => console.log('Closed connection!'))
-        .catch(() => console.log('Closed connection - error!'));
-        // business.connection.close().catch(() => null);
-        // try { await business.connection.close(); }
+        business.connection.close();
     }
 }

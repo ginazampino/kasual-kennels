@@ -71,12 +71,9 @@ function addAuthentication(app) {
 }
 
 function addMysql(app) {
-    mysql.setConnectionInfo({
-        host     : "localhost",
-        database : "kasualkennels",
-        user     : "root",
-        password : ""
-    });    
+    const config = require('../config');
+
+    mysql.setConnectionInfo(config.mysql);    
 }
 
 function addStatic(app) {

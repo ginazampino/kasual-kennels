@@ -45,12 +45,8 @@ class Connection {
     }
 
     close() {
-        return new Promise((resolve, reject) => {
-            this.conn.end((err) => {
-                if (err) reject(err);
-                else resolve();
-            });
-        });
+        this.conn.removeAllListeners('error');
+        this.conn.end();
     }
 
     escape(...args) {
