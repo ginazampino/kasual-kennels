@@ -171,6 +171,8 @@ module.exports = class ImageBusiness {
                 category_id = 3
             OR
                 category_id = 4
+            ORDER BY
+                images.file_name ASC
         `);
         
         return { images };

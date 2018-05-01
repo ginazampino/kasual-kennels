@@ -22,14 +22,14 @@
                         {% if pet.dane_img %}
                             <div class="pet-item">
                                 <div class="pet-item-image-container">
-                                    <img alt="" title="Profile (Dane) Pose" src="/uploads/{{ pet.dane_img }}">
+                                    <img alt="" title="Dane Pose" src="/uploads/{{ pet.dane_img }}">
                                 </div>
                             </div>
                         {% endif %}
                         {% if pet.dali_img %}
                             <div class="pet-item">
                                 <div class="pet-item-image-container">
-                                    <img alt="" title="Front-Facing (Dali) Pose" src="/uploads/{{ pet.dali_img }}">
+                                    <img alt="" title="Dali Pose" src="/uploads/{{ pet.dali_img }}">
                                 </div>
                             </div>
                         {% endif %}
@@ -39,8 +39,10 @@
                             <span class="highlight">{{ pet.pet_name }}</span>
                             <span>
                                 <strong>{{ pet.prefix_titles}}
-                                    {{ pet.show_prefixes }}/KK's
-                                    {{ pet.show_name }}
+                                    {% if pet.show_prefixes %}
+                                    {{ pet.show_prefixes }}/
+                                    {% endif %}
+                                    KK's {{ pet.show_name }}
                                     {{ pet.suffix_titles}}</strong>
                             </span>
                         </div>

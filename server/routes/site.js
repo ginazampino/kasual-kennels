@@ -25,16 +25,7 @@ module.exports = function (app) {
             filters: {
                 breeds: await request.business.filter.getBreeds()
             },
-            pets: [
-                {
-                    name: "pet name",
-                    breed: "pet breed",
-                    gender: true,
-                    inbred: true,
-                    origin: "original owner",
-                    img: "image url"
-                }
-            ]
+            pets: []
         });
     });
 
@@ -42,7 +33,6 @@ module.exports = function (app) {
         const vm = await request.business.entry.getShowroom();
         vm.selectedNavItem = 'showroom';
         response.render("showroom.html", vm);
-        // console.log(vm.pets[0]);
     });
 
     app.get("/awards", async function (request, response) {
@@ -156,13 +146,7 @@ module.exports = function (app) {
     app.get("/find-it", function (request, response) {
         response.render("find-it.html", {
             selectedNavItem: "find-it",
-            findIts: [
-                {
-                    title: "Friendship Bracelets",
-                    description: "description",
-                    img: "../img/findit-busy.png",
-                }
-            ]
+            findIts: []
         });
     });
 

@@ -11,42 +11,24 @@ module.exports = class {
             FROM pet_breeds ORDER BY breed_name ASC`);
     }
 
-    search(filters) {
-        const whereClauses = [];
-        let limit = 999999;
+    async search(filters) {
+        const result = await this.conn.query(`
+            CALL sp_search_pets(?, ?, ?)
+        `, 
+            filters.gender || null, 
+            filters.ancestry || null, 
+            filters.breed_id || null);
 
-        if (filters.gender) {
-            whereClauses.push(`pets.gender = ${this.conn.escape(filters.gender)}`);
-        }
+        const pets = result[0];
 
-        if (filters.ancestry) {
-            whereClauses.push(`sp_IsInTraitName(pets.id, 'Inbred') = ${ filters.ancestry === 'Inbred' ? 1 : 0 }`);
-        }
+        //for (let i = 0; i < pets.length; i++) {
+        //    pets[i].traits = this.getPetTraits(pets[i].id);
+        //}
 
-        if (filters.breed) {
-            whereClauses.push(`pets.breed_id = ${this.conn.escape(filters.breed)}`);
-        }
+        return pets;
+    }
 
-        if (!whereClauses.length) {
-            whereClauses.push(' 1 = 1 ');
-            limit = 10;
-        }
-
-        const sql = `
-            SELECT
-                *
-            FROM
-                pets
-            WHERE
-                ${
-                    whereClauses.join(' AND ')
-                }
-            ORDER BY
-                id DESC
-            LIMIT
-                ${ limit }
-        `;
-
-        return this.conn.query(sql);
+    async getPetTraits(petId) {
+        // TODO:
     }
 };

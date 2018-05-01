@@ -90,7 +90,7 @@ module.exports = class DropdownBusiness {
     }
 
     getOrigins() {
-        return ['Adoption Center', 'Application', 'Breeding', 'Freebie', 'Gift', 'Grab Bag', 'Hexing', 'Sale', 'Trade'];
+        return ['Bred', 'Sold', 'Hexed', 'Gifted', 'Traded', 'Custom', 'Adoption Center'];
     }
 
     getProjectCategories() {
