@@ -485,6 +485,9 @@ strong {
     width: 100%;
     .kennel-item {
         height: 200px;
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         width: 200px;
         img {
@@ -512,7 +515,7 @@ strong {
             text-transform: uppercase;
         }
         li {
-            display: inline-block;
+            // display: inline-block;
         }
     }
     .info {

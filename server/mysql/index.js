@@ -31,6 +31,14 @@ function connectInternalAsync(options) {
     });
 }
 
+const ConnectionPool = mysql.createPool({
+    host: 'localhost',
+    user: 'kasualkennels',
+    password: '',
+    database: 'kasualkennels',
+    connectionLimit: 50
+});
+
 /**
  * Represents a MySQL/MariaDB connection with promisified queries.
  */
@@ -40,13 +48,13 @@ class Connection {
      * @param {*} connection The native mysql connection object.
      */
     constructor(connection) {
-        this.conn = connection;
-        this._handleErrors();
+        this.conn = ConnectionPool;
+        //this._handleErrors();
     }
 
     close() {
-        this.conn.removeAllListeners('error');
-        this.conn.end();
+        //this.conn.removeAllListeners('error');
+        //setTimeout(() => this.conn.end());
     }
 
     escape(...args) {
@@ -166,7 +174,7 @@ class Connection {
      * Establishes a MySQL connection asynchronously.
      */
     static async connect() {
-        return new Connection(await connectInternalAsync(Connection.ConnectionInfo));
+        return new Connection(/* await connectInternalAsync(Connection.ConnectionInfo) */);
     
         // return new Promise((resolve, reject) => {
         //     let attempts = MAX_CONNECTION_ATTEMPTS;

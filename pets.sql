@@ -69,7 +69,7 @@ CREATE TABLE pets (
     generation      INT NULL,
     birth_date      VARCHAR(255) NULL,
     adoption_date   VARCHAR(255) NULL,
-    origin          ENUM('Breeding', 'Purchase', 'Freebie', 'Application', 'Project', 'Gift') NULL,
+    origin          ENUM('Bred', 'Sold', 'Hexed', 'Gifted', 'Traded', 'Custom', 'Adoption Center') NULL,
     previous_owner  VARCHAR(255) NULL,
     previous_site   VARCHAR(255) NULL,
     previous_url    VARCHAR(255) NULL,
@@ -220,7 +220,8 @@ VALUES ('Albums'), ('Awards'), ('Community Hubs'),
 
 INSERT INTO pages (page_name)
 VALUES ('Crew'), ('Kennels'), ('Litters'), ('Singles'),
-       ('Breeders'), ('Clothes'), ('Playscenes'), ('Toys');
+       ('Breeders'), ('Clothes'), ('Playscenes'), ('Toys'),
+       ('Legacy'), ('None');
 
 INSERT INTO pet_breeds (breed_name)
 VALUES ('Bulldog'), ('Chihuahua'), ('Dachshund'), ('Dalmatian'),

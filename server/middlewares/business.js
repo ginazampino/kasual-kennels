@@ -44,7 +44,8 @@ async function createBusiness(req, res) {
 
     return business;
 
-    async function afterResponse() {
+    function afterResponse() {
+        //console.log('Closing SQL connection');
         res.removeListener('error', afterResponse);
         res.removeListener('finish', afterResponse);
         res.removeListener('close', afterResponse);

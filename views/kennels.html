@@ -6,27 +6,34 @@
         <div class="content-introduction">
             <h2>{{ selectedNavItem | title}}</h2>
             <p>
-                To browse our petz, use the dropdown filters below!
+                Use the dropdown filters below to browse our featured petz, then hover over their picture to learn more.
+                All petz are available for litter requests. New petz are loaded first!
+            </p>
+            <p>
+                While all petz here at <em>Kasual Kennels</em> are registered in our new database, not all are currently featured for display.
+                Our complete registry may become available at a later date.
             </p>
         </div>
 
         <div class="filter-container clearfix">
             <div class="col col-4">
-                <select class="filter-dropdown" id="gender" data-placeholder="Gender">
+                <select class="filter-control filter-dropdown" id="gender" data-placeholder="Gender">
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
             </div>
 
             <div class="col col-4">
-                <select class="filter-dropdown" id="ancestry" data-placeholder="Ancestry">
+                <select class="filter-control filter-dropdown" id="ancestry" data-placeholder="Ancestry">
                     <option value="Inbred">Inbred</option>
                     <option value="Noninbred">Noninbred</option>
+                    <option value="Mixed Breed">Mixed Breed</option>
+                    <option value="Purebred">Purebred</option>
                 </select>
             </div>
 
             <div class="col col-4">
-                <select class="filter-dropdown" id="breed" data-placeholder="Breed">
+                <select class="filter-control filter-dropdown" id="breed_id" data-placeholder="Breed">
                     {% for breed in filters.breeds %}
                         <option value="{{ breed.id }}">{{ breed.breed_name }}</option>
                     {% endfor %}
@@ -38,17 +45,45 @@
             <div class="divider-lg"></div>
         </div>
 
-        <div class="sub-section clearfix">
+        <div class="sub-section clearfix" id="kennel-list-app">
             <div class="kennel-item-container">
-                <div class="kennel-item">
-                    <img alt=" " src=" ../img/kennels/gacrux.png" class="test" data-tippy>
+                {% raw %}
+                
+                <div class="kennel-item" v-for="pet in pets" v-pet>
+                    <img alt="" :src="'/uploads/' + pet.photo_url" class="pet-image">
+
+                    <div class="tooltip-container">
+                        <div class="kennel-item-details clearfix">
+                            <ul>
+                                <li>
+                                    <img alt="" :src="'/uploads/' + pet.thumb_url" class="margin-top-10 info test">
+                                </li>
+                                <li>
+                                    <i alt="" :title="pet.gender" :class="{
+                                        'fa-venus female'  : pet.gender == 'Female',
+                                        'fa-mars male'     : pet.gender == 'Male',
+                                        'fas'              : true
+                                    }"></i>
+                                    <strong>{{ pet.pet_name }}</strong>
+                                    the <strong>{{ pet.breed_name }}</strong>
+                                </li>
+                                <li>
+                                    {{ pet.origin }} <span v-if="pet.previous_owner">by 
+                                        {{ pet.previous_owner }} <span v-if="pet.previous_site">@ {{ pet.previous_site }}</span>
+                                    </span>
+                                </li>
+                                <li class="margin-top-10">
+                                    <strong>Gen(s):</strong> {{ pet.generation }}
+                                </li>
+                                <li>
+                                    <strong>Trait(s):</strong> Inbred, Selective Breed, Tree-Trimmed
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="kennel-item">
-                    <img alt=" " src=" ../img/kennels/gacrux.png" class="test" data-tippy>
-                </div>
-                <div class="kennel-item">
-                    <img alt=" " src=" ../img/kennels/gacrux.png" class="test" data-tippy>
-                </div>
+
+                {% endraw %}
             </div>
         </div>
 
@@ -58,7 +93,7 @@
 
         <footer>
             <p>
-                Breeds are categorized by head types.
+                Breeds are categorized by head shape.
             </p>
             <div class="download-link margin-t-10">
                 <a href="#top">
@@ -68,7 +103,7 @@
         </footer>
     </section>
 
-    <div id="kennelsTippy" style="display: none;">
+    {# <div id="kennelsTippy" style="display: none;">
         <div class="kennel-item-details clearfix">
             <ul>
                 <li>
@@ -93,46 +128,61 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div> #}
 {% endblock %}
 
 {% block scripts %}
+    <script src="/js/vue.min.js"></script>
     <script>
-        // Select2
-        $(function () {
-            $('select').each(function () {
-                var placeholder = $(this).attr("data-placeholder");
-                $(this).select2({minimumResultsForSearch: -1, placeholder: placeholder, allowClear: true});
-                $(this)
-                    .val(null)
-                    .trigger('change');
-            });
+        Vue.directive('pet', {
+            inserted(elem, binding, vnode) {
+                var photo = elem.querySelector('.pet-image');
+                setTimeout(function () {
+                tippy(photo, {
+                    html: elem.querySelector('.tooltip-container'),
+                    theme: 'kk',
+                    followCursor: true
+                });
+                }, 100);
+            }
+        });
 
-            setTimeout(function () {
-                $('select').on('change', updateFilters);
-                updateFilters();
-            }, 1);
-
-            function updateFilters() {
-                var gender = $('#gender').val();
-                var ancestry = $('#ancestry').val();
-                var breed = $('#breed').val();
-
-                $
-                    .get('/api/search-pets', {
-                        gender: gender,
-                        ancestry: ancestry,
-                        breed: breed
-                    })
-                    .done(function (pets) {});
+        var KennelApp = new Vue({
+            el: '#kennel-list-app',
+            data: {
+                pets: [],
             }
         });
     </script>
+
     <script>
-        tippy('.test', {
-            html: '#kennelsTippy',
-            theme: 'kk',
-            followCursor: true,
+        // Select2
+
+        $(function () {
+            $('.filter-dropdown').each(function () {
+                var placeholder = $(this).attr('data-placeholder');
+                $(this).select2({
+                    minimumResultsForSearch: -1,
+                    placeholder: placeholder,
+                    allowClear: true
+                });
+                $(this).val(null).trigger('change'); // fixes bug with select2 auto selecting an entry.
+            });
+
+            setTimeout(search);
+            $('.filter-control').change(search);
+
+            function search() {
+                var payload = {};
+                $('.filter-control').each(function () {
+                    var id = $(this).attr('id');
+                    payload[id] = $(this).val();
+                });
+                $.get('/api/search-pets', payload).done(function (pets) {
+                    KennelApp.pets.splice(0, KennelApp.pets.length);
+                    pets.forEach(function (pet) { KennelApp.pets.push(pet) });
+                });
+            }
         });
     </script>
 {% endblock %}
