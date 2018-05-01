@@ -6,8 +6,9 @@ var mysql = require("./mysql");
 var nodemailer = require("nodemailer");
 
 // Express instance creation:
+const config = require("./config.js");
 var app = express();
-var port = 8085;
+var port = config.server.port;
 
 var middlewares = require('./middlewares');
 middlewares.install(app);
@@ -54,16 +55,6 @@ if (argv.initialize) {
             });
         }
     });
-
-    // console.log('Initializing default user.');
-    // const User = require('./user');
-    // const mysql = require('./mysql');
-    // mysql.connect().then(conn => {
-    //     const admin = new User({ username: 'admin' });
-    //     admin.setPassword('admin');
-
-    //     conn.query(`INSERT INTO users SET ?`, admin);
-    // });
 }
 else 
 // Port listening:
@@ -72,7 +63,7 @@ app.listen(port, function () {
 });
 
 // Mail transporter.
-const config = require("./config.js");
+
 const smtpTransporter = nodemailer.createTransport({
     "port": config.smtp.port,
     "host": config.smtp.server,
