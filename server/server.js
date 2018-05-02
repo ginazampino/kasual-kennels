@@ -19,41 +19,12 @@ routes.install(app);
 const argv = require('minimist')(process.argv.slice(2));
 
 if (argv.initialize) {
-    const inquirer = require('inquirer');
-    const User = require('./user');
-    
-    inquirer.prompt([
-        {
-            type: "input",
-            default: "admin",
-            name: "username",
-            message: "Enter admin username"
-        },
-        {
-            type: "password",
-            name: "password",
-            message: "Enter admin password"
-        },
-        {
-            type: "password",
-            name: "password2",
-            "message": "Repeat admin password"
-        }
-    ]).then(answers => {
-        if (answers.password != answers.password2) {
-            console.error("Admin passwords do not match.");
-            process.exit(1);
-        } else {
-            mysql.connect().then(conn => {
-                const admin = new User({ username: answers.username });
-                admin.setPassword(answers.password);
-
-                conn.query('INSERT INTO users SET ?', admin).then(() => {
-                    console.log(`User ${answers.username} created successfully. Please start server.js without --initialize.`);
-                    process.exit();
-                });
-            });
-        }
+    require('./initialize')().then(() => {
+        console.log(`User created successfully. Please start server.js without --initialize.`);
+        process.exit();
+    }).catch(err => {
+        console.error(err);
+        process.exit(1);
     });
 }
 else 
