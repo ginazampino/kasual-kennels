@@ -1,7 +1,5 @@
 .sass-cache/
 .session-cache/
-files/
-img/
 node_modules/
 wwwroot/css
 wwwroot/js/fontawesome-all.min.js

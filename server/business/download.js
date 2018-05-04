@@ -41,6 +41,16 @@ module.exports = class DownloadBusiness {
         return downloadId;
     };
 
+    delete(id) {
+        const sql = `
+            UPDATE downloads
+            SET active = 0
+            WHERE id = ?
+        `;
+        
+        return this.conn.query(sql, id);
+    };
+
     deleteFile(fileId) {
         const sql = `
             DELETE FROM download_files
@@ -106,6 +116,7 @@ module.exports = class DownloadBusiness {
         const downloads = await this.conn.query(`
             SELECT
                 downloads.id
+            ,   downloads.active
             ,   downloads.download_name as name
             ,   downloads.description
             ,   images.file_name as img
@@ -117,6 +128,8 @@ module.exports = class DownloadBusiness {
                 images ON downloads.image_id = images.id
             WHERE
                 page_name = ?
+            AND
+                downloads.active = 1
         `, pageName);
 
         for (let i = 0; i < downloads.length; i++) {

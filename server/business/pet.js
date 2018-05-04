@@ -241,6 +241,7 @@ module.exports = class PetBusiness extends BaseClass {
         const pets = await this.conn.query(`
         SELECT
             pets.pet_name
+        ,   pets.active
         ,	pets.gender
         ,	pets.description
         ,	images.file_name as img
@@ -252,6 +253,8 @@ module.exports = class PetBusiness extends BaseClass {
             images on pets.image_photo_id = images.id
         WHERE
             page_id = 1
+        AND
+            pets.active = 1
         `);
 
         return { pets };
@@ -261,6 +264,7 @@ module.exports = class PetBusiness extends BaseClass {
         const pets = await this.conn.query(`
             SELECT
                 pets.id
+            ,   pets.active
             ,   pets.pet_name
             , 	pets.gender
             ,	images.file_name as img
@@ -272,6 +276,8 @@ module.exports = class PetBusiness extends BaseClass {
                 images on pets.image_photo_id = images.id
             WHERE
                 page_id = 4
+            AND
+                pets.active = 1
         `);
 
         for (let i = 0; i < pets.length; i++) {

@@ -48,11 +48,11 @@
         <div class="sub-section clearfix" id="kennel-list-app">
             <div class="kennel-item-container">
                 {% raw %}
-                
-                <div class="kennel-item" v-for="pet in pets" v-pet>
+
+                <div class="kennel-item" v-for="pet in pets" :key="pet.pet_name" v-pet>
                     <img alt="" :src="'/uploads/' + pet.photo_url" class="pet-image">
 
-                    <div class="tooltip-container">
+                    <div class="tooltip-container" :data-pet-gender="pet.gender">
                         <div class="kennel-item-details clearfix">
                             <ul>
                                 <li>
@@ -63,7 +63,7 @@
                                         'fa-venus female'  : pet.gender == 'Female',
                                         'fa-mars male'     : pet.gender == 'Male',
                                         'fas'              : true
-                                    }"></i>
+                                    }" :data-pet-name="pet.pet_name"></i>
                                     <strong>{{ pet.pet_name }}</strong>
                                     the <strong>{{ pet.breed_name }}</strong>
                                 </li>
@@ -76,7 +76,7 @@
                                     <strong>Gen(s):</strong> {{ pet.generation }}
                                 </li>
                                 <li>
-                                    <strong>Trait(s):</strong> Inbred, Selective Breed, Tree-Trimmed
+                                    <strong>Trait(s):</strong> <span>{{ pet.traits.join(', ') }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -151,6 +151,11 @@
             el: '#kennel-list-app',
             data: {
                 pets: [],
+            },
+            methods: {
+                formatPetTraits(traits) {
+                    return traits.join(', ');
+                }
             }
         });
     </script>

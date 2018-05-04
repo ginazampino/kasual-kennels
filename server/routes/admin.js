@@ -150,6 +150,10 @@ module.exports = function (app) {
         });
     });
 
+    router.post("/delete-download", async function (request, response) {
+        await request.business.download.delete(request.query.id);
+        response.send({});
+    });
 
     router.get("/edit-download", async function (request, response) {
         let vm = {
@@ -368,7 +372,7 @@ module.exports = function (app) {
         });
     });
 
-    router.post("/delete-images", async function (request, response) {
+    router.post("/delete-image", async function (request, response) {
         await request.business.image.delete(request.query.id);
         response.send({});
     });

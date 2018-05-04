@@ -20,10 +20,14 @@ module.exports = class ImageBusiness {
 
     delete(id) {
         const sql = `
-            UPDATE images
-                SET active = 0
-                WHERE id = ?
+            UPDATE 
+                images
+            SET 
+                active = 0
+            WHERE 
+                id = ?
         `;
+        
         return this.conn.query(sql, id);
     }
 
@@ -31,6 +35,7 @@ module.exports = class ImageBusiness {
         const sql = `
             SELECT
                 images.*
+            ,   images.active
             ,   image_categories.category_name
             FROM
                 images
@@ -38,6 +43,8 @@ module.exports = class ImageBusiness {
                 image_categories ON images.category_id = image_categories.id
             WHERE
                 category_id IS NOT NULL
+            AND
+                images.active = 1
             ORDER BY
                 images.id DESC
         `;
@@ -80,6 +87,7 @@ module.exports = class ImageBusiness {
         const images = await this.conn.query(`
             SELECT
                 images.file_name
+            ,   images.active
             , 	images.title
             , 	images.url
             ,	image_categories.category_name
@@ -89,6 +97,8 @@ module.exports = class ImageBusiness {
                 image_categories ON images.category_id = image_categories.id
             WHERE
                 category_id = 1
+            AND
+                images.active = 1
         `);
 
         return { images };
@@ -98,6 +108,7 @@ module.exports = class ImageBusiness {
         const images = await this.conn.query(`
             SELECT
                 images.file_name
+            ,   images.active
             , 	images.title
             , 	images.url
             ,	image_categories.category_name
@@ -107,6 +118,8 @@ module.exports = class ImageBusiness {
                 image_categories ON images.category_id = image_categories.id
             WHERE
                 category_id = 2
+            AND
+                images.active = 1
             ORDER BY
                 images.id DESC
         `);
@@ -118,6 +131,7 @@ module.exports = class ImageBusiness {
         const images = await this.conn.query(`
             SELECT
                 images.file_name
+            ,   images.active
             , 	images.title
             , 	images.url
             ,	image_categories.category_name
@@ -127,6 +141,8 @@ module.exports = class ImageBusiness {
                 image_categories ON images.category_id = image_categories.id
             WHERE
                 category_id = 6
+            AND
+                images.active = 1
         `);
 
         return { images };
@@ -136,6 +152,7 @@ module.exports = class ImageBusiness {
         const images = await this.conn.query(`
             SELECT
                 images.file_name
+            ,   images.active
             ,   images.url
             , 	images.title
             , 	image_categories.category_name
@@ -149,6 +166,8 @@ module.exports = class ImageBusiness {
                 category_id = 7
             OR
                 category_id = 8
+            AND
+                images.active = 1
             ORDER BY
                 images.id DESC
         `);
@@ -160,6 +179,7 @@ module.exports = class ImageBusiness {
         const images = await this.conn.query(`
             SELECT
                 images.file_name
+            ,   images.active
             ,   images.url
             , 	images.title
             , 	image_categories.category_name
@@ -171,6 +191,8 @@ module.exports = class ImageBusiness {
                 category_id = 3
             OR
                 category_id = 4
+            AND
+                images.active = 1
             ORDER BY
                 images.file_name ASC
         `);

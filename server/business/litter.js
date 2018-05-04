@@ -37,9 +37,12 @@ module.exports = class LitterBusiness {
         const sql = `
             SELECT
                 litters.*
+            ,   litters.active
             ,   litters.litter_name
             FROM
                 litters
+            WHERE
+                active = 1
             ORDER BY
                 litter_name;
         `;
@@ -88,15 +91,18 @@ module.exports = class LitterBusiness {
     async getLitters() {
         const litters = await this.conn.query(`
             SELECT
-            litters.id
-        ,   litters.litter_name
-        , 	litters.requester
-        , 	litters.description
-        ,	images.file_name as img
-        FROM
-            litters
-        INNER JOIN
-            images on litters.image_id = images.id
+                litters.id
+            ,   litters.active
+            ,   litters.litter_name
+            , 	litters.requester
+            , 	litters.description
+            ,	images.file_name as img
+            FROM
+                litters
+            INNER JOIN
+                images on litters.image_id = images.id
+            WHERE
+                litters.active = 1
         `);
 
         for (let i = 0; i < litters.length; i++) {
@@ -111,6 +117,7 @@ module.exports = class LitterBusiness {
         const pets = await this.conn.query(`
             SELECT
                 pets.pet_name
+            ,   pets.active
             ,	pets.gender
             ,   pets.description
             ,   images.file_name as img
@@ -120,6 +127,8 @@ module.exports = class LitterBusiness {
                 images on pets.image_photo_id = images.id
             WHERE
                 litter_id = ?
+            AND
+                pets.active = 1
         `, litterId);
 
         return pets;
