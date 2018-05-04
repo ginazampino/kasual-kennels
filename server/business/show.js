@@ -46,6 +46,7 @@ module.exports = class ShowBusiness {
         const sql = `
             SELECT
                 shows.*
+            ,   shows.active
             ,   show_categories.category_name
             ,   show_venues.venue_name
             FROM
@@ -54,6 +55,8 @@ module.exports = class ShowBusiness {
                 show_venues ON shows.venue_id = show_venues.id
             INNER JOIN
                 show_categories ON shows.category_id = show_categories.id
+            WHERE
+                shows.active = 1
             ORDER BY
                 id DESC;
         `;
@@ -127,6 +130,7 @@ module.exports = class ShowBusiness {
         const shows = await this.conn.query(`
             SELECT
                 shows.id
+            ,   shows.active
             ,   shows.show_name
             , 	shows.url as show_url
             , 	shows.show_date
@@ -139,6 +143,8 @@ module.exports = class ShowBusiness {
                 show_venues on shows.venue_id = show_venues.id
             INNER JOIN
                 show_categories on shows.category_id = show_categories.id
+            WHERE 
+                shows.active = 1
             ORDER BY
                 shows.id DESC
         `);

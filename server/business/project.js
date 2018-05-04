@@ -42,9 +42,12 @@ module.exports = class ProjectBusiness {
         const sql = `
             SELECT
                 projects.*
+            ,   projects.active
             ,   projects.project_name
             FROM
                 projects
+            WHERE
+                projects.active = 1
             ORDER BY
                 project_name;
         `;
@@ -105,6 +108,8 @@ module.exports = class ProjectBusiness {
                 projects
             INNER JOIN
                 images on projects.image_id = images.id
+            ORDER BY
+                projects.id DESC
         `);
 
         return { projects };
