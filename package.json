@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-sass": "node-sass wwwroot/scss -o wwwroot/css"
+    "build-sass": "node-sass wwwroot/scss -o wwwroot/css",
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
