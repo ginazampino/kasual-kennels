@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-sass": "node-sass wwwroot/scss -o wwwroot/css"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "session-file-store": "^1.2.0"
   },
   "devDependencies": {
+    "node-sass": "^4.9.0",
     "nodemon": "^1.17.2"
   }
 }
