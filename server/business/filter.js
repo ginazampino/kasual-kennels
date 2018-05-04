@@ -45,9 +45,9 @@ module.exports = class {
         let traits = rows.map(row => row.trait_name);
         
         if (! traits.includes('Inbred'))
-            traits.push('Non-inbred');
+            traits.push('Noninbred');
         
-        if (! traits.includes('Mixed breed'))
+        if (! traits.includes('Mixed Breed'))
             traits.push('Purebred');
 
         return traits.sort();
