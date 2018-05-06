@@ -243,7 +243,9 @@ VALUES ('Mixed Breed'),
 INSERT INTO show_venues (venue_name, url)
 VALUES ('RKC Petz Forum (RKC)', 'http://petzforum.proboards.com/'),
        ('Whiskerwick (WW)', 'http://whiskerwick.boards.net/'),
-       ('Kasual Kennels (KK)', 'http://kasualkennels.petz.site');
+       ('Kasual Kennels (KK)', 'http://kasualkennels.petz.site'),
+       ('Petz Universal Game Site (PUGS)', 'https://www.petzuniversal.com/index.php'),
+       ('Petzcord', '');
 
 INSERT INTO show_categories (category_name)
 VALUES ('EBW Pose Show (Dali)'),
