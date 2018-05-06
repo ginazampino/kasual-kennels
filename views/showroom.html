@@ -9,6 +9,10 @@
             <p>
                 Meet the stars of our kennels!
             </p>
+            <p>
+                All petz on display are currently active in the show ring.
+                Petz are removed from the page as they retire.
+            </p>
         </div>
 
         <div class="divider-container-lg">
@@ -40,9 +44,7 @@
                             <span>
                                 <strong>{{ pet.prefix_titles}}
                                     {% if pet.show_prefixes %}
-                                    {{ pet.show_prefixes }}/
-                                    {% endif %}
-                                    KK's {{ pet.show_name }}
+                                    {{ pet.show_prefixes }}/{% endif %}KK's {{ pet.show_name }}
                                     {{ pet.suffix_titles}}</strong>
                             </span>
                         </div>
