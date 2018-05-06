@@ -131,6 +131,12 @@ module.exports = function (app) {
         });
     });
 
+    app.get("/transparency", function (request, response) {
+        response.render("transparency.html", {
+            selectedNavItem: "guides"
+        });
+    });
+
     app.get("/contact", function (request, response) {
         response.render("contact.html", {
             selectedNavItem: "contact"
