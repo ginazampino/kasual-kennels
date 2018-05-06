@@ -15,12 +15,6 @@ $("a[data-display-menu]").on("click", function () {
     $(".main-menu li").removeClass("active");
     menuItem.closest("li").addClass("active");
 
-    // var value = $(this).attr("data-display-menu");
-    // var submenu = $("." + value);
-
-    // $(".sidebar-submenu").hide();
-    // $("a[data-sub-menu]").parent().removeClass("active");
-    // $(submenu).show();
 });
 
 // Hide all submenus on document ready.
