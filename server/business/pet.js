@@ -267,6 +267,7 @@ module.exports = class PetBusiness extends BaseClass {
             ,   pets.active
             ,   pets.pet_name
             , 	pets.gender
+            ,   pets.description
             ,	images.file_name as img
             FROM
                 pets

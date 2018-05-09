@@ -38,9 +38,9 @@
                     {% endif %} {{ pet.pet_name }}
                 </span>
                 <span class="item-header-details">
-                    {% for trait in pet.traits %}
-                        {{ trait.trait_name }}
-                    {% endfor %}
+                    {% if pet.description %}    
+                        {{ pet.description }}
+                    {% endif %}
                 </span>
             </div>
 
