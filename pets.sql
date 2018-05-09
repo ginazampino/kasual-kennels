@@ -76,7 +76,7 @@ CREATE TABLE pets (
     description     TEXT NULL,
 
     -- Career
-    career_status   ENUM('Inactive', 'Active', 'Retired') NULL,
+    career_status   ENUM('Not Applicable', 'Inactive', 'Active', 'Retired') NULL,
     prefix_titles   VARCHAR(255) NULL,
     show_prefixes   VARCHAR(255) NULL,
     show_name       VARCHAR(255) NULL,
