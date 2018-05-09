@@ -3,8 +3,8 @@ module.exports = function (app) {
     app.get("/", function (request, response) {
         response.render("home.html", {
             update: {
-                date: "02/11/1929",
-                notes: "Update notes."
+                date: "May 9, 2018",
+                notes: "New site, same look!"
             }
         });
     });
