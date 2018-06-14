@@ -29,9 +29,11 @@
         </div>
         <span class="sub-section-header">
             {{ litter.litter_name }}
+            {% if litter.requester %}
             <span class="sub-section-header-descriptor">
                 for {{ litter.requester }}
             </span>
+            {% endif %}
         </span>
         <p class="sub-section-content-container">
             {{ litter.description }}
