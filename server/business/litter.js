@@ -120,13 +120,14 @@ module.exports = class LitterBusiness {
             ,   pets.active
             ,	pets.gender
             ,   pets.description
+            ,   pets.litter_id
             ,   images.file_name as img
             FROM
                 pets
             INNER JOIN
                 images on pets.image_photo_id = images.id
             WHERE
-                litter_id = ?
+                pets.litter_id = ?
             AND
                 pets.active = 1
         `, litterId);
