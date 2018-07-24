@@ -130,6 +130,8 @@ module.exports = class DownloadBusiness {
                 page_name = ?
             AND
                 downloads.active = 1
+            ORDER BY
+                images.id DESC
         `, pageName);
 
         for (let i = 0; i < downloads.length; i++) {
