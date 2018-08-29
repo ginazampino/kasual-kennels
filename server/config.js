@@ -1,21 +1,21 @@
 module.exports = {
     mysql: {
-        host     : "localhost",
-        database : "kasualkennels",
-        user     : "kasualkennels",
-        password : ""
+        host     : process.env.MYSQL_HOST || "localhost",
+        database : process.env.MYSQL_DATABASE || "kasualkennels",
+        user     : process.env.MYSQL_USER || "kasualkennels",
+        password : process.env.MYSQL_PASSWORD || ""
     },
-    secret: '< change for production >',
+    secret: process.env.SECRET_KEY || "secret",
     server: {
-        port: 8085
+        port: parseInt(process.env.HTTP_PORT || "8085")
     },
     "mailer": {
         "from"   : "zampino.gina@gmail.com",
         "replyTo": "zampino.gina@gmail.com"
     },
     "smtp": {
-        "username": "< change for production >",
-        "password": "< change for production >",
+        "username": process.env.SMTP_USERNAME,
+        "password": process.env.SMTP_PASSWORD,
         "server"  : "in-v3.mailjet.com",
         "tls"     : true,
         "port"    : 465
