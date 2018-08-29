@@ -2,10 +2,13 @@
   "name": "kasualkennels",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "build-sass": "node-sass wwwroot/scss -o wwwroot/css",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "build": "npm run build-sass && npm run build-image",
+    "build-image": "docker build --rm -f Dockerfile -t jessehallam/kasualkennels:latest . && docker push jessehallam/kasualkennels:latest"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
+    "cross-env": "^5.2.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "inquirer": "^5.2.0",

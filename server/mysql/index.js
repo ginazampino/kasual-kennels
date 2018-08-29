@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const config = require('../config');
 
 /** The maximum number of connection attempts to make when establishing a connection. */
 const MAX_CONNECTION_ATTEMPTS = 5;
@@ -32,10 +33,10 @@ function connectInternalAsync(options) {
 }
 
 const ConnectionPool = mysql.createPool({
-    host: 'localhost',
-    user: 'kasualkennels',
-    password: '',
-    database: 'kasualkennels',
+    host: config.mysql.host,
+    user: config.mysql.user,
+    password: config.mysql.password,
+    database: config.mysql.database,
     connectionLimit: 50
 });
 
