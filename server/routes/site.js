@@ -3,8 +3,8 @@ module.exports = function (app) {
     app.get("/", function (request, response) {
         response.render("home.html", {
             update: {
-                date: "July 24, 2018",
-                notes: "New clothes: gender hats! I mean, icons."
+                date: "August 28, 2018",
+                notes: "Added link to Paint Ballz Anchor Tool under Resources!"
             }
         });
     });
